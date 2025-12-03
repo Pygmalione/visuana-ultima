@@ -2,10 +2,30 @@
 
 ## Project Overview
 
-Visuana Ultima - project initialized with Agent-OS workflow.
+**Visuana Ultima** - Glowna strona butikowej agencji doradztwa Visuana specjalizujacej sie w Digital Marketing, Content Marketing, Influencer Marketing oraz AI-powered analytics z orkiestracja multiagentowa.
 
-**Development Environment**: Local
-**Project Type**: TBD (run `/plan-product` to define)
+**Tech Stack**: Node.js / Next.js
+**Database**: Supabase (PostgreSQL + realtime + auth)
+**Development Environment**: Docker Compose
+**Project Type**: Corporate Website / SaaS Landing
+
+---
+
+## Claude OS Integration
+
+Projekt zintegrowany z Claude OS dla persistent memory i context management.
+
+**Knowledge Bases:**
+- `visuana-ultima-knowledge_docs` - dokumentacja projektu
+- `visuana-ultima-project_profile` - architektura i standardy
+- `visuana-ultima-project_index` - indeks kodu
+- `visuana-ultima-project_memories` - decyzje i wzorce
+
+**Komendy Claude OS:**
+- `/claude-os-search [query]` - wyszukaj w pamieci projektu
+- `/claude-os-save [insight]` - zapisz insight/decyzje
+- `/claude-os-remember [fact]` - zapamietaj fakt
+- `/claude-os-session` - zarzadzaj sesjami
 
 ---
 
@@ -14,7 +34,7 @@ Visuana Ultima - project initialized with Agent-OS workflow.
 Agent-OS to system agentow do rozwoju projektow opartego na specyfikacjach.
 **Dokumentacja:** https://buildermethods.com/agent-os
 
-### Komendy (6)
+### Komendy (7)
 
 | Komenda | Opis |
 |---------|------|
@@ -24,6 +44,7 @@ Agent-OS to system agentow do rozwoju projektow opartego na specyfikacjach.
 | `/create-tasks` | Tworzenie listy zadan z specyfikacji |
 | `/implement-tasks` | Implementacja zadan z tasks.md |
 | `/orchestrate-tasks` | Orkiestracja calego workflow |
+| `/improve-skills` | Ulepszanie Claude Code Skills |
 
 ### Agenci (8)
 
@@ -45,14 +66,18 @@ agent-os/
 ├── product/            # Misja, roadmapa, tech-stack
 ├── specs/              # Specyfikacje (YYYY-MM-DD-nazwa)
 └── standards/          # Standardy kodowania
-    ├── backend/
-    ├── frontend/
-    ├── global/
-    └── testing/
+    ├── backend/        # API, migrations, models, queries
+    ├── frontend/       # accessibility, components, css, responsive
+    ├── global/         # coding-style, conventions, error-handling
+    └── testing/        # test-writing
 
 .claude/
-├── commands/agent-os/  # 6 komend slash
+├── commands/agent-os/  # 7 komend slash
 └── agents/agent-os/    # 8 agentow
+
+.claude-os/
+├── config.json         # Konfiguracja Claude OS
+└── hooks.json          # Hooki sesji
 ```
 
 ---
@@ -64,6 +89,28 @@ agent-os/
 3. **Spec Writing** - `/write-spec` -> generuje szczegolowa specyfikacje
 4. **Tasks Creation** - `/create-tasks` -> tworzy liste zadan
 5. **Implementation** - `/implement-tasks` lub `/orchestrate-tasks`
+
+---
+
+## Tech Stack Details
+
+### Frontend
+- **Framework**: Next.js 14+ (App Router)
+- **Styling**: Tailwind CSS
+- **Components**: React Server Components + Client Components
+- **State**: React hooks, Zustand (jesli potrzebne)
+
+### Backend
+- **Database**: Supabase (PostgreSQL)
+- **Auth**: Supabase Auth
+- **Realtime**: Supabase Realtime
+- **Storage**: Supabase Storage
+
+### Development
+- **Container**: Docker Compose
+- **Package Manager**: pnpm
+- **Linting**: ESLint + Prettier
+- **Testing**: Vitest + Playwright
 
 ---
 
@@ -81,4 +128,7 @@ agent-os/
 
 # Lub bezposrednio zacznij od specyfikacji
 /shape-spec
+
+# Przeszukaj pamiec projektu
+/claude-os-search "architektura"
 ```

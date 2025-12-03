@@ -1,0 +1,24 @@
+{
+  "project_name": "visuana-ultima",
+  "hooks": {
+    "on_session_start": {
+      "enabled": true,
+      "actions": [
+        "load_project_context",
+        "check_pending_tasks"
+      ]
+    },
+    "on_session_end": {
+      "enabled": true,
+      "actions": [
+        "save_session_learnings",
+        "update_project_memories"
+      ]
+    },
+    "on_file_change": {
+      "enabled": false,
+      "patterns": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "actions": []
+    }
+  }
+}

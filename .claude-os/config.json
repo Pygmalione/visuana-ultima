@@ -1,0 +1,19 @@
+{
+  "project_name": "visuana-ultima",
+  "claude_os_url": "http://localhost:8051",
+  "tech_stack": "Node.js/Next.js",
+  "database": "Supabase",
+  "dev_environment": "Docker Compose",
+  "docs_paths": [],
+  "knowledge_bases": {
+    "knowledge_docs": "visuana-ultima-knowledge_docs",
+    "project_profile": "visuana-ultima-project_profile",
+    "project_index": "visuana-ultima-project_index",
+    "project_memories": "visuana-ultima-project_memories"
+  },
+  "agent_os": {
+    "enabled": true,
+    "profile": "default"
+  },
+  "created_at": "2025-12-02T19:31:52Z"
+}

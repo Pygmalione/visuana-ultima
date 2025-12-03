@@ -1,0 +1,527 @@
+name: SPEC-002 Design System & UI Components
+version: 1.0
+initialized: 2025-12-03
+priority: CRITICAL
+
+# Orchestration workflow dla implementacji SPEC-002
+
+phases:
+  phase_1_fundamentals:
+    name: Faza 1 - Konfiguracja & Komponenty Bazowe
+    duration_hours: 8-9
+    priority: CRITICAL
+    tasks:
+      - task_id: 1.1
+        name: Tailwind Configuration
+        description: Setup Tailwind CSS z custom colors, fonts, spacing
+        duration_hours: 2-3
+        dependencies: SPEC-001 (colors, fonts)
+        subtasks:
+          - Extract colors from SPEC-001
+          - Setup font faces
+          - Configure spacing scale
+          - Dark mode configuration
+        acceptance_criteria:
+          - tailwind.config.js complete
+          - globals.css with Tailwind directives
+          - Bundle size <50KB
+          - npx tailwindcss --check passes
+        test_plan:
+          - Check bundle size
+          - Dark mode toggle test
+          - Verify all colors in config
+
+      - task_id: 1.2
+        name: Button Component
+        description: Reusable Button with variants, sizes, states
+        duration_hours: 2
+        dependencies: Task 1.1
+        subtasks:
+          - Create button.tsx skeleton
+          - Implement variants (primary, secondary, ghost, outline)
+          - Implement sizes (sm, md, lg)
+          - Handle states (hover, active, disabled, loading)
+          - Add TypeScript types
+        acceptance_criteria:
+          - 4 variants with correct styling
+          - All states visual correct
+          - WCAG 2.1 AA color contrast
+          - Type-safe props
+        test_plan:
+          - Render all variants
+          - Test hover/active states
+          - Accessibility test (a11y)
+          - Snapshot test
+
+      - task_id: 1.3
+        name: Input Component
+        description: Reusable Input with validation, error states
+        duration_hours: 2
+        dependencies: Task 1.1
+        subtasks:
+          - Create input.tsx with label wrapper
+          - Support types (text, email, phone, password)
+          - Implement error state
+          - Add disabled state
+          - TypeScript types
+        acceptance_criteria:
+          - All input types work
+          - Error state displays message
+          - WCAG 2.1 AA compliance
+          - Label properly associated
+        test_plan:
+          - Test all input types
+          - Verify error message display
+          - Accessibility check
+
+      - task_id: 1.4
+        name: Card Component
+        description: Basic Card wrapper with shadow, radius, padding
+        duration_hours: 1
+        dependencies: Task 1.1
+        subtasks:
+          - Create card.tsx structure
+          - Apply styling (shadow, radius, padding)
+          - Add hover variant
+        acceptance_criteria:
+          - Correct spacing and shadow
+          - Responsive padding
+          - Hover effect optional
+        test_plan:
+          - Verify shadow visible
+          - Check responsive spacing
+
+      - task_id: 1.5
+        name: Container & Grid Components
+        description: Layout components for page structure
+        duration_hours: 1.5
+        dependencies: Task 1.1
+        subtasks:
+          - Create container.tsx (max-width wrapper)
+          - Create grid.tsx (responsive grid)
+          - Setup responsive columns (1-4)
+        acceptance_criteria:
+          - Container max-width 1200px
+          - Grid responsive columns
+          - Proper gap spacing
+        test_plan:
+          - Verify container max-width
+          - Test grid col responsiveness
+
+  phase_2_layout:
+    name: Faza 2 - Layout Components
+    duration_hours: 8-10
+    priority: HIGH
+    depends_on: phase_1_fundamentals
+    tasks:
+      - task_id: 2.1
+        name: Navbar Component
+        description: Sticky header with navigation, mobile hamburger
+        duration_hours: 3-4
+        dependencies: Task 1.2, 1.4
+        subtasks:
+          - Desktop navbar layout
+          - Mobile hamburger menu
+          - Navigation links styling
+          - CTA button integration
+          - Mobile menu animations
+        acceptance_criteria:
+          - Sticky positioning works
+          - Mobile hamburger visible
+          - Responsive layout
+          - Dark mode support
+        test_plan:
+          - Desktop layout check
+          - Mobile hamburger functionality
+          - Links clickable
+
+      - task_id: 2.2
+        name: Footer Component
+        description: Multi-column footer with links, social, newsletter
+        duration_hours: 2-3
+        dependencies: Task 1.1, 1.5
+        subtasks:
+          - Multi-column layout
+          - Section columns (Usługi, Zasoby, Firma, Kontakt)
+          - Social media icons
+          - Newsletter form
+          - Copyright section
+        acceptance_criteria:
+          - 4 columns on desktop
+          - 1 column on mobile
+          - Newsletter form functional
+          - All links clickable
+        test_plan:
+          - Layout responsive test
+          - Form submission test
+
+      - task_id: 2.3
+        name: Section Wrapper Component
+        description: Semantic section with padding, background options
+        duration_hours: 1
+        dependencies: Task 1.1, 1.5
+        subtasks:
+          - Section HTML element
+          - Padding/spacing options
+          - Background color/image support
+        acceptance_criteria:
+          - Proper padding
+          - Background applied correctly
+          - Container inside
+
+      - task_id: 2.4
+        name: Hero Section Component
+        description: Full-width banner with heading, CTA, optional image
+        duration_hours: 2
+        dependencies: Task 1.2, 2.3
+        subtasks:
+          - Hero layout (text + image)
+          - Large typography
+          - CTA button
+          - Background image handling
+          - Responsive design
+        acceptance_criteria:
+          - Full-width display
+          - Text responsive sizes
+          - CTA visible and clickable
+          - Mobile stacked layout
+        test_plan:
+          - Responsive layout test
+          - Background image display
+
+      - task_id: 2.5
+        name: CTA Box Component
+        description: Simple call-to-action section
+        duration_hours: 1
+        dependencies: Task 1.2, 2.3
+        subtasks:
+          - CTA layout (text + button)
+          - Responsive stacking
+        acceptance_criteria:
+          - Text and button render
+          - Mobile stacked layout
+
+  phase_3_content:
+    name: Faza 3 - Content Components
+    duration_hours: 6-7
+    priority: HIGH
+    depends_on: phase_2_layout
+    tasks:
+      - task_id: 3.1
+        name: Article Card Component
+        description: Card for blog articles (image, title, excerpt, date, author)
+        duration_hours: 2
+        dependencies: Task 1.4
+        subtasks:
+          - Article card layout
+          - Image styling
+          - Metadata display (date, category, author)
+          - Hover effects
+        acceptance_criteria:
+          - Image displays correctly
+          - All metadata visible
+          - Hover effect works
+          - Link clickable
+
+      - task_id: 3.2
+        name: Service Card Component
+        description: Card for services (icon, title, description, link)
+        duration_hours: 1.5
+        dependencies: Task 1.4
+        subtasks:
+          - Service card layout
+          - Icon styling
+          - Description text
+          - Hover effect
+        acceptance_criteria:
+          - Icon displays
+          - Link clickable
+          - Hover effect visible
+
+      - task_id: 3.3
+        name: Testimonial Card Component
+        description: Card for customer testimonials
+        duration_hours: 1.5
+        dependencies: Task 1.4
+        subtasks:
+          - Quote styling
+          - Author info (name, role, avatar)
+          - Optional star rating
+        acceptance_criteria:
+          - Quote renders
+          - Author info displays
+          - Avatar shows
+
+      - task_id: 3.4
+        name: Author Bio Component
+        description: Author info for articles (avatar, bio, social links)
+        duration_hours: 1
+        dependencies: Task 1.4
+        subtasks:
+          - Avatar styling
+          - Bio text
+          - Social links
+        acceptance_criteria:
+          - Avatar displays
+          - Bio renders
+          - Social links clickable
+
+      - task_id: 3.5
+        name: Category Filter Component
+        description: Filter buttons for blog categories
+        duration_hours: 1
+        dependencies: Task 1.2
+        subtasks:
+          - Filter button styles
+          - Active state
+          - Event handling
+        acceptance_criteria:
+          - All categories render
+          - Active highlighted
+          - Click event fires
+
+  phase_4_advanced:
+    name: Faza 4 - Advanced Components (Optional)
+    duration_hours: 8-10
+    priority: LOW
+    depends_on: phase_3_content
+    tasks:
+      - task_id: 4.1
+        name: Form Components
+        description: Textarea, Select, Checkbox, Radio
+        duration_hours: 3
+        subtasks:
+          - Textarea component
+          - Select/dropdown
+          - Checkbox
+          - Radio
+        acceptance_criteria:
+          - All form types work
+          - Consistent styling
+          - Error states
+
+      - task_id: 4.2
+        name: Modal/Dialog Component
+        description: Overlay dialog for modals, alerts
+        duration_hours: 2
+        subtasks:
+          - Modal structure
+          - Close button
+          - Focus trap
+          - Keyboard handling (Escape)
+        acceptance_criteria:
+          - Modal displays/closes
+          - Escape key closes
+          - Focus trapped
+          - WCAG 2.1 AA
+
+      - task_id: 4.3
+        name: Toast/Notification Component
+        description: Temporary notifications (success, error, info, warning)
+        duration_hours: 1.5
+        subtasks:
+          - Toast types (4)
+          - Auto-dismiss
+          - Stack handling
+        acceptance_criteria:
+          - All types render
+          - Auto-dismiss works
+          - Stacking correct
+
+      - task_id: 4.4
+        name: Table of Contents Component
+        description: Auto-generate TOC from headings
+        duration_hours: 1.5
+        subtasks:
+          - Heading detection
+          - Navigation
+          - Active section highlight
+        acceptance_criteria:
+          - Headings detected
+          - Navigation works
+          - Active state visible
+
+      - task_id: 4.5
+        name: Copy Button Component
+        description: Copy text to clipboard button
+        duration_hours: 0.5
+        subtasks:
+          - Copy functionality
+          - Feedback (icon change, message)
+        acceptance_criteria:
+          - Text copied to clipboard
+          - Visual feedback shown
+
+  phase_5_documentation:
+    name: Faza 5 - Testing, Documentation, Accessibility
+    duration_hours: 11-15
+    priority: HIGH
+    depends_on: phase_4_advanced
+    tasks:
+      - task_id: 5.1
+        name: Unit Tests & Component Tests
+        description: Vitest setup and unit tests
+        duration_hours: 4-6
+        subtasks:
+          - Vitest configuration
+          - Unit tests per component
+          - Render tests
+          - Accessibility tests (axe-core)
+        acceptance_criteria:
+          - 80%+ coverage (critical components)
+          - All tests passing
+          - axe-core violations = 0
+        test_plan:
+          - Run `npm run test:coverage`
+          - Verify 80%+ coverage
+          - a11y scans pass
+
+      - task_id: 5.2
+        name: Design System Documentation
+        description: README, usage examples, props docs
+        duration_hours: 2-3
+        subtasks:
+          - Main README.md
+          - Component catalog
+          - Props documentation
+          - Usage examples
+          - Accessibility guidelines
+        acceptance_criteria:
+          - All components documented
+          - Usage examples provided
+          - Props listed with types
+          - Accessibility section
+
+      - task_id: 5.3
+        name: Accessibility Audit
+        description: WCAG 2.1 AA compliance check
+        duration_hours: 2
+        subtasks:
+          - axe-core scanning
+          - Keyboard navigation test
+          - Screen reader test
+          - Color contrast check
+        acceptance_criteria:
+          - No axe violations
+          - Keyboard navigation works
+          - Screen reader compatible
+          - Color contrast >=4.5:1
+
+      - task_id: 5.4
+        name: Storybook Setup (Optional)
+        description: Interactive component library documentation
+        duration_hours: 3-4
+        subtasks:
+          - Storybook configuration
+          - Story per component
+          - Addons (a11y, viewport)
+          - Deploy Storybook
+        acceptance_criteria:
+          - Storybook builds
+          - Stories render
+          - Addons functional
+          - Deployed publicly
+
+# Milestones
+milestones:
+  - name: Phase 1 Complete
+    date: Day 1 EOD
+    deliverables:
+      - tailwind.config.js
+      - Button, Input, Card, Container, Grid components
+      - Initial tests
+
+  - name: Phase 2 Complete
+    date: Day 2 EOD
+    deliverables:
+      - Navbar, Footer, Section, Hero, CTA components
+      - Mobile responsive tested
+
+  - name: MVP Complete (Phases 1-2 + Docs)
+    date: Day 3 EOD
+    deliverables:
+      - 10 core components
+      - Unit tests (>80% coverage)
+      - Design System README
+      - Dark mode support
+
+  - name: Extended (Phases 1-3 + Docs)
+    date: Day 4 EOD
+    deliverables:
+      - 15 components
+      - Blog-specific components
+      - Accessibility audit passed
+
+  - name: Full (All phases)
+    date: Day 5 EOD
+    deliverables:
+      - All components
+      - Full test suite
+      - Storybook deployed
+      - Complete documentation
+
+# Success criteria
+success_criteria:
+  - All components responsive (mobile-first)
+  - WCAG 2.1 AA compliance (axe-core passes)
+  - 100% TypeScript coverage
+  - Dark mode fully functional
+  - >80% test coverage (critical components)
+  - Documentation complete
+  - Bundle size <100KB
+  - No accessibility violations
+
+# Risks & Mitigations
+risks:
+  - risk: SPEC-001 not ready on time
+    mitigation: Use placeholder colors, update later (hot-swap)
+    likelihood: MEDIUM
+    impact: HIGH
+
+  - risk: Tailwind config too complex
+    mitigation: Start simple, iterate incrementally
+    likelihood: LOW
+    impact: MEDIUM
+
+  - risk: Accessibility issues found late
+    mitigation: Test early with axe-core, integrate in CI
+    likelihood: MEDIUM
+    impact: HIGH
+
+  - risk: Dark mode adds complexity
+    mitigation: Use Tailwind dark: variant, keep simple
+    likelihood: LOW
+    impact: LOW
+
+  - risk: Too many components in scope
+    mitigation: MVP first (10), add more after
+    likelihood: HIGH
+    impact: MEDIUM
+
+# Dependencies & Blockers
+dependencies:
+  - "SPEC-001: Brand Identity & Tone of Voice"
+  - "Tech Stack: Tailwind CSS 3.4+, Next.js 14+, TypeScript"
+
+blockers:
+  - "Waiting for SPEC-001 colors, fonts, visual guidelines"
+
+# Integration points
+integrations:
+  - "SPEC-003: Blog System (uses article, filter components)"
+  - "SPEC-005: Homepage (uses hero, CTA, section components)"
+  - "SPEC-006: Service pages (uses service card, section components)"
+  - "SPEC-008: Seonyu (reuses all components)"
+
+# Notes
+notes:
+  - "All components must be TypeScript + type-safe"
+  - "Dark mode variants for every component"
+  - "Accessibility (a11y) first, not afterthought"
+  - "Component tests parallel with implementation"
+  - "Documentation inline with code (JSDoc)"
+  - "Storybook optional but recommended for future UI work"
+  - "Bundle size monitoring critical (Tailwind CSS purging)"
+  - "Consider shadcn/ui for complex components (Modal, Select)"
+  - "Framer Motion optional for micro-interactions"
+  - "Mobile-first responsive design approach"

@@ -1,0 +1,5 @@
+# Claude OS state files (session-specific, not version controlled)
+claude-os-state.json
+.index_state
+.commit_count
+*.log
