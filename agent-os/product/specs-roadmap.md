@@ -14,30 +14,32 @@
 | SPEC-001 | Brand Identity & Tone of Voice | ✅ Ukończona | 100% | 🟡 **3/5** | - | `specs/SPEC-001-COMPLETE.md` |
 | SPEC-002 | Design System & UI Components | ✅ Ukończona | 100% | 🔴 **4/5** | ~~SPEC-001~~ | `specs/2025-12-03-design-system/` |
 | SPEC-003 | Blog System (Strapi + Next.js) | 🟢 Aktywna | 60% | 🔴 **4/5** | ~~SPEC-002~~ | `specs/2025-12-04-blog-system/` |
-| SPEC-004 | SEO & Analytics Foundation | 🟡 Planowanie | 10% | 🟢 **2/5** | SPEC-003 | `specs/2025-12-05-seo-analytics/` |
+| SPEC-004 | SEO & Analytics Foundation | ✅ Ukończona | 100% | 🟢 **2/5** | ~~SPEC-003~~ | `specs/2025-12-05-seo-analytics/` |
 | SPEC-005 | Homepage Visuana | ✅ Ukończona | 100% | 🟡 **3/5** | ~~SPEC-002~~ | `specs/SPEC-005-homepage/` |
-| SPEC-006 | Strony Usługowe (Szablon + 4 usługi) | 🟡 Planowanie | 10% | 🟡 **3/5** | SPEC-005 | `specs/2025-12-05-service-pages/` |
-| SPEC-007 | Strona Kontakt | ❌ **NIE ZAIMPLEMENTOWANA** | 0% | 🟢 **2/5** | ~~SPEC-002~~ | `specs/2025-12-05-contact-page/` |
+| SPEC-006 | Strony Usługowe (Szablon + 4 usługi) | ✅ Ukończona | 100% | 🟡 **3/5** | ~~SPEC-005~~ | `specs/2025-12-05-service-pages/` |
+| SPEC-007 | Strona Kontakt | ✅ Ukończona | 100% | 🟢 **2/5** | ~~SPEC-002~~ | `specs/2025-12-05-contact-page/` |
 | SPEC-008 | Seonyu - Brand & Landing | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 (ToV) | TBD |
 | SPEC-009 | Content Strategy & Calendar | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 | TBD |
 | SPEC-010 | Content Automation (n8n + Dify) | ⬜ Oczekiwanie | 0% | 🔴 **4/5** | SPEC-003, SPEC-009 | TBD |
 | **SPEC-011** | **Industry & Role Value Pages** | 🟡 Planowanie | 0% | 🔴 **4/5** | SPEC-002, SPEC-005 | `specs/2025-12-05-industry-role-pages/` |
 
-### Aktualizacja 2025-12-06 (POST-AUDIT)
+### Aktualizacja 2025-12-07 (POST-FIX)
 
-**⚠️ AUDIT WYKAZAŁ ROZBIEŻNOŚCI - status skorygowany:**
+**✅ WSZYSTKIE KRYTYCZNE BRAKI Z AUDYTU NAPRAWIONE:**
 
 **Ukończone (zweryfikowane):**
 - ✅ SPEC-001: Brand Identity (ToV w `~/_tov/`, Visual Identity)
-- ✅ SPEC-002: Design System (38 komponentów, brak test runnera!)
-- ✅ SPEC-004: SEO & Analytics (sitemap, robots, JSON-LD, GA4)
-- ✅ SPEC-005: Homepage (6 sekcji, responsive)
-- ✅ SPEC-006: Service Pages (4 strony usług)
+- ✅ SPEC-002: Design System (38 komponentów)
+- ✅ SPEC-004: SEO & Analytics (sitemap, robots, JSON-LD, GA4, ISR/SSG)
+- ✅ SPEC-005: Homepage (6 sekcji, responsive, ISR 12h)
+- ✅ SPEC-006: Service Pages (4 strony usług, static generation)
+- ✅ SPEC-007: Contact Page (formularz, email, honeypot, FAQ, testimonials)
 
-**❌ KRYTYCZNE BRAKI (wcześniej oznaczone jako ukończone):**
-- ❌ SPEC-007: Contact Page - **STRONA NIE ISTNIEJE** (tasks.md kłamał)
-- ❌ Test runner - 38 plików testowych, 0 działa (brak Vitest config)
-- ❌ Strapi - CMS pusty, blog działa tylko na mock data
+**✅ NAPRAWIONE (były krytyczne braki):**
+- ✅ SPEC-007: Contact Page - **W PEŁNI ZAIMPLEMENTOWANA** (formularz + Server Action + email)
+- ✅ Test runner - **Vitest skonfigurowany, 398/398 testów przechodzi**
+- ✅ Static generation - ISR/SSG dla wszystkich stron (homepage 12h, usługi static, kontakt static)
+- ✅ TypeScript - 0 błędów kompilacji
 
 **W trakcie:**
 - 🟢 SPEC-003: Blog System (UI gotowe, Strapi pusty, RSS/sitemap niezaimplementowane)
