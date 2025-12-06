@@ -6,12 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest --run",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "next": "16.0.7",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "react-hook-form": "^7.68.0",
+    "resend": "^6.5.2",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@axe-core/react": "^4.11.0",

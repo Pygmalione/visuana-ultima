@@ -15,7 +15,8 @@ describe('Button Component', () => {
   it('renders with default variant (primary)', () => {
     render(<Button>Primary</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('bg-royal-red-700')
+    // Updated to royal-red-600 per SPEC-007 design system updates
+    expect(button).toHaveClass('bg-royal-red-600')
   })
 
   // ============================================
@@ -25,15 +26,17 @@ describe('Button Component', () => {
   it('renders primary variant correctly', () => {
     render(<Button variant="primary">Primary</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('bg-royal-red-700')
+    // Updated to royal-red-600 per SPEC-007 design system updates
+    expect(button).toHaveClass('bg-royal-red-600')
     expect(button).toHaveClass('text-white')
   })
 
   it('renders secondary variant correctly', () => {
     render(<Button variant="secondary">Secondary</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('border-royal-red-700')
-    expect(button).toHaveClass('text-royal-red-700')
+    // Updated to royal-red-600 per SPEC-007 design system updates
+    expect(button).toHaveClass('border-royal-red-600')
+    expect(button).toHaveClass('text-royal-red-600')
   })
 
   it('renders ghost variant correctly', () => {

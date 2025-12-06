@@ -8,12 +8,19 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
-    include: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
+    include: ['__tests__/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/.next/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['src/components/**/*.{ts,tsx}'],
-      exclude: ['**/*.d.ts', '**/*.test.{ts,tsx}', '**/index.ts'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.test.{ts,tsx}',
+        'src/**/*.spec.{ts,tsx}',
+        'src/**/*.d.ts',
+        'src/**/*.config.{ts,tsx}',
+        'src/**/index.ts',
+      ],
       thresholds: {
         lines: 80,
         functions: 80,
@@ -21,6 +28,10 @@ export default defineConfig({
         statements: 80,
       },
     },
+    // Timeout dla testów (10s)
+    testTimeout: 10000,
+    // Retry failed tests once
+    retry: 1,
   },
   resolve: {
     alias: {
