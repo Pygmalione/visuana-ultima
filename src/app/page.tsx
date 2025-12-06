@@ -2,11 +2,19 @@ import { Navbar, Footer, Section, Grid } from '@/components/layout'
 import { Hero, CTABox } from '@/components/sections'
 import { Button, Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui'
 import { ArticleCard } from '@/components/cards'
+import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
 
 // ============================================
 // HOMEPAGE - VISUANA
 // Based on SPEC-001 Brand Identity & ToV
+// ISR: Revalidate every 12 hours
 // ============================================
+
+/**
+ * ISR Configuration - SPEC-004 SEO & Analytics
+ * Revalidate homepage every 12 hours to update stats and featured content
+ */
+export const revalidate = REVALIDATION_CONFIG.homepage
 
 const navItems = [
   { label: 'Usługi', href: '/uslugi' },

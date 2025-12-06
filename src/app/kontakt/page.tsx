@@ -6,10 +6,19 @@ import { ContactFAQ } from '@/components/contact/ContactFAQ'
 import { ContactTestimonials } from '@/components/contact/ContactTestimonials'
 import { JsonLdMultiple } from '@/components/seo/JsonLd'
 import { submitContactForm } from './actions'
+import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
 
 // ============================================
 // CONTACT PAGE - SPEC-007
+// Static Generation - contact info rarely changes
+// Server Actions still work with static generation
 // ============================================
+
+/**
+ * Static Generation - SPEC-004 SEO & Analytics
+ * Contact page content is static, form submission is handled by Server Action
+ */
+export const revalidate = REVALIDATION_CONFIG.contactPage
 
 // Navigation items (same as homepage for consistency)
 const navItems = [

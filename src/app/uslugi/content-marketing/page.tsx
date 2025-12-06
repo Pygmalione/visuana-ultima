@@ -1,12 +1,19 @@
 import { Metadata } from 'next'
 import { ServicePageTemplate } from '@/components/templates/ServicePage'
 import { ServicePageData, FAQPageSchema, ServiceSchema, FeatureIcon } from '@/types/service'
+import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
 
 // ============================================
 // CONTENT MARKETING SERVICE PAGE
 // SPEC-006: Service Pages
 // Route: /uslugi/content-marketing
+// Static Generation
 // ============================================
+
+/**
+ * Static Generation - SPEC-004 SEO & Analytics
+ */
+export const revalidate = REVALIDATION_CONFIG.servicePage
 
 // SEO Metadata
 export const metadata: Metadata = {

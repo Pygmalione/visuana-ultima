@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
@@ -29,14 +29,23 @@ vi.mock('@/lib/email/contact-confirmation', () => ({
   ContactConfirmationEmail: vi.fn().mockReturnValue(null),
 }))
 
-// Import components and actions using relative paths for app directory
+// Import components and actions
 import { ContactForm } from '@/components/forms/ContactForm'
-import { submitContactForm } from '../../../app/kontakt/actions'
+import { submitContactForm } from '@/app/kontakt/actions'
+
+// Store original env
+const originalEnv = { ...process.env }
 
 describe('Contact Form Integration Tests', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockSend.mockResolvedValue({ id: 'test-email-id' })
+    // Set RESEND_API_KEY to trigger actual Resend path
+    process.env.RESEND_API_KEY = 'test-api-key'
+  })
+
+  afterEach(() => {
+    process.env = originalEnv
   })
 
   // Integration Test 1: E2E Complete form submission flow

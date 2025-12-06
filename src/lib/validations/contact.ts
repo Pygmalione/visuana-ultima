@@ -62,8 +62,8 @@ export const contactFormSchema = z.object({
 
   newsletterConsent: z.boolean().optional(),
 
-  // Honeypot field (should be empty)
-  website: z.string().max(0, 'Bot detected').optional(),
+  // Honeypot field (should be empty - checked in server action, not validation)
+  website: z.string().optional(),
 })
 
 /**

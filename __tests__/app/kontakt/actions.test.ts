@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 // ============================================
 // SERVER ACTION TESTS
@@ -26,13 +26,22 @@ vi.mock('@/lib/email/contact-confirmation', () => ({
   ContactConfirmationEmail: vi.fn().mockReturnValue(null),
 }))
 
-// Import action directly (not using alias for app dir)
-import { submitContactForm } from '../../../app/kontakt/actions'
+// Import action using @ alias
+import { submitContactForm } from '@/app/kontakt/actions'
+
+// Store original env
+const originalEnv = { ...process.env }
 
 describe('submitContactForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockSend.mockResolvedValue({ id: 'test-email-id' })
+    // Set RESEND_API_KEY to trigger actual Resend path
+    process.env.RESEND_API_KEY = 'test-api-key'
+  })
+
+  afterEach(() => {
+    process.env = originalEnv
   })
 
   // Test 1: Successful form submission

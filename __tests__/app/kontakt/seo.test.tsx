@@ -7,12 +7,12 @@ import { render, screen } from '@testing-library/react'
 // ============================================
 
 // Mock server action
-vi.mock('../../../app/kontakt/actions', () => ({
+vi.mock('@/app/kontakt/actions', () => ({
   submitContactForm: vi.fn().mockResolvedValue({ success: true, message: 'OK' }),
 }))
 
 // Import page and metadata
-import ContactPage, { metadata } from '../../../app/kontakt/page'
+import ContactPage, { metadata } from '@/app/kontakt/page'
 
 describe('ContactPage SEO', () => {
   // Test 1: Page title is correct

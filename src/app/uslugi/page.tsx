@@ -1,12 +1,20 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { Container } from '@/components/layout/container'
+import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
 
 // ============================================
 // SERVICE LIST PAGE
 // SPEC-006: Service Pages - Phase 6
 // Route: /uslugi
+// Static Generation - service info rarely changes
 // ============================================
+
+/**
+ * Static Generation - SPEC-004 SEO & Analytics
+ * Service pages content is static
+ */
+export const revalidate = REVALIDATION_CONFIG.servicePage
 
 // SEO Metadata
 export const metadata: Metadata = {

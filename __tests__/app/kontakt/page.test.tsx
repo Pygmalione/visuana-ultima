@@ -8,19 +8,19 @@ import { render, screen } from '@testing-library/react'
 // ============================================
 
 // Mock server action
-vi.mock('../../../app/kontakt/actions', () => ({
+vi.mock('@/app/kontakt/actions', () => ({
   submitContactForm: vi.fn().mockResolvedValue({ success: true, message: 'OK' }),
 }))
 
 // Import page component
-import ContactPage from '../../../app/kontakt/page'
+import ContactPage from '@/app/kontakt/page'
 
 describe('ContactPage', () => {
   // Test 1: Page renders hero section
   it('renders hero section with correct heading', () => {
     render(<ContactPage />)
 
-    expect(screen.getByRole('heading', { level: 1, name: /zacznijmy wspolprace/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: /porozmawiajmy o twoim projekcie/i })).toBeInTheDocument()
     expect(screen.getByText(/bezplatna konsultacja/i)).toBeInTheDocument()
   })
 
