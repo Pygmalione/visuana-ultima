@@ -5,6 +5,7 @@ import { SelectProps } from '@/types/components'
 
 // ============================================
 // SELECT COMPONENT - Based on SPEC-001 Visual Identity
+// Enhanced with SPEC-007 micro-interactions
 // ============================================
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
@@ -28,8 +29,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     const getBorderClass = () => {
       if (error) return 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-      return 'border-charcoal-200 focus:border-royal-red-700 focus:ring-royal-red-700/20'
+      return 'border-charcoal-200 focus:border-royal-red-600 focus:ring-royal-red-600/20'
     }
+
+    // Glow effect class for focus state (SPEC-007)
+    const glowClass = error
+      ? 'focus:shadow-[0_0_30px_rgba(239,68,68,0.3)]'
+      : 'focus:shadow-[0_0_30px_rgba(220,38,38,0.3)]'
 
     return (
       <div
@@ -53,11 +59,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           aria-required={props.required ? 'true' : undefined}
           className={`
             w-full px-4 py-3
+            min-h-[44px]
             text-base text-charcoal-800
             bg-white border-2 rounded-md
             transition-all duration-200 ease-out
             focus:outline-none focus:ring-4
             ${getBorderClass()}
+            ${glowClass}
             ${disabled ? 'bg-charcoal-100 opacity-60 cursor-not-allowed' : ''}
             ${className}
           `.trim().replace(/\s+/g, ' ')}

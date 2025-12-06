@@ -5,19 +5,22 @@ import { ButtonProps, ButtonVariant, ButtonSize } from '@/types/components'
 
 // ============================================
 // BUTTON STYLES - Based on SPEC-001 Visual Identity
+// Enhanced with SPEC-007 micro-interactions
 // ============================================
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: `
-    bg-royal-red-700 text-white
-    hover:bg-royal-red-800
-    active:bg-royal-red-900
+    bg-royal-red-600 text-white
+    hover:bg-royal-red-700
+    active:bg-royal-red-800
     shadow-button hover:shadow-button-hover
+    hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]
   `,
   secondary: `
-    bg-transparent text-royal-red-700
-    border-2 border-royal-red-700
-    hover:bg-royal-red-700 hover:text-white
+    bg-transparent text-royal-red-600
+    border-2 border-royal-red-600
+    hover:bg-royal-red-600 hover:text-white
+    hover:shadow-[0_0_20px_rgba(220,38,38,0.3)]
   `,
   ghost: `
     bg-transparent text-charcoal-800
@@ -77,10 +80,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           font-semibold rounded-md
           transition-all duration-200 ease-out
           focus-visible:outline-none focus-visible:ring-2
-          focus-visible:ring-royal-red-700 focus-visible:ring-offset-2
+          focus-visible:ring-royal-red-600 focus-visible:ring-offset-2
+          focus-visible:shadow-[0_0_30px_rgba(220,38,38,0.3)]
           ${variantStyles[variant]}
           ${sizeStyles[size]}
-          ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:-translate-y-0.5'}
+          ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:-translate-y-0.5 active:translate-y-0'}
           ${className}
         `.trim().replace(/\s+/g, ' ')}
         {...props}

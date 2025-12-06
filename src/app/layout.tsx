@@ -1,21 +1,24 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Suspense } from 'react'
 import './globals.css'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { organizationSchema } from '@/lib/seo/schemas'
+import { fontVariables, inter, jetbrainsMono } from '@/lib/fonts/config'
 
-const inter = Inter({
-  subsets: ['latin', 'latin-ext'],
-  display: 'swap',
-  variable: '--font-inter',
-})
+// ============================================
+// METADATA - SPEC-004 SEO
+// ============================================
 
 export const metadata: Metadata = {
   title: 'Visuana | AI-Powered Marketing Agency',
-  description: 'Butikowa agencja doradztwa specjalizująca się w Digital Marketing, Content Marketing, Influencer Marketing oraz AI-powered analytics.',
+  description: 'Butikowa agencja doradztwa specjalizujaca sie w Digital Marketing, Content Marketing, Influencer Marketing oraz AI-powered analytics.',
   keywords: ['marketing', 'AI', 'content marketing', 'influencer marketing', 'digital marketing', 'analytics'],
-  authors: [{ name: 'Karol Dębkowski', url: 'https://visuana.pl' }],
+  authors: [{ name: 'Karol Debkowski', url: 'https://visuana.pl' }],
+  metadataBase: new URL('https://visuana.pl'),
   openGraph: {
     title: 'Visuana | AI-Powered Marketing Agency',
-    description: 'Butikowa agencja doradztwa specjalizująca się w Digital Marketing, Content Marketing, Influencer Marketing oraz AI-powered analytics.',
+    description: 'Butikowa agencja doradztwa specjalizujaca sie w Digital Marketing, Content Marketing, Influencer Marketing oraz AI-powered analytics.',
     type: 'website',
     locale: 'pl_PL',
     siteName: 'Visuana',
@@ -23,9 +26,17 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Visuana | AI-Powered Marketing Agency',
-    description: 'Butikowa agencja doradztwa specjalizująca się w AI-powered marketing.',
+    description: 'Butikowa agencja doradztwa specjalizujaca sie w AI-powered marketing.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
+
+// ============================================
+// ROOT LAYOUT
+// ============================================
 
 export default function RootLayout({
   children,
@@ -33,12 +44,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pl" className={inter.variable}>
-      <body className="min-h-screen bg-white text-charcoal-800 antialiased">
+    <html
+      lang="pl"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+    >
+      <head>
+        {/* Organization Schema for SEO */}
+        <JsonLd schema={organizationSchema()} />
+
+        {/* DNS Prefetch for external resources */}
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+      </head>
+      <body className="min-h-screen bg-white text-charcoal-800 antialiased font-sans">
+        {/* Skip Link for Accessibility */}
         <a href="#main-content" className="skip-link">
-          Przejdź do głównej treści
+          Przejdz do glownej tresci
         </a>
+
         {children}
+
+        {/* Google Analytics - loads only in production */}
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
       </body>
     </html>
   )

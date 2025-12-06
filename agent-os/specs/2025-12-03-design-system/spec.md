@@ -1,9 +1,80 @@
 # SPEC-002: Design System & UI Components
 
-**Status:** Planning
+**Status:** ✅ COMPLETE (aktualizacja: 2025-12-05)
 **Priorytet:** KRYTYCZNY 🔴
 **Szacowany czas:** 3-4 dni
 **Zależności:** SPEC-001 (Brand Identity - kolory, fonty, visual guidelines)
+
+---
+
+## 0. DESIGN VARIANTS (2025-12-05)
+
+> **Pełna dokumentacja:**
+> - `agent-os/research/DESIGN-VARIANTS.md` - biblioteki, typografia, struktura
+> - `agent-os/research/VISUAL-DESIGN-VARIANTS.md` - **4 warianty graficzne z komponentami, animacjami, kolorami, copy**
+
+### Wybrany kierunek wizualny: DATA-DRIVEN FUTURISM + BOLD COPY
+
+| Kategoria | Wybór | Uzasadnienie |
+|-----------|-------|--------------|
+| **Kierunek wizualny** | Wariant D: Data-Driven Futurism | AI-native, dashboard aesthetics, tech premium |
+| **Biblioteki UI** | shadcn/ui + Motion One + Lucide | Copy-paste control, Tailwind-native, accessible |
+| **Typografia** | Clash Display + Jakarta Sans + JetBrains Mono | Tech/AI vibe, unikalna, 70% Data match |
+| **Paleta kolorów** | Deep tech blue-black + Royal Red accent + Data colors | `--bg-void: #030712`, `--royal-red-600: #DC2626` |
+| **Animacje** | Terminal-style, glow effects, particle grid | Futurystyczne, data-driven |
+| **Copy tone** | Prowokacyjny + Data-driven (Wariant A + D mix) | "Twoja agencja kłamie. My mamy dowody." |
+
+### Kluczowe elementy wizualne
+
+**Kolory:**
+```css
+--bg-void: #030712;        /* Deep tech background */
+--bg-panel: #0F172A;       /* Card surfaces */
+--royal-red-600: #DC2626;  /* Primary accent */
+--data-green: #22C55E;     /* Success metrics */
+--data-blue: #3B82F6;      /* Info metrics */
+--glow-red: 0 0 30px rgba(220, 38, 38, 0.3);
+```
+
+**Hero headline (bold copy):**
+> "Twoja agencja kłamie. My mamy dowody."
+> lub
+> "Marketing sterowany przez AI."
+
+**CTA (prowokacyjne):**
+> "POKAŻ MI, GDZIE TRACĘ KASĘ"
+
+### Typografia - szczegóły (Wariant C: Tech/Modern)
+
+```typescript
+// tailwind.config.ts
+fontFamily: {
+  sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+  display: ['Clash Display', 'Inter', 'system-ui', 'sans-serif'],
+  mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'monospace'],
+}
+
+// Font sizes (Desktop)
+fontSize: {
+  'h1': ['52px', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '700' }],
+  'h2': ['40px', { lineHeight: '1.15', letterSpacing: '-0.015em', fontWeight: '700' }],
+  'h3': ['30px', { lineHeight: '1.25', letterSpacing: '-0.01em', fontWeight: '600' }],
+  'h4': ['24px', { lineHeight: '1.3', letterSpacing: '0', fontWeight: '600' }],
+  'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+  'body': ['16px', { lineHeight: '1.65', fontWeight: '400' }],
+  'data': ['16px', { lineHeight: '1.4', letterSpacing: '0.01em', fontWeight: '500' }],
+}
+```
+
+**Źródła fontów:**
+- Clash Display: https://www.fontshare.com/fonts/clash-display (FREE)
+- Plus Jakarta Sans: Google Fonts
+- JetBrains Mono: https://www.jetbrains.com/lp/mono/ (FREE)
+
+### Migracja typografii (z Inter)
+
+**Quick Win (2h):** Dodaj Clash Display tylko dla headers, zachowaj Inter dla body
+**Pełna migracja (4-5 dni):** Pełna zamiana na Clash + Jakarta + JetBrains
 
 ---
 

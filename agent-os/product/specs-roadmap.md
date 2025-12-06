@@ -1,25 +1,65 @@
 # Roadmap Specyfikacji - Visuana Ultima
 
 **Data opracowania:** 3 grudnia 2025
-**Status projektu:** Pre-MVP, fundamenty w planowaniu
+**Ostatnia aktualizacja:** 5 grudnia 2025
+**Status projektu:** MVP Foundation Complete, Content Pending
 **Горизont planowania:** Q1 2025 (12 tygodni)
 
 ---
 
 ## 1. STATUS OVERVIEW
 
-| ID | Nazwa Specyfikacji | Status | % | Złożoność | Blocker | Przewidywany Start |
-|----|--------------------|--------|---|-----------|---------|-------------------|
-| SPEC-001 | Brand Identity & Tone of Voice | 🟡 Planowanie | 5% | 🟡 **3/5** | - | W1 |
-| SPEC-002 | Design System & UI Components | ⬜ Oczekiwanie | 0% | 🔴 **4/5** | SPEC-001 | W2 |
-| SPEC-003 | Blog System (Strapi + Next.js) | ⬜ Oczekiwanie | 0% | 🔴 **4/5** | SPEC-002 | W3 |
-| SPEC-004 | SEO & Analytics Foundation | ⬜ Oczekiwanie | 0% | 🟢 **2/5** | SPEC-003 | W4 |
-| SPEC-005 | Homepage Visuana | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-002 | W5 |
-| SPEC-006 | Strony Usługowe (Szablon + 2 pierwsze) | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-005 | W5 |
-| SPEC-007 | Strona Kontakt | ⬜ Oczekiwanie | 0% | 🟢 **2/5** | SPEC-002 | W6 |
-| SPEC-008 | Seonyu - Brand & Landing | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 (ToV) | W9 |
-| SPEC-009 | Content Strategy & Calendar | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 | W7 |
-| SPEC-010 | Content Automation (n8n + Dify) | ⬜ Oczekiwanie | 0% | 🔴 **4/5** | SPEC-003, SPEC-009 | W10 |
+| ID | Nazwa Specyfikacji | Status | % | Złożoność | Blocker | Lokalizacja |
+|----|--------------------|--------|---|-----------|---------|-------------|
+| SPEC-001 | Brand Identity & Tone of Voice | ✅ Ukończona | 100% | 🟡 **3/5** | - | `specs/SPEC-001-COMPLETE.md` |
+| SPEC-002 | Design System & UI Components | ✅ Ukończona | 100% | 🔴 **4/5** | ~~SPEC-001~~ | `specs/2025-12-03-design-system/` |
+| SPEC-003 | Blog System (Strapi + Next.js) | 🟢 Aktywna | 60% | 🔴 **4/5** | ~~SPEC-002~~ | `specs/2025-12-04-blog-system/` |
+| SPEC-004 | SEO & Analytics Foundation | 🟡 Planowanie | 10% | 🟢 **2/5** | SPEC-003 | `specs/2025-12-05-seo-analytics/` |
+| SPEC-005 | Homepage Visuana | ✅ Ukończona | 100% | 🟡 **3/5** | ~~SPEC-002~~ | `specs/SPEC-005-homepage/` |
+| SPEC-006 | Strony Usługowe (Szablon + 4 usługi) | 🟡 Planowanie | 10% | 🟡 **3/5** | SPEC-005 | `specs/2025-12-05-service-pages/` |
+| SPEC-007 | Strona Kontakt | ❌ **NIE ZAIMPLEMENTOWANA** | 0% | 🟢 **2/5** | ~~SPEC-002~~ | `specs/2025-12-05-contact-page/` |
+| SPEC-008 | Seonyu - Brand & Landing | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 (ToV) | TBD |
+| SPEC-009 | Content Strategy & Calendar | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 | TBD |
+| SPEC-010 | Content Automation (n8n + Dify) | ⬜ Oczekiwanie | 0% | 🔴 **4/5** | SPEC-003, SPEC-009 | TBD |
+| **SPEC-011** | **Industry & Role Value Pages** | 🟡 Planowanie | 0% | 🔴 **4/5** | SPEC-002, SPEC-005 | `specs/2025-12-05-industry-role-pages/` |
+
+### Aktualizacja 2025-12-06 (POST-AUDIT)
+
+**⚠️ AUDIT WYKAZAŁ ROZBIEŻNOŚCI - status skorygowany:**
+
+**Ukończone (zweryfikowane):**
+- ✅ SPEC-001: Brand Identity (ToV w `~/_tov/`, Visual Identity)
+- ✅ SPEC-002: Design System (38 komponentów, brak test runnera!)
+- ✅ SPEC-004: SEO & Analytics (sitemap, robots, JSON-LD, GA4)
+- ✅ SPEC-005: Homepage (6 sekcji, responsive)
+- ✅ SPEC-006: Service Pages (4 strony usług)
+
+**❌ KRYTYCZNE BRAKI (wcześniej oznaczone jako ukończone):**
+- ❌ SPEC-007: Contact Page - **STRONA NIE ISTNIEJE** (tasks.md kłamał)
+- ❌ Test runner - 38 plików testowych, 0 działa (brak Vitest config)
+- ❌ Strapi - CMS pusty, blog działa tylko na mock data
+
+**W trakcie:**
+- 🟢 SPEC-003: Blog System (UI gotowe, Strapi pusty, RSS/sitemap niezaimplementowane)
+
+**Nowe specyfikacje (spec.md gotowe):**
+- 🟡 SPEC-004: SEO & Analytics (`specs/2025-12-05-seo-analytics/spec.md`)
+- 🟡 SPEC-006: Service Pages (`specs/2025-12-05-service-pages/spec.md`)
+- 🆕 **SPEC-011: Industry & Role Value Pages** (`specs/2025-12-05-industry-role-pages/`)
+  - 8 branż (SaaS, E-commerce, MedTech, Fintech, etc.)
+  - 6 pozycji (CEO, CMO, Growth, Founder, etc.)
+  - MegaMenu navigation
+  - Differentiated AI services (NOT commoditized)
+
+**Research:**
+- 📊 Design Variants: `agent-os/research/DESIGN-VARIANTS.md` (typografia, biblioteki UI, struktura, copy)
+- 🎨 **Visual Design Variants: `agent-os/research/VISUAL-DESIGN-VARIANTS.md`** (4 kierunki graficzne z komponentami, animacjami, kolorami, bold copy)
+
+**Wybrany kierunek wizualny:** Data-Driven Futurism + Bold Copy
+- Paleta: Deep tech blue-black (#030712) + Royal Red accent (#DC2626)
+- Typografia: Clash Display + Jakarta Sans + JetBrains Mono
+- Animacje: Terminal-style, glow effects, particle grid
+- Copy: Prowokacyjny ("Twoja agencja kłamie. My mamy dowody.")
 
 **Legenda Statusów:**
 - 🟢 **Aktywna implementacja** - pracujemy teraz
