@@ -34,10 +34,11 @@ describe('JSON-LD Structured Data', () => {
 
     it('should include contact point', () => {
       const schema = organizationSchema()
+      const contactPoint = schema.contactPoint as Record<string, unknown>
 
-      expect(schema.contactPoint).toBeDefined()
-      expect(schema.contactPoint['@type']).toBe('ContactPoint')
-      expect(schema.contactPoint.contactType).toBe('customer service')
+      expect(contactPoint).toBeDefined()
+      expect(contactPoint['@type']).toBe('ContactPoint')
+      expect(contactPoint.contactType).toBe('customer service')
     })
 
     it('should include social links in sameAs', () => {
@@ -69,18 +70,20 @@ describe('JSON-LD Structured Data', () => {
 
     it('should include author information', () => {
       const schema = articleSchema(mockArticle)
+      const author = schema.author as Record<string, unknown>
 
-      expect(schema.author).toBeDefined()
-      expect(schema.author['@type']).toBe('Person')
-      expect(schema.author.name).toBe(mockArticle.author)
+      expect(author).toBeDefined()
+      expect(author['@type']).toBe('Person')
+      expect(author.name).toBe(mockArticle.author)
     })
 
     it('should include publisher information', () => {
       const schema = articleSchema(mockArticle)
+      const publisher = schema.publisher as Record<string, unknown>
 
-      expect(schema.publisher).toBeDefined()
-      expect(schema.publisher['@type']).toBe('Organization')
-      expect(schema.publisher.name).toBe('Visuana')
+      expect(publisher).toBeDefined()
+      expect(publisher['@type']).toBe('Organization')
+      expect(publisher.name).toBe('Visuana')
     })
 
     it('should include dates in ISO format', () => {
@@ -116,10 +119,11 @@ describe('JSON-LD Structured Data', () => {
 
     it('should include provider (Visuana)', () => {
       const schema = serviceSchema(mockService)
+      const provider = schema.provider as Record<string, unknown>
 
-      expect(schema.provider).toBeDefined()
-      expect(schema.provider['@type']).toBe('Organization')
-      expect(schema.provider.name).toBe('Visuana')
+      expect(provider).toBeDefined()
+      expect(provider['@type']).toBe('Organization')
+      expect(provider.name).toBe('Visuana')
     })
 
     it('should include areaServed', () => {
@@ -158,26 +162,30 @@ describe('JSON-LD Structured Data', () => {
 
     it('should include all FAQ items as mainEntity', () => {
       const schema = faqSchema(mockFAQs)
+      const mainEntity = schema.mainEntity as unknown[]
 
-      expect(schema.mainEntity).toBeDefined()
-      expect(Array.isArray(schema.mainEntity)).toBe(true)
-      expect(schema.mainEntity.length).toBe(2)
+      expect(mainEntity).toBeDefined()
+      expect(Array.isArray(mainEntity)).toBe(true)
+      expect(mainEntity.length).toBe(2)
     })
 
     it('should format FAQ items correctly', () => {
       const schema = faqSchema(mockFAQs)
+      const mainEntity = schema.mainEntity as Array<Record<string, unknown>>
 
-      const firstItem = schema.mainEntity[0]
+      const firstItem = mainEntity[0]
       expect(firstItem['@type']).toBe('Question')
       expect(firstItem.name).toBe(mockFAQs[0].question)
-      expect(firstItem.acceptedAnswer['@type']).toBe('Answer')
-      expect(firstItem.acceptedAnswer.text).toBe(mockFAQs[0].answer)
+      const acceptedAnswer = firstItem.acceptedAnswer as Record<string, unknown>
+      expect(acceptedAnswer['@type']).toBe('Answer')
+      expect(acceptedAnswer.text).toBe(mockFAQs[0].answer)
     })
 
     it('should return empty mainEntity for empty FAQ list', () => {
       const schema = faqSchema([])
+      const mainEntity = schema.mainEntity as unknown[]
 
-      expect(schema.mainEntity).toEqual([])
+      expect(mainEntity).toEqual([])
     })
   })
 })

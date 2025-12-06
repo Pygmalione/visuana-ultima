@@ -40,7 +40,7 @@ describe('GA4 Configuration', () => {
 
   describe('isProductionEnv', () => {
     it('should return false in test environment', () => {
-      process.env.NODE_ENV = 'test'
+      // NODE_ENV is already 'test' in vitest
       expect(isProductionEnv()).toBe(false)
     })
   })

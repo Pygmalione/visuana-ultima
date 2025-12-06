@@ -66,10 +66,10 @@ describe('SolutionSection', () => {
   const defaultProps = {
     heading: 'Jak dzialamy',
     features: [
-      { icon: 'search', title: 'AI-powered keyword research', description: 'Badamy slowa kluczowe' },
-      { icon: 'edit', title: 'SEO-optimized content', description: 'Tworzymy tresci SEO' },
-      { icon: 'chart', title: 'Performance analytics', description: 'Mierzymy wyniki' },
-      { icon: 'share', title: 'Content distribution', description: 'Dystrybuujemy tresci' },
+      { icon: 'search' as const, title: 'AI-powered keyword research', description: 'Badamy slowa kluczowe' },
+      { icon: 'edit' as const, title: 'SEO-optimized content', description: 'Tworzymy tresci SEO' },
+      { icon: 'chart' as const, title: 'Performance analytics', description: 'Mierzymy wyniki' },
+      { icon: 'share' as const, title: 'Content distribution', description: 'Dystrybuujemy tresci' },
     ],
   }
 

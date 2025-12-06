@@ -35,8 +35,10 @@ describe('SEO & Analytics Integration', () => {
 
       // All should reference Visuana
       expect(orgSchema.name).toBe('Visuana')
-      expect(service.provider.name).toBe('Visuana')
-      expect(article.publisher.name).toBe('Visuana')
+      const serviceProvider = service.provider as Record<string, unknown>
+      expect(serviceProvider.name).toBe('Visuana')
+      const articlePublisher = article.publisher as Record<string, unknown>
+      expect(articlePublisher.name).toBe('Visuana')
     })
   })
 

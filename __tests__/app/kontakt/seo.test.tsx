@@ -44,6 +44,7 @@ describe('ContactPage SEO', () => {
   // Test 4: Open Graph tags are set
   it('has Open Graph metadata', () => {
     expect(metadata.openGraph?.title).toContain('Kontakt')
-    expect(metadata.openGraph?.type).toBe('website')
+    const openGraph = metadata.openGraph as Record<string, unknown>
+    expect(openGraph.type).toBe('website')
   })
 })
