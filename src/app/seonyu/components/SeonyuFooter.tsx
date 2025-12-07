@@ -69,7 +69,7 @@ export function SeonyuFooter() {
             {/* Brand Column */}
             <div className="lg:col-span-2">
               <Link href="/seonyu" className="inline-block mb-6 group">
-                <span className="text-2xl font-display font-semibold tracking-tight text-slate-900">
+                <span className="text-2xl font-display font-light tracking-tight text-slate-900 hover:text-blue-600 transition-colors duration-300">
                   SEONYU
                 </span>
               </Link>
@@ -80,7 +80,7 @@ export function SeonyuFooter() {
                 Część ekosystemu{' '}
                 <Link
                   href="/"
-                  className="text-blue-600 hover:text-blue-700 transition-colors font-medium"
+                  className="text-blue-600 hover:text-blue-700 transition-colors duration-300 font-light"
                 >
                   Visuana
                 </Link>
@@ -89,7 +89,7 @@ export function SeonyuFooter() {
 
             {/* Product Links */}
             <div>
-              <h4 className="text-sm font-medium text-slate-900 uppercase tracking-wider mb-5">
+              <h4 className="text-sm font-light text-slate-900 uppercase tracking-wider mb-5">
                 Produkt
               </h4>
               <ul className="space-y-3">
@@ -97,7 +97,7 @@ export function SeonyuFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-slate-500 hover:text-slate-900 transition-colors duration-200 font-light"
+                      className="text-sm text-slate-500 hover:text-blue-600 transition-colors duration-300 font-light"
                     >
                       {link.label}
                     </Link>
@@ -108,7 +108,7 @@ export function SeonyuFooter() {
 
             {/* Company Links */}
             <div>
-              <h4 className="text-sm font-medium text-slate-900 uppercase tracking-wider mb-5">
+              <h4 className="text-sm font-light text-slate-900 uppercase tracking-wider mb-5">
                 Firma
               </h4>
               <ul className="space-y-3">
@@ -116,7 +116,7 @@ export function SeonyuFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-slate-500 hover:text-slate-900 transition-colors duration-200 font-light"
+                      className="text-sm text-slate-500 hover:text-blue-600 transition-colors duration-300 font-light"
                     >
                       {link.label}
                     </Link>
@@ -127,7 +127,7 @@ export function SeonyuFooter() {
 
             {/* Legal Links */}
             <div>
-              <h4 className="text-sm font-medium text-slate-900 uppercase tracking-wider mb-5">
+              <h4 className="text-sm font-light text-slate-900 uppercase tracking-wider mb-5">
                 Prawne
               </h4>
               <ul className="space-y-3">
@@ -135,7 +135,7 @@ export function SeonyuFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-slate-500 hover:text-slate-900 transition-colors duration-200 font-light"
+                      className="text-sm text-slate-500 hover:text-blue-600 transition-colors duration-300 font-light"
                     >
                       {link.label}
                     </Link>
@@ -160,7 +160,7 @@ export function SeonyuFooter() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all duration-200"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300"
                 aria-label={`Odwiedź nas na ${social.platform}`}
               >
                 {social.icon}
