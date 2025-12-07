@@ -4,7 +4,7 @@ import './globals.css'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { organizationSchema } from '@/lib/seo/schemas'
-import { fontVariables, syne, outfit, jetbrainsMono } from '@/lib/fonts/config'
+import { fontVariables, spaceGrotesk, inter, jetbrainsMono } from '@/lib/fonts/config'
 
 // ============================================
 // METADATA - SPEC-004 SEO + SPEC-003 RSS
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="pl"
-      className={`${syne.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         {/* Organization Schema for SEO */}

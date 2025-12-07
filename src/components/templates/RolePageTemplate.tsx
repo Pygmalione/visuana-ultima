@@ -506,8 +506,6 @@ export function RolePageTemplate({ role }: RolePageTemplateProps) {
       <Footer
         columns={footerColumns}
         socialLinks={socialLinks}
-        companyName="Visuana"
-        companyDescription="AI-Powered Marketing Agency. Łączymy kreatywność z danymi, by Twój marketing działał."
       />
     </>
   )

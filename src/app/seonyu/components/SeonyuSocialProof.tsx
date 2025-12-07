@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 // ============================================
-// SEONYU SOCIAL PROOF - BOLD REDESIGN
-// Animated Testimonials + Stats on Dark Theme
+// SEONYU SOCIAL PROOF - LIGHT THEME
+// Elegant Cards | Blue/Navy | 21st.dev Style
 // ============================================
 
 const clientLogos = [
@@ -16,13 +16,6 @@ const clientLogos = [
   { name: 'StartupX', initials: 'SX' },
 ]
 
-const stats = [
-  { value: '250%', label: 'Średni ROI', gradient: 'from-emerald-400 to-teal-500' },
-  { value: '50%', label: 'Mniej czasu na outreach', gradient: 'from-cyan-400 to-blue-500' },
-  { value: '10k+', label: 'Influencerów w bazie', gradient: 'from-violet-400 to-purple-500' },
-  { value: '98%', label: 'Satisfaction rate', gradient: 'from-amber-400 to-orange-500' },
-]
-
 const testimonials = [
   {
     quote: 'Seonyu całkowicie zmieniło sposób w jaki prowadzimy influencer marketing. AI matching zaoszczędził nam dziesiątki godzin, a wyniki przeszły nasze oczekiwania.',
@@ -30,33 +23,37 @@ const testimonials = [
     role: 'Marketing Director',
     company: 'E-commerce Brand',
     rating: 5,
+    accent: 'bg-blue-600',
   },
   {
-    quote: 'Automatyzacja outreachu to gamechanger. Zamiast wysyłać setki maili, AI robi to za nas - i to z lepszymi wynikami.',
+    quote: 'Automatyzacja outreachu to przełom. Zamiast wysyłać setki maili, AI robi to za nas - i to z lepszymi wynikami.',
     author: 'Michał Nowak',
     role: 'Head of Growth',
     company: 'Tech Startup',
     rating: 5,
+    accent: 'bg-cyan-600',
   },
 ]
 
 export function SeonyuSocialProof() {
   const sectionRef = useRef<HTMLElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in')
+            setIsVisible(true)
           }
         })
       },
       { threshold: 0.1 }
     )
 
-    const elements = sectionRef.current?.querySelectorAll('.animate-item')
-    elements?.forEach((el) => observer.observe(el))
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
 
     return () => observer.disconnect()
   }, [])
@@ -65,83 +62,43 @@ export function SeonyuSocialProof() {
     <section
       ref={sectionRef}
       id="social-proof"
-      className="relative py-24 md:py-32 overflow-hidden"
-      style={{
-        background: 'linear-gradient(180deg, #0a0118 0%, #0f0720 50%, #1a0a2e 100%)',
-      }}
+      aria-labelledby="social-proof-title"
+      className="relative py-28 md:py-36 bg-white"
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(124, 58, 237, 0.5) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(124, 58, 237, 0.5) 1px, transparent 1px)
-            `,
-            backgroundSize: '100px 100px',
-          }}
-        />
-
-        {/* Gradient orb */}
-        <div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-[150px]"
-          style={{
-            background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
-            top: '30%',
-            right: '-10%',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Client Logos */}
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Section Header */}
         <div className="text-center mb-20">
-          <p className="text-sm font-medium text-purple-400/70 uppercase tracking-widest mb-8">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-slate-600 bg-slate-100 border border-slate-200 mb-8">
             Zaufali nam
+          </span>
+          <h2
+            id="social-proof-title"
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 mb-6 tracking-tight"
+          >
+            Opinie klientów
+          </h2>
+          <p className="text-lg text-slate-500 max-w-lg mx-auto font-light">
+            Dołącz do grona zadowolonych klientów
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-            {clientLogos.map((client, index) => (
-              <div
-                key={index}
-                className="animate-item opacity-0 translate-y-4 w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center transition-all duration-500 hover:scale-110"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(10px)',
-                  transitionDelay: `${index * 50}ms`,
-                }}
-              >
-                <span className="text-purple-300/70 font-display font-bold text-lg">
-                  {client.initials}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-20">
-          {stats.map((stat, index) => (
+        {/* Client Logos */}
+        <div
+          className={`
+            flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-20
+            transition-all duration-700
+            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+          `}
+        >
+          {clientLogos.map((client, index) => (
             <div
               key={index}
-              className="animate-item opacity-0 translate-y-4 text-center p-6 md:p-8 rounded-2xl transition-all duration-500 hover:scale-105 group"
-              style={{
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(20px)',
-                transitionDelay: `${index * 100}ms`,
-              }}
+              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center bg-slate-50 border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300"
+              style={{ transitionDelay: `${index * 50}ms` }}
             >
-              <div
-                className={`text-4xl md:text-5xl font-display font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-2`}
-              >
-                {stat.value}
-              </div>
-              <div className="text-sm text-purple-200/60">
-                {stat.label}
-              </div>
+              <span className="text-slate-400 font-display font-semibold text-sm md:text-base">
+                {client.initials}
+              </span>
             </div>
           ))}
         </div>
@@ -151,17 +108,17 @@ export function SeonyuSocialProof() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="animate-item opacity-0 translate-y-4 relative p-8 rounded-3xl transition-all duration-500 group"
-              style={{
-                background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%)',
-                border: '1px solid rgba(168, 85, 247, 0.2)',
-                backdropFilter: 'blur(20px)',
-                transitionDelay: `${400 + index * 150}ms`,
-              }}
+              className={`
+                relative p-8 rounded-2xl bg-slate-50 border border-slate-200
+                hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/50
+                transition-all duration-500
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+              `}
+              style={{ transitionDelay: `${200 + index * 150}ms` }}
             >
               {/* Quote Icon */}
-              <div className="absolute top-6 right-8 text-purple-500/20">
-                <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+              <div className="absolute top-6 right-8 text-slate-200">
+                <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                 </svg>
               </div>
@@ -169,7 +126,7 @@ export function SeonyuSocialProof() {
               {/* Rating */}
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                  <svg key={i} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
@@ -177,7 +134,7 @@ export function SeonyuSocialProof() {
 
               {/* Quote Text */}
               <blockquote className="relative z-10">
-                <p className="text-lg text-purple-100/90 leading-relaxed mb-6">
+                <p className="text-slate-600 leading-relaxed mb-6 font-light">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
 
@@ -185,43 +142,49 @@ export function SeonyuSocialProof() {
                 <footer className="flex items-center gap-4">
                   {/* Avatar */}
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
-                    style={{
-                      background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
-                    }}
+                    className={`w-11 h-11 rounded-full flex items-center justify-center text-white font-semibold text-sm ${testimonial.accent}`}
                   >
                     {testimonial.author.charAt(0)}
                   </div>
                   <div>
-                    <div className="font-semibold text-white">
+                    <div className="font-medium text-slate-900">
                       {testimonial.author}
                     </div>
-                    <div className="text-sm text-purple-300/70">
+                    <div className="text-sm text-slate-400 font-light">
                       {testimonial.role}, {testimonial.company}
                     </div>
                   </div>
                 </footer>
               </blockquote>
+            </div>
+          ))}
+        </div>
 
-              {/* Hover glow */}
-              <div
-                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{
-                  background: 'radial-gradient(circle at 50% 100%, rgba(124, 58, 237, 0.2) 0%, transparent 70%)',
-                }}
-              />
+        {/* Bottom Stats Bar */}
+        <div
+          className={`
+            mt-16 flex flex-wrap justify-center gap-8 md:gap-16
+            transition-all duration-700
+            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+          `}
+          style={{ transitionDelay: '500ms' }}
+        >
+          {[
+            { value: '250%', label: 'Średni ROI' },
+            { value: '50%', label: 'Mniej czasu' },
+            { value: '98%', label: 'Satisfaction' },
+          ].map((stat, index) => (
+            <div key={index} className="text-center">
+              <p className="font-display text-3xl md:text-4xl font-light text-slate-900 mb-1 tracking-tight">
+                {stat.value}
+              </p>
+              <p className="text-sm text-slate-400 font-light">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
       </div>
-
-      {/* CSS for animations */}
-      <style jsx>{`
-        .animate-item.animate-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      `}</style>
     </section>
   )
 }

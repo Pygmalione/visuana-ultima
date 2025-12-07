@@ -8,37 +8,44 @@
  * - Subset optimization
  */
 
-import { Syne, Outfit, JetBrains_Mono } from 'next/font/google'
+import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 
 // ============================================
 // GOOGLE FONTS (with next/font optimization)
+// Elegant Thin Style for 21st.dev aesthetic
 // ============================================
 
 /**
- * Syne - Display font for headings
- * Bold, geometric, distinctive - perfect for tech/AI branding
+ * Space Grotesk - Display font for headings
+ * Modern, geometric, elegant - perfect for tech/AI branding
+ * Thin to medium weights for sophisticated look
  */
-export const syne = Syne({
+export const spaceGrotesk = Space_Grotesk({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
-  variable: '--font-syne',
+  variable: '--font-space',
+  weight: ['300', '400', '500', '600', '700'],
   preload: true,
 })
 
+// Legacy alias
+export const syne = spaceGrotesk
+
 /**
- * Outfit - Modern body font
- * Clean, geometric, professional - NOT generic like Inter
+ * Inter - Clean body font with thin weights
+ * Professional, readable, elegant
  */
-export const outfit = Outfit({
+export const inter = Inter({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
-  variable: '--font-outfit',
+  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700'],
   preload: true,
 })
 
 // Legacy alias for backward compatibility
-export const inter = outfit
+export const outfit = inter
 
 /**
  * JetBrains Mono - Code/monospace font
@@ -105,9 +112,10 @@ export const jetbrainsMono = JetBrains_Mono({
  * All fonts for export
  */
 export const fonts = {
-  syne,
-  outfit,
-  inter, // alias for outfit
+  spaceGrotesk,
+  inter,
+  syne, // alias for spaceGrotesk
+  outfit, // alias for inter
   jetbrainsMono,
 }
 
@@ -116,8 +124,8 @@ export const fonts = {
  * Apply to <html> element
  */
 export const fontVariables = [
-  syne.variable,
-  outfit.variable,
+  spaceGrotesk.variable,
+  inter.variable,
   jetbrainsMono.variable,
 ].filter(Boolean).join(' ')
 
@@ -144,10 +152,11 @@ export const criticalFonts = [
 /**
  * Font family configuration for Tailwind
  * Use in tailwind.config.ts fontFamily
+ * Elegant thin font style for 21st.dev aesthetic
  */
 export const tailwindFontFamily = {
-  sans: ['var(--font-outfit)', 'Outfit', 'system-ui', '-apple-system', 'sans-serif'],
-  display: ['var(--font-syne)', 'Syne', 'system-ui', 'sans-serif'],
+  sans: ['var(--font-inter)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+  display: ['var(--font-space)', 'Space Grotesk', 'system-ui', 'sans-serif'],
   mono: ['var(--font-mono)', 'JetBrains Mono', 'Menlo', 'Monaco', 'monospace'],
 }
 

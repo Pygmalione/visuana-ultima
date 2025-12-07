@@ -220,3 +220,68 @@ pre {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================
+   SEONYU - Dark Theme Focus & Accessibility
+   ============================================ */
+
+/* Seonyu Focus Ring - Amber on Dark */
+.seonyu-focus {
+  @apply focus:outline-none focus:ring-2 focus:ring-amber-400
+         focus:ring-offset-2 focus:ring-offset-[#0a0118] rounded-lg;
+}
+
+.seonyu-focus-large {
+  @apply focus:outline-none focus:ring-4 focus:ring-amber-300
+         focus:ring-offset-4 focus:ring-offset-[#0a0118];
+}
+
+/* Seonyu Button Active States */
+.seonyu-btn-active {
+  @apply active:scale-95 transition-transform;
+}
+
+/* Seonyu Skip Link */
+.seonyu-skip-link {
+  position: absolute;
+  top: -50px;
+  left: 16px;
+  background: #f59e0b;
+  color: #0a0118;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 200ms ease;
+}
+
+.seonyu-skip-link:focus {
+  top: 16px;
+}
+
+/* ============================================
+   VISUANA - Light Theme Professional Styles
+   ============================================ */
+
+/* Visuana Focus Ring - Royal Red on Light */
+.visuana-focus {
+  @apply focus:outline-none focus:ring-2 focus:ring-red-700
+         focus:ring-offset-2 focus:ring-offset-white rounded-lg;
+}
+
+/* Visuana Professional Hover */
+.visuana-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+/* Visuana Card Elevation */
+.visuana-card {
+  @apply bg-white rounded-xl border border-gray-100 shadow-sm
+         hover:shadow-xl hover:border-gray-200 transition-all duration-300;
+}
+
+/* Visuana Gradient Text - Subtle Professional */
+.visuana-gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r
+         from-slate-800 via-red-700 to-slate-800;
+}

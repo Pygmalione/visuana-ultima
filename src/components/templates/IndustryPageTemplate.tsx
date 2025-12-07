@@ -611,8 +611,6 @@ export function IndustryPageTemplate({ industry }: IndustryPageTemplateProps) {
       <Footer
         columns={footerColumns}
         socialLinks={socialLinks}
-        companyName="Visuana"
-        companyDescription="AI-Powered Marketing Agency. Łączymy dane, storytelling i humor, by tworzyć kampanie, które działają."
       />
     </>
   )

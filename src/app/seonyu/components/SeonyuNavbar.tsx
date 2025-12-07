@@ -4,8 +4,8 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 
 // ============================================
-// SEONYU NAVBAR - BOLD REDESIGN
-// Glassmorphism Navigation on Dark Theme
+// SEONYU NAVBAR - LIGHT THEME
+// Minimal | Blue/Navy | 21st.dev Style
 // ============================================
 
 const navItems = [
@@ -25,7 +25,6 @@ export function SeonyuNavbar() {
     menuButtonRef.current?.focus()
   }, [])
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
@@ -34,7 +33,6 @@ export function SeonyuNavbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Handle Escape key and focus trap
   useEffect(() => {
     if (!isMobileMenuOpen) return
 
@@ -79,36 +77,17 @@ export function SeonyuNavbar() {
   return (
     <header
       className={`
-        fixed top-0 left-0 right-0 z-50 transition-all duration-500
+        fixed top-0 left-0 right-0 z-50 transition-all duration-300
+        ${isScrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}
       `}
-      style={{
-        background: isScrolled
-          ? 'linear-gradient(135deg, rgba(10, 1, 24, 0.95) 0%, rgba(26, 10, 46, 0.95) 100%)'
-          : 'transparent',
-        backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(124, 58, 237, 0.2)' : '1px solid transparent',
-      }}
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6">
         <nav className="flex items-center justify-between h-16 md:h-20" aria-label="Seonyu nawigacja">
           {/* Logo */}
-          <Link href="/seonyu" className="group relative">
-            <span className="text-2xl font-display font-bold tracking-tight">
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #a78bfa 100%)',
-                }}
-              >
-                SEONYU
-              </span>
+          <Link href="/seonyu" className="group">
+            <span className="text-xl font-display font-semibold tracking-tight text-slate-900">
+              SEONYU
             </span>
-            <span
-              className="absolute -bottom-1 left-0 w-full h-0.5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-              style={{
-                background: 'linear-gradient(90deg, #7c3aed 0%, #f59e0b 100%)',
-              }}
-            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -118,15 +97,9 @@ export function SeonyuNavbar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="relative px-4 py-2 text-sm font-medium text-purple-200/80 hover:text-white transition-colors duration-300 group"
+                    className="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors duration-200"
                   >
                     {item.label}
-                    <span
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 group-hover:w-full transition-all duration-300"
-                      style={{
-                        background: 'linear-gradient(90deg, transparent, #a78bfa, transparent)',
-                      }}
-                    />
                   </Link>
                 </li>
               ))}
@@ -134,18 +107,12 @@ export function SeonyuNavbar() {
 
             <Link
               href="#demo"
-              className="group relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition-colors duration-200"
             >
-              {/* Button glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 opacity-100" />
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 blur-lg opacity-40 group-hover:opacity-60 transition-opacity" />
-
-              <span className="relative flex items-center gap-2 text-black font-bold">
-                Zamów Demo
-                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
+              Zamów Demo
+              <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
           </div>
 
@@ -154,26 +121,16 @@ export function SeonyuNavbar() {
             ref={menuButtonRef}
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-              border: '1px solid rgba(255,255,255,0.1)',
-            }}
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
             aria-label={isMobileMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="seonyu-mobile-menu"
           >
-            <svg
-              className="w-5 h-5 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
@@ -184,22 +141,17 @@ export function SeonyuNavbar() {
           <div
             ref={mobileMenuRef}
             id="seonyu-mobile-menu"
-            className="md:hidden rounded-2xl mb-4 animate-slide-down overflow-hidden"
-            style={{
-              background: 'linear-gradient(135deg, rgba(10, 1, 24, 0.98) 0%, rgba(26, 10, 46, 0.98) 100%)',
-              border: '1px solid rgba(124, 58, 237, 0.2)',
-              backdropFilter: 'blur(20px)',
-            }}
+            className="md:hidden rounded-xl mb-4 bg-white border border-slate-200 shadow-xl overflow-hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Menu mobilne Seonyu"
           >
-            <ul className="py-4" role="menu">
+            <ul className="py-2" role="menu">
               {navItems.map((item) => (
                 <li key={item.href} role="none">
                   <Link
                     href={item.href}
-                    className="block px-6 py-3 text-base font-medium text-purple-200/80 hover:text-white hover:bg-white/5 transition-colors"
+                    className="block px-4 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
                     onClick={closeMobileMenu}
                     role="menuitem"
                   >
@@ -208,11 +160,11 @@ export function SeonyuNavbar() {
                 </li>
               ))}
             </ul>
-            <div className="px-4 pb-4">
+            <div className="px-3 pb-3">
               <Link
                 href="#demo"
                 onClick={closeMobileMenu}
-                className="block w-full text-center px-6 py-3 text-base font-bold rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black transition-all duration-200"
+                className="block w-full text-center px-4 py-3 text-base font-medium rounded-lg bg-slate-900 text-white"
                 role="menuitem"
               >
                 Zamów Demo
