@@ -93,6 +93,25 @@ const config: Config = {
           800: '#5B21B6',
           900: '#4C1D95',
         },
+        // Seonyu Brand Colors (SPEC-008)
+        'seonyu': {
+          primary: '#7C3AED',     // Purple - AI/Tech vibe
+          secondary: '#A855F7',   // Lighter purple
+          accent: '#F59E0B',      // Orange for CTAs
+          dark: '#1E1B4B',        // Deep indigo
+          light: '#EDE9FE',       // Light purple bg
+          50: '#FAF5FF',
+          100: '#F3E8FF',
+          200: '#E9D5FF',
+          300: '#D8B4FE',
+          400: '#C084FC',
+          500: '#A855F7',
+          600: '#9333EA',
+          700: '#7C3AED',
+          800: '#6B21A8',
+          900: '#581C87',
+          950: '#3B0764',
+        },
         // Semantic Colors
         'background': 'var(--background)',
         'foreground': 'var(--foreground)',
@@ -140,6 +159,11 @@ const config: Config = {
         'button': '0 1px 3px rgba(185, 28, 28, 0.2)',
         'button-hover': '0 4px 12px rgba(185, 28, 28, 0.3)',
         'modal': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        // Seonyu shadows (SPEC-008)
+        'seonyu-button': '0 1px 3px rgba(124, 58, 237, 0.2)',
+        'seonyu-button-hover': '0 4px 12px rgba(124, 58, 237, 0.3)',
+        'seonyu-glow': '0 0 30px rgba(124, 58, 237, 0.4)',
+        'seonyu-card': '0 4px 20px rgba(30, 27, 75, 0.1)',
       },
       animation: {
         'spin-slow': 'spin 0.8s linear infinite',

@@ -18,10 +18,11 @@
 | SPEC-005 | Homepage Visuana | ✅ Ukończona | 100% | 🟡 **3/5** | ~~SPEC-002~~ | `specs/SPEC-005-homepage/` |
 | SPEC-006 | Strony Usługowe (Szablon + 4 usługi) | ✅ Ukończona | 100% | 🟡 **3/5** | ~~SPEC-005~~ | `specs/2025-12-05-service-pages/` |
 | SPEC-007 | Strona Kontakt | ✅ Ukończona | 100% | 🟢 **2/5** | ~~SPEC-002~~ | `specs/2025-12-05-contact-page/` |
-| SPEC-008 | Seonyu - Brand & Landing | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 (ToV) | TBD |
+| SPEC-008 | Seonyu - Brand & Landing | 🟢 Aktywna | 0% | 🟡 **3/5** | ~~SPEC-001~~ | `specs/2025-12-07-seonyu-brand/` |
 | SPEC-009 | Content Strategy & Calendar | ✅ Ukończona | 80% | 🟡 **3/5** | ~~SPEC-001~~ | `specs/2025-12-07-content-strategy/` |
 | SPEC-010 | Content Automation (n8n + Dify) | ⬜ Oczekiwanie | 0% | 🔴 **4/5** | SPEC-003, SPEC-009 | TBD |
-| **SPEC-011** | **Industry & Role Value Pages** | ✅ Ukończona | 80% | 🔴 **4/5** | ~~SPEC-002~~, ~~SPEC-005~~ | `specs/2025-12-05-industry-role-pages/` |
+| **SPEC-011** | **Industry & Role Value Pages** | ✅ Ukończona | 100% | 🔴 **4/5** | ~~SPEC-002~~, ~~SPEC-005~~ | `specs/2025-12-05-industry-role-pages/` |
+| **SPEC-012** | **Frontend Visual Audit & Polish** | 🟢 Aktywna | 0% | 🟡 **3/5** | ~~SPEC-002~~, ~~SPEC-005~~ | `specs/2025-12-07-visual-audit/` |
 
 ### Aktualizacja 2025-12-07 (NOCNA SESJA AUTONOMICZNA)
 
@@ -48,10 +49,12 @@
 **W trakcie:**
 - 🟢 SPEC-003: Blog System (80% - UI + RSS gotowe, brakuje Strapi content)
 
+**W realizacji (sesja 2025-12-07 ciąg dalszy):**
+- 🟢 SPEC-008: Seonyu Brand & Landing (spec + tasks utworzone)
+- 🟢 SPEC-012: Frontend Visual Audit & Polish (spec + tasks utworzone)
+
 **Pozostałe do realizacji:**
-- ⬜ SPEC-008: Seonyu Brand & Landing
-- ⬜ SPEC-009: Content Strategy & Calendar
-- ⬜ SPEC-010: Content Automation (n8n + Dify)
+- ⬜ SPEC-010: Content Automation (n8n + Dify) - WSTRZYMANE
 
 **Research:**
 - 📊 Design Variants: `agent-os/research/DESIGN-VARIANTS.md` (typografia, biblioteki UI, struktura, copy)

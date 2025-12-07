@@ -6,7 +6,56 @@ import { Industry } from '@/types/industry'
 import { Section } from '@/components/layout/section'
 import { Container } from '@/components/layout/container'
 import { Grid } from '@/components/layout/grid'
+import { Navbar } from '@/components/layout/navbar'
+import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
+
+// ============================================
+// SHARED NAV & FOOTER CONFIG
+// ============================================
+
+const navItems = [
+  { label: 'Usługi', href: '/uslugi' },
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'O nas', href: '/o-nas' },
+]
+
+const footerColumns = [
+  {
+    title: 'Usługi',
+    links: [
+      { label: 'Content marketing', href: '/uslugi/content-marketing' },
+      { label: 'Influencer marketing', href: '/uslugi/influencer-marketing' },
+      { label: 'AI analytics', href: '/uslugi/ai-analytics' },
+      { label: 'Strategia digital', href: '/uslugi/strategia-digital' },
+    ],
+  },
+  {
+    title: 'Zasoby',
+    links: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Newsletter', href: '/newsletter' },
+      { label: 'Podcast', href: '/podcast' },
+      { label: 'Raporty', href: '/raporty' },
+    ],
+  },
+  {
+    title: 'Firma',
+    links: [
+      { label: 'O nas', href: '/o-nas' },
+      { label: 'Kariera', href: '/kariera' },
+      { label: 'Kontakt', href: '/kontakt' },
+      { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
+    ],
+  },
+]
+
+const socialLinks = [
+  { platform: 'linkedin' as const, href: 'https://linkedin.com/company/visuana' },
+  { platform: 'twitter' as const, href: 'https://twitter.com/visuana' },
+  { platform: 'instagram' as const, href: 'https://instagram.com/visuana' },
+]
 
 // ============================================
 // INDUSTRY PAGE TEMPLATE - SPEC-011
@@ -544,15 +593,28 @@ function CTASection({ industry }: { industry: Industry }) {
 
 export function IndustryPageTemplate({ industry }: IndustryPageTemplateProps) {
   return (
-    <main>
-      <HeroSection industry={industry} />
-      <PainPointsSection industry={industry} />
-      <SolutionsSection industry={industry} />
-      <CaseStudySection industry={industry} />
-      <RolesNavigationSection industry={industry} />
-      <FAQSection industry={industry} />
-      <CTASection industry={industry} />
-    </main>
+    <>
+      <Navbar
+        navItems={navItems}
+        ctaLabel="Umów konsultację"
+        ctaHref="/kontakt"
+      />
+      <main id="main-content">
+        <HeroSection industry={industry} />
+        <PainPointsSection industry={industry} />
+        <SolutionsSection industry={industry} />
+        <CaseStudySection industry={industry} />
+        <RolesNavigationSection industry={industry} />
+        <FAQSection industry={industry} />
+        <CTASection industry={industry} />
+      </main>
+      <Footer
+        columns={footerColumns}
+        socialLinks={socialLinks}
+        companyName="Visuana"
+        companyDescription="AI-Powered Marketing Agency. Łączymy dane, storytelling i humor, by tworzyć kampanie, które działają."
+      />
+    </>
   )
 }
 

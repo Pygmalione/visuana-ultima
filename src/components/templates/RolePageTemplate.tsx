@@ -6,6 +6,8 @@ import { Role } from '@/types/role'
 import { Section } from '@/components/layout/section'
 import { Container } from '@/components/layout/container'
 import { Grid } from '@/components/layout/grid'
+import { Navbar } from '@/components/layout/navbar'
+import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
 
 // ============================================
@@ -13,6 +15,53 @@ import { Button } from '@/components/ui/button'
 // Reusable template for all role landing pages
 // URL pattern: /dla-[role]
 // ============================================
+
+// ============================================
+// SHARED NAV & FOOTER CONFIG
+// ============================================
+
+const navItems = [
+  { label: 'Usługi', href: '/uslugi' },
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'O nas', href: '/o-nas' },
+]
+
+const footerColumns = [
+  {
+    title: 'Usługi',
+    links: [
+      { label: 'Content marketing', href: '/uslugi/content-marketing' },
+      { label: 'Influencer marketing', href: '/uslugi/influencer-marketing' },
+      { label: 'AI analytics', href: '/uslugi/ai-analytics' },
+      { label: 'Strategia digital', href: '/uslugi/strategia-digital' },
+    ],
+  },
+  {
+    title: 'Zasoby',
+    links: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Newsletter', href: '/newsletter' },
+      { label: 'Podcast', href: '/podcast' },
+      { label: 'Raporty', href: '/raporty' },
+    ],
+  },
+  {
+    title: 'Firma',
+    links: [
+      { label: 'O nas', href: '/o-nas' },
+      { label: 'Kariera', href: '/kariera' },
+      { label: 'Kontakt', href: '/kontakt' },
+      { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
+    ],
+  },
+]
+
+const socialLinks = [
+  { platform: 'linkedin' as const, href: 'https://linkedin.com/company/visuana' },
+  { platform: 'twitter' as const, href: 'https://twitter.com/visuana' },
+  { platform: 'instagram' as const, href: 'https://instagram.com/visuana' },
+]
 
 interface RolePageTemplateProps {
   role: Role
@@ -444,14 +493,23 @@ function CTASection({ role }: { role: Role }) {
 
 export function RolePageTemplate({ role }: RolePageTemplateProps) {
   return (
-    <main>
-      <HeroSection role={role} />
-      <ChallengesSection role={role} />
-      <SolutionsSection role={role} />
-      <IndustriesNavigationSection role={role} />
-      <TestimonialSection role={role} />
-      <CTASection role={role} />
-    </main>
+    <>
+      <Navbar navItems={navItems} ctaLabel="Umów konsultację" ctaHref="/kontakt" />
+      <main id="main-content">
+        <HeroSection role={role} />
+        <ChallengesSection role={role} />
+        <SolutionsSection role={role} />
+        <IndustriesNavigationSection role={role} />
+        <TestimonialSection role={role} />
+        <CTASection role={role} />
+      </main>
+      <Footer
+        columns={footerColumns}
+        socialLinks={socialLinks}
+        companyName="Visuana"
+        companyDescription="AI-Powered Marketing Agency. Łączymy kreatywność z danymi, by Twój marketing działał."
+      />
+    </>
   )
 }
 

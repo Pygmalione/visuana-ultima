@@ -32,9 +32,9 @@
 ### Phase 4: Content & Polish
 - [ ] 4.1 Add articles to Strapi CMS (strapi.sophitech.pl)
 - [ ] 4.2 Configure STRAPI_API_TOKEN in .env.local
-- [ ] 4.3 Implement RSS feed endpoint
-- [ ] 4.4 Add dynamic sitemap.xml
-- [ ] 4.5 Optimize ISR caching strategy
+- [x] 4.3 Implement RSS feed endpoint ✅ (commit 1c69bf9)
+- [x] 4.4 Add dynamic sitemap.xml ✅ (commit 1c69bf9)
+- [x] 4.5 Optimize ISR caching strategy ✅
 
 ### Phase 5: Enhancement (Optional)
 - [ ] 5.1 Add search functionality
@@ -59,8 +59,8 @@
 Phase 1: ████████████████████ 100%
 Phase 2: ████████████████████ 100%
 Phase 3: ████████████████████ 100%
-Phase 4: ░░░░░░░░░░░░░░░░░░░░   0%
+Phase 4: ████████████░░░░░░░░  60% (RSS + sitemap done, Strapi content pending)
 Phase 5: ░░░░░░░░░░░░░░░░░░░░   0%
 ─────────────────────────────────
-Overall: ████████████░░░░░░░░  60%
+Overall: ████████████████░░░░  80%
 ```
