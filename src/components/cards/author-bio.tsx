@@ -75,12 +75,12 @@ export function AuthorBio({
             <img
               src={avatar}
               alt={name}
-              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-4 ring-charcoal-100 shadow-lg"
+              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-4 ring-slate-100 shadow-lg"
             />
           ) : (
             <div
               data-testid="author-bio-avatar-fallback"
-              className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-royal-red-600 to-royal-red-800 text-white text-2xl md:text-3xl font-bold flex items-center justify-center ring-4 ring-charcoal-100 shadow-lg"
+              className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-royal-red-600 to-royal-red-800 text-white text-2xl md:text-3xl font-bold flex items-center justify-center ring-4 ring-slate-100 shadow-lg"
             >
               {getInitials(name)}
             </div>

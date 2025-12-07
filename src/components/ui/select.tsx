@@ -29,7 +29,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     const getBorderClass = () => {
       if (error) return 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-      return 'border-charcoal-200 focus:border-royal-red-600 focus:ring-royal-red-600/20'
+      return 'border-slate-200 focus:border-red-600 focus:ring-red-600/20'
     }
 
     // Glow effect class for focus state (SPEC-007)

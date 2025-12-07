@@ -59,7 +59,7 @@ export function FAQAccordion({
                     aria-controls={contentId}
                     onClick={() => toggleItem(index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
-                    className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-royal-red-700 focus-visible:ring-inset"
+                    className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-red-700 focus-visible:ring-inset"
                   >
                     <span className="text-lg font-semibold text-charcoal-800 pr-4">
                       {item.question}

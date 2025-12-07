@@ -446,7 +446,7 @@ export default async function ArticlePage({ params }: PageParams) {
               <input
                 type="email"
                 placeholder="twoj@email.pl"
-                className="flex-1 px-4 py-3 rounded-lg border border-charcoal-300 focus:ring-2 focus:ring-royal-red-500 focus:border-transparent"
+                className="flex-1 px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 required
               />
               <button

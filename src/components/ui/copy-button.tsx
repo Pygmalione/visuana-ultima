@@ -57,7 +57,7 @@ export function CopyButton({
           ? 'text-green-500'
           : 'text-charcoal-400 hover:text-charcoal-600 hover:bg-charcoal-100'
         }
-        focus:outline-none focus:ring-2 focus:ring-royal-red-700 focus:ring-offset-2
+        focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2
         ${className}
       `.trim().replace(/\s+/g, ' ')}
       aria-label={copied ? 'Skopiowano' : label}

@@ -1,5 +1,5 @@
 // Section Components
-export { Hero, HeroSplit } from './hero'
+export { Hero, HeroSplit, HeroLight } from './hero'
 export { CTABox } from './cta-box'
 
 // Service Page Sections (SPEC-006)

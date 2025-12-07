@@ -25,7 +25,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
 
     const getBorderClass = () => {
       if (error) return 'border-red-500 focus:ring-red-500/20'
-      return 'border-charcoal-300 focus:ring-royal-red-700/20'
+      return 'border-slate-300 focus:ring-red-700/20'
     }
 
     const getCheckedClass = () => {

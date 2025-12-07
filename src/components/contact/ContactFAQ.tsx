@@ -65,7 +65,7 @@ function AccordionItem({ item, index, isOpen, onToggle }: {
           transition-colors duration-200
           ${isOpen ? 'bg-charcoal-50' : 'hover:bg-charcoal-50'}
           focus-visible:outline-none focus-visible:ring-2
-          focus-visible:ring-royal-red-600 focus-visible:ring-inset
+          focus-visible:ring-red-600 focus-visible:ring-inset
         `.trim().replace(/\s+/g, ' ')}
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${index}`}

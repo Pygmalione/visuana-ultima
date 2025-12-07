@@ -225,7 +225,7 @@ export function Navbar({
                       block px-4 py-2 text-base
                       transition-colors duration-150
                       hover:bg-charcoal-50 hover:text-royal-red-700
-                      focus:bg-charcoal-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-royal-red-700
+                      focus:bg-charcoal-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-700
                       ${item.active ? 'text-royal-red-700 font-semibold' : 'text-charcoal-700'}
                     `}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -245,7 +245,7 @@ export function Navbar({
                   setIsMobileMenuOpen(false)
                   onCtaClick?.()
                 }}
-                className="block w-full text-center px-6 py-3 text-base font-semibold rounded-md bg-royal-red-700 text-white hover:bg-royal-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-royal-red-700 transition-all duration-200"
+                className="block w-full text-center px-6 py-3 text-base font-semibold rounded-md bg-royal-red-700 text-white hover:bg-royal-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700 transition-all duration-200"
                 role="menuitem"
               >
                 {ctaLabel}

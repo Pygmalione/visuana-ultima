@@ -55,7 +55,7 @@ export function ContactInfo() {
             hover:text-royal-red-600
             transition-colors duration-200
             focus-visible:outline-none focus-visible:ring-2
-            focus-visible:ring-royal-red-600 focus-visible:ring-offset-2
+            focus-visible:ring-red-600 focus-visible:ring-offset-2
             rounded
           "
         >
@@ -95,7 +95,7 @@ export function ContactInfo() {
                 active:bg-royal-red-100
                 transition-all duration-200 ease-out
                 focus-visible:outline-none focus-visible:ring-2
-                focus-visible:ring-royal-red-600 focus-visible:ring-offset-2
+                focus-visible:ring-red-600 focus-visible:ring-offset-2
               "
               aria-label={link.label}
             >

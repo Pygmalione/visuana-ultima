@@ -26,7 +26,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     const getBorderClass = () => {
       if (error) return 'border-red-500 focus:ring-red-500/20'
-      return 'border-charcoal-300 focus:ring-royal-red-600/20'
+      return 'border-slate-300 focus:ring-red-600/20'
     }
 
     const getCheckedClass = () => {

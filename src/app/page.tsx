@@ -1,5 +1,5 @@
 import { Navbar, Footer, Section, Grid } from '@/components/layout'
-import { Hero, CTABox } from '@/components/sections'
+import { HeroLight, CTABox } from '@/components/sections'
 import { Button, Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui'
 import { ArticleCard } from '@/components/cards'
 import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
@@ -128,8 +128,9 @@ export default function HomePage() {
       />
 
       <main id="main-content">
-        {/* Hero Section */}
-        <Hero
+        {/* Hero Section - McKinsey-style Light Theme */}
+        <HeroLight
+          badge="AI-Powered Marketing Agency"
           title="Marketing, który działa. Dane, które nie kłamią."
           subtitle="Butikowa agencja AI-powered marketingu. Łączymy dane, storytelling i odrobinę humoru, żeby tworzyć kampanie z realnym ROI."
           ctaLabel="Umów bezpłatną konsultację"
@@ -138,13 +139,16 @@ export default function HomePage() {
           secondaryCtaHref="/case-studies"
         />
 
-        {/* Services Section */}
+        {/* Services Section - Elegant Typography */}
         <Section bgColor="white" padding="xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-slate-600 bg-slate-100 border border-slate-200 mb-8">
+              Nasze usługi
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-light text-slate-900 mb-6 tracking-tight">
               Co robimy (i robimy to dobrze)
             </h2>
-            <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto font-light">
               Nie jesteśmy kolejną agencją, która obiecuje księżyc. Jesteśmy butikowym zespołem, który dostarcza wyniki.
             </p>
           </div>
@@ -187,49 +191,49 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* Stats Section */}
+        {/* Stats Section - Elegant Light */}
         <Section bgColor="white" padding="lg">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <p className="text-4xl md:text-5xl font-bold text-royal-red-700">12+</p>
-              <p className="text-charcoal-600 mt-2">Lat doświadczenia</p>
+            <div className="p-6">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">12+</p>
+              <p className="text-slate-500 mt-2 font-light">Lat doświadczenia</p>
             </div>
-            <div>
-              <p className="text-4xl md:text-5xl font-bold text-royal-red-700">150%</p>
-              <p className="text-charcoal-600 mt-2">Średni wzrost ROI</p>
+            <div className="p-6">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">150%</p>
+              <p className="text-slate-500 mt-2 font-light">Średni wzrost ROI</p>
             </div>
-            <div>
-              <p className="text-4xl md:text-5xl font-bold text-royal-red-700">50+</p>
-              <p className="text-charcoal-600 mt-2">Zadowolonych klientów</p>
+            <div className="p-6">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">50+</p>
+              <p className="text-slate-500 mt-2 font-light">Zadowolonych klientów</p>
             </div>
-            <div>
-              <p className="text-4xl md:text-5xl font-bold text-royal-red-700">3</p>
-              <p className="text-charcoal-600 mt-2">Kraje działania</p>
+            <div className="p-6">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">3</p>
+              <p className="text-slate-500 mt-2 font-light">Kraje działania</p>
             </div>
           </div>
         </Section>
 
-        {/* Founder Story Section */}
+        {/* Founder Story Section - Elegant Light */}
         <Section bgColor="muted" padding="xl">
           <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-8 items-center">
+            <div className="flex flex-col md:flex-row gap-12 items-center">
               {/* Founder Image Placeholder */}
               <div className="flex-shrink-0">
-                <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-royal-red-600 to-royal-red-800 shadow-xl flex items-center justify-center">
-                  <span className="text-6xl text-white font-bold">KD</span>
+                <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-slate-900 shadow-xl flex items-center justify-center">
+                  <span className="text-6xl text-white font-light">KD</span>
                 </div>
               </div>
               {/* Founder Story */}
               <div className="flex-1 text-center md:text-left">
-                <h2 className="text-2xl md:text-3xl font-bold text-charcoal-800 mb-4">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-light text-slate-900 mb-6 tracking-tight">
                   Cześć, jestem Karol
                 </h2>
-                <p className="text-charcoal-600 text-lg leading-relaxed mb-4">
+                <p className="text-slate-500 text-lg leading-relaxed mb-4 font-light">
                   12 lat w marketingu. Z czego połowę w Azji - od L&apos;Oréal Korea po Netflix Japan.
                   Widziałem kampanie za miliony dolarów i takie za grosze, które działały lepiej.
                 </p>
-                <p className="text-charcoal-600 text-lg leading-relaxed mb-6">
-                  <strong className="text-charcoal-800">Hot take:</strong> Większość agencji sprzedaje Ci
+                <p className="text-slate-500 text-lg leading-relaxed mb-8 font-light">
+                  <strong className="text-slate-900 font-medium">Hot take:</strong> Większość agencji sprzedaje Ci
                   PowerPointy. My dostarczamy wyniki. Dane nie kłamią - i to jest nasze motto.
                 </p>
                 <Button variant="outline" size="md">
@@ -240,13 +244,16 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* Latest Articles Section */}
+        {/* Latest Articles Section - Elegant Typography */}
         <Section bgColor="white" padding="xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
+          <div className="text-center mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-slate-600 bg-slate-100 border border-slate-200 mb-8">
+              Insights
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-light text-slate-900 mb-6 tracking-tight">
               Z bloga
             </h2>
-            <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto font-light">
               Praktyczne porady, case studies i hot takes. Zero fluffu, same konkrety.
             </p>
           </div>
@@ -272,24 +279,34 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* CTA Section */}
-        <Section bgColor="royal-red" padding="lg">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        {/* CTA Section - Elegant Dark */}
+        <section className="relative py-24 md:py-32 bg-slate-900 overflow-hidden">
+          {/* Subtle gradient orb */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div
+              className="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-[120px]"
+              style={{
+                background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)',
+                top: '-20%',
+                right: '10%',
+              }}
+            />
+          </div>
+          <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-light text-white mb-6 tracking-tight">
               Gotowy na marketing, który ma sens?
             </h2>
-            <p className="text-lg text-royal-red-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
               Umów bezpłatną konsultację (45 minut). Bez zobowiązań, bez sprzedaży pod presją. Tylko konkretna analiza Twojej sytuacji.
             </p>
-            <Button
-              variant="secondary"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-royal-red-700"
+            <a
+              href="/kontakt"
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl bg-white text-slate-900 hover:bg-slate-100 transition-all duration-200 shadow-lg"
             >
               Umów konsultację →
-            </Button>
+            </a>
           </div>
-        </Section>
+        </section>
       </main>
 
       {/* Footer */}

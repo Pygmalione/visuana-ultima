@@ -163,3 +163,104 @@ export function HeroSplit({
 }
 
 HeroSplit.displayName = 'HeroSplit'
+
+// ============================================
+// HERO VARIANT - Light Theme (McKinsey Style)
+// Elegant, Professional, Thin Typography
+// ============================================
+
+interface HeroLightProps extends HeroProps {
+  badge?: string
+}
+
+export function HeroLight({
+  title,
+  subtitle,
+  ctaLabel,
+  ctaHref = '#',
+  secondaryCtaLabel,
+  secondaryCtaHref = '#',
+  badge,
+}: HeroLightProps) {
+  return (
+    <section
+      className="relative min-h-[85vh] md:min-h-[90vh] flex items-center bg-white overflow-hidden"
+      aria-label="Hero section"
+    >
+      {/* Subtle Background Gradients */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-[120px]"
+          style={{
+            background: 'radial-gradient(circle, #1e40af 0%, transparent 70%)',
+            top: '-15%',
+            right: '-10%',
+          }}
+        />
+        <div
+          className="absolute w-[400px] h-[400px] rounded-full opacity-15 blur-[100px]"
+          style={{
+            background: 'radial-gradient(circle, #b91c1c 0%, transparent 70%)',
+            bottom: '10%',
+            left: '-5%',
+          }}
+        />
+      </div>
+
+      <Container className="relative z-10">
+        <div className="max-w-4xl mx-auto text-center py-16">
+          {/* Badge */}
+          {badge && (
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-slate-600 bg-slate-100 border border-slate-200 mb-10">
+              {badge}
+            </span>
+          )}
+
+          {/* Title - Elegant Thin Typography */}
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-slate-900 leading-[1.1] mb-8 tracking-tight">
+            {title}
+          </h1>
+
+          {/* Subtitle */}
+          {subtitle && (
+            <p className="text-lg md:text-xl text-slate-500 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+              {subtitle}
+            </p>
+          )}
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {ctaLabel && (
+              <Link
+                href={ctaHref}
+                className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-900/10"
+              >
+                {ctaLabel}
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            )}
+            {secondaryCtaLabel && (
+              <Link
+                href={secondaryCtaHref}
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-slate-600 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+              >
+                {secondaryCtaLabel}
+              </Link>
+            )}
+          </div>
+        </div>
+      </Container>
+
+      {/* Bottom Gradient */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: 'linear-gradient(to top, #f8fafc 0%, transparent 100%)' }}
+        aria-hidden="true"
+      />
+    </section>
+  )
+}
+
+HeroLight.displayName = 'HeroLight'

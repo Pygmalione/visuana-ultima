@@ -80,7 +80,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           font-semibold rounded-md
           transition-all duration-200 ease-out
           focus-visible:outline-none focus-visible:ring-2
-          focus-visible:ring-royal-red-600 focus-visible:ring-offset-2
+          focus-visible:ring-red-600 focus-visible:ring-offset-2
           focus-visible:shadow-[0_0_30px_rgba(220,38,38,0.3)]
           ${variantStyles[variant]}
           ${sizeStyles[size]}

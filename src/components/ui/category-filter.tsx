@@ -47,7 +47,7 @@ export function CategoryFilter({
             px-4 py-2 rounded-full
             text-sm font-medium
             transition-all duration-200
-            focus:outline-none focus:ring-2 focus:ring-royal-red-700 focus:ring-offset-2
+            focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2
             ${
               isActive('')
                 ? 'bg-royal-red-700 text-white shadow-button hover:shadow-button-hover'
@@ -69,7 +69,7 @@ export function CategoryFilter({
             px-4 py-2 rounded-full
             text-sm font-medium
             transition-all duration-200
-            focus:outline-none focus:ring-2 focus:ring-royal-red-700 focus:ring-offset-2
+            focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2
             ${
               isActive(category)
                 ? 'bg-royal-red-700 text-white shadow-button hover:shadow-button-hover'
