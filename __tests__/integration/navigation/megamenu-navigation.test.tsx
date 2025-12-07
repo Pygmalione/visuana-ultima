@@ -31,7 +31,7 @@ describe('MegaMenu Navigation Integration Tests', () => {
   // ============================================
 
   describe('Industry Page Navigation', () => {
-    it('renders all 5 industry items in MegaMenu', () => {
+    it('renders all 8 industry items in MegaMenu', () => {
       render(
         <MegaMenu
           isOpen={true}
@@ -41,12 +41,15 @@ describe('MegaMenu Navigation Integration Tests', () => {
         />
       )
 
-      // Verify all 5 industries in MegaMenu
+      // Verify all 8 industries in MegaMenu
       expect(screen.getByText('SaaS / Tech')).toBeInTheDocument()
       expect(screen.getByText('E-commerce')).toBeInTheDocument()
       expect(screen.getByText('Professional Services')).toBeInTheDocument()
       expect(screen.getByText('Healthcare / MedTech')).toBeInTheDocument()
       expect(screen.getByText('Fintech')).toBeInTheDocument()
+      expect(screen.getByText('Produkcja / B2B')).toBeInTheDocument()
+      expect(screen.getByText('EdTech')).toBeInTheDocument()
+      expect(screen.getByText('Nieruchomosci')).toBeInTheDocument()
     })
 
     it('industry items have correct href paths', () => {
@@ -77,7 +80,7 @@ describe('MegaMenu Navigation Integration Tests', () => {
     })
 
     it('defaultIndustries has correct structure', () => {
-      expect(defaultIndustries).toHaveLength(5)
+      expect(defaultIndustries).toHaveLength(8)
 
       // Each industry should have full path in slug
       defaultIndustries.forEach(industry => {
@@ -109,7 +112,7 @@ describe('MegaMenu Navigation Integration Tests', () => {
   // ============================================
 
   describe('Role Page Navigation', () => {
-    it('renders all 5 role items in MegaMenu', () => {
+    it('renders all 6 role items in MegaMenu', () => {
       render(
         <MegaMenu
           isOpen={true}
@@ -119,11 +122,12 @@ describe('MegaMenu Navigation Integration Tests', () => {
         />
       )
 
-      // Verify all 5 roles in MegaMenu
+      // Verify all 6 roles in MegaMenu
       expect(screen.getByText('CEO / Founder')).toBeInTheDocument()
       expect(screen.getByText('CMO / VP Marketing')).toBeInTheDocument()
       expect(screen.getByText('Marketing Director')).toBeInTheDocument()
       expect(screen.getByText('Head of Growth')).toBeInTheDocument()
+      expect(screen.getByText('Content Manager')).toBeInTheDocument()
       expect(screen.getByText('Startup Founder')).toBeInTheDocument()
     })
 
@@ -154,7 +158,7 @@ describe('MegaMenu Navigation Integration Tests', () => {
     })
 
     it('defaultRoles has correct structure', () => {
-      expect(defaultRoles).toHaveLength(5)
+      expect(defaultRoles).toHaveLength(6)
 
       // Each role should have /dla- prefix
       defaultRoles.forEach(role => {
@@ -237,9 +241,9 @@ describe('MegaMenu Navigation Integration Tests', () => {
         />
       )
 
-      // 5 industries + 5 roles + 2 CTA buttons = 12 menu items
+      // 8 industries + 6 roles + 2 CTA buttons = 16 menu items
       const menuItems = screen.getAllByRole('menuitem')
-      expect(menuItems.length).toBe(12)
+      expect(menuItems.length).toBe(16)
     })
   })
 
@@ -415,6 +419,9 @@ describe('MegaMenu Navigation Integration Tests', () => {
       expect(ids).toContain('uslugi')
       expect(ids).toContain('medtech')
       expect(ids).toContain('fintech')
+      expect(ids).toContain('produkcja')
+      expect(ids).toContain('edtech')
+      expect(ids).toContain('nieruchomosci')
     })
 
     it('role ids match expected values', () => {
@@ -423,6 +430,7 @@ describe('MegaMenu Navigation Integration Tests', () => {
       expect(ids).toContain('cmo')
       expect(ids).toContain('director')
       expect(ids).toContain('growth')
+      expect(ids).toContain('content-manager')
       expect(ids).toContain('founder')
     })
   })

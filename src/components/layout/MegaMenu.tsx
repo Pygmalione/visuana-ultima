@@ -75,6 +75,9 @@ const industryIcons: Record<string, ReactElement> = {
   uslugi: icons.briefcase,
   medtech: icons.heart,
   fintech: icons.landmark,
+  produkcja: icons.briefcase,
+  edtech: icons.lightbulb,
+  nieruchomosci: icons.landmark,
 }
 
 const roleIcons: Record<string, ReactElement> = {
@@ -82,16 +85,20 @@ const roleIcons: Record<string, ReactElement> = {
   cmo: icons.target,
   director: icons.users,
   growth: icons.trending,
+  'content-manager': icons.target,
   founder: icons.lightbulb,
 }
 
-// Default data
+// Default data - synchronized with industries.ts and roles.ts
 export const defaultIndustries: MegaMenuIndustry[] = [
   { id: 'saas', name: 'SaaS / Tech', slug: '/dla/saas', description: 'AI marketing dla firm technologicznych' },
   { id: 'ecommerce', name: 'E-commerce', slug: '/dla/ecommerce', description: 'ROAS, kampanie produktowe' },
   { id: 'uslugi', name: 'Professional Services', slug: '/dla/uslugi-profesjonalne', description: 'Kancelarie, firmy doradcze' },
   { id: 'medtech', name: 'Healthcare / MedTech', slug: '/dla/medtech', description: 'Compliance-first marketing' },
   { id: 'fintech', name: 'Fintech', slug: '/dla/fintech', description: 'Marketing z wbudowana compliance' },
+  { id: 'produkcja', name: 'Produkcja / B2B', slug: '/dla/produkcja', description: 'Technical content, long-cycle' },
+  { id: 'edtech', name: 'EdTech', slug: '/dla/edtech', description: 'Trial conversion, enrollment' },
+  { id: 'nieruchomosci', name: 'Nieruchomosci', slug: '/dla/nieruchomosci', description: 'Local SEO, virtual tours' },
 ]
 
 export const defaultRoles: MegaMenuRole[] = [
@@ -99,6 +106,7 @@ export const defaultRoles: MegaMenuRole[] = [
   { id: 'cmo', name: 'CMO / VP Marketing', slug: '/dla-cmo', description: 'Partner, nie kolejna agencja' },
   { id: 'director', name: 'Marketing Director', slug: '/dla-marketing-director', description: 'Wykonanie z ograniczonym budzetem' },
   { id: 'growth', name: 'Head of Growth', slug: '/dla-growth', description: 'Eksperymenty, atrybucja' },
+  { id: 'content-manager', name: 'Content Manager', slug: '/dla-content-manager', description: 'Strategia i produkcja contentu' },
   { id: 'founder', name: 'Startup Founder', slug: '/dla-founder', description: 'Marketing na autopilot' },
 ]
 

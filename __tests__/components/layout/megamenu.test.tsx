@@ -87,8 +87,11 @@ describe('MegaMenu', () => {
       />
     )
 
+    // Get all menu items and filter by href to verify industry links
+    const menuItems = screen.getAllByRole('menuitem')
     defaultIndustries.forEach((industry) => {
-      const link = screen.getByRole('menuitem', { name: new RegExp(industry.name, 'i') })
+      const link = menuItems.find(item => item.getAttribute('href') === industry.slug)
+      expect(link).toBeTruthy()
       expect(link).toHaveAttribute('href', industry.slug)
     })
   })
