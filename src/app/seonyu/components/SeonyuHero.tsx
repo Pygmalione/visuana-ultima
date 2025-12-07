@@ -96,24 +96,24 @@ export function SeonyuHero() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 text-center">
         {/* Badge */}
         <div
-          className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-12 bg-slate-100 border border-slate-200"
+          className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full mb-12 bg-white/80 backdrop-blur-lg border border-slate-200/60 shadow-sm"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
           </span>
-          <span className="text-sm font-medium text-slate-700 tracking-wide">
+          <span className="text-sm font-light text-slate-700 tracking-wide">
             Powered by Advanced AI
           </span>
         </div>
 
         {/* Main Headline */}
-        <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold mb-8 leading-[1.05] tracking-tight">
+        <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-light mb-8 leading-[1.05] tracking-tight">
           <span className="block text-slate-900 pb-2">
             Influencer Marketing
           </span>
           <span
-            className="block bg-clip-text text-transparent"
+            className="block bg-clip-text text-transparent font-normal"
             style={{
               backgroundImage: 'linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #06b6d4 100%)',
             }}
@@ -123,10 +123,10 @@ export function SeonyuHero() {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg sm:text-xl text-slate-600 mb-14 max-w-2xl mx-auto leading-relaxed">
-          Znajdź <span className="text-blue-600 font-semibold">idealnych influencerów</span>,
-          zautomatyzuj <span className="text-slate-800 font-semibold">outreach</span> i śledź
-          <span className="text-cyan-600 font-semibold"> wyniki w czasie rzeczywistym</span>.
+        <p className="text-lg sm:text-xl text-slate-600 mb-14 max-w-2xl mx-auto leading-relaxed font-light">
+          Znajdź <span className="text-blue-600 font-normal">idealnych influencerów</span>,
+          zautomatyzuj <span className="text-slate-800 font-normal">outreach</span> i śledź
+          <span className="text-cyan-600 font-normal"> wyniki w czasie rzeczywistym</span>.
         </p>
 
         {/* CTA Buttons */}
@@ -134,11 +134,11 @@ export function SeonyuHero() {
           {/* Primary CTA */}
           <Link
             href="#demo"
-            className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all duration-300 hover:shadow-xl hover:shadow-slate-900/20 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+            className="group relative inline-flex items-center justify-center px-8 py-4 text-base font-light rounded-xl bg-slate-900 text-white hover:bg-blue-600 transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/30 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
           >
             <span className="flex items-center gap-2">
               Umów Bezpłatne Demo
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </span>
@@ -147,10 +147,10 @@ export function SeonyuHero() {
           {/* Secondary CTA */}
           <Link
             href="#jak-dziala"
-            className="group inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+            className="group inline-flex items-center justify-center px-8 py-4 text-base font-light rounded-xl border border-slate-300 text-slate-700 bg-white/60 backdrop-blur-sm hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             <span className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -164,12 +164,12 @@ export function SeonyuHero() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group flex items-center gap-3 px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300"
+              className="group flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/70 backdrop-blur-md border border-slate-200/60 shadow-sm hover:shadow-lg hover:shadow-blue-600/10 hover:border-blue-300 hover:bg-white transition-all duration-300"
             >
-              <span className="text-2xl">{feature.icon}</span>
+              <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{feature.icon}</span>
               <div className="text-left">
-                <p className="text-slate-900 font-semibold text-sm">{feature.label}</p>
-                <p className="text-slate-500 text-xs">{feature.desc}</p>
+                <p className="text-slate-900 font-normal text-sm">{feature.label}</p>
+                <p className="text-slate-500 text-xs font-light">{feature.desc}</p>
               </div>
             </div>
           ))}

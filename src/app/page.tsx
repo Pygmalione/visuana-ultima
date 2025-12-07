@@ -157,11 +157,11 @@ export default function HomePage() {
             {services.map((service) => (
               <Card key={service.title} hoverable>
                 <CardHeader>
-                  <span className="text-4xl mb-4 block">{service.icon}</span>
+                  <div className="text-4xl mb-4 opacity-70 transition-opacity duration-300 group-hover:opacity-100">{service.icon}</div>
                   <CardTitle>{service.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">
+                  <CardDescription className="text-base leading-relaxed">
                     {service.description}
                   </CardDescription>
                 </CardContent>
@@ -173,19 +173,19 @@ export default function HomePage() {
         {/* Client Logos Section */}
         <Section bgColor="muted" padding="md">
           <div className="text-center mb-8">
-            <p className="text-sm text-charcoal-500 uppercase tracking-wider font-medium">
+            <p className="text-sm text-slate-500 uppercase tracking-wider font-medium">
               Zaufali nam
             </p>
           </div>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {clientLogos.map((client) => (
               <div
                 key={client.name}
-                className="w-24 md:w-32 h-12 flex items-center justify-center"
+                className="w-24 md:w-32 h-12 flex items-center justify-center opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 title={client.name}
               >
                 {/* Placeholder - replace with actual logos */}
-                <span className="text-charcoal-400 font-semibold text-sm">{client.name}</span>
+                <span className="text-slate-600 font-light text-sm">{client.name}</span>
               </div>
             ))}
           </div>
@@ -194,21 +194,21 @@ export default function HomePage() {
         {/* Stats Section - Elegant Light */}
         <Section bgColor="white" padding="lg">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="p-6">
-              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">12+</p>
-              <p className="text-slate-500 mt-2 font-light">Lat doświadczenia</p>
+            <div className="p-6 group cursor-default">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight transition-all duration-300 group-hover:scale-105 group-hover:text-slate-700">12+</p>
+              <p className="text-slate-500 mt-3 font-light text-sm">Lat doświadczenia</p>
             </div>
-            <div className="p-6">
-              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">150%</p>
-              <p className="text-slate-500 mt-2 font-light">Średni wzrost ROI</p>
+            <div className="p-6 group cursor-default border-l border-slate-200">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight transition-all duration-300 group-hover:scale-105 group-hover:text-slate-700">150%</p>
+              <p className="text-slate-500 mt-3 font-light text-sm">Średni wzrost ROI</p>
             </div>
-            <div className="p-6">
-              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">50+</p>
-              <p className="text-slate-500 mt-2 font-light">Zadowolonych klientów</p>
+            <div className="p-6 group cursor-default border-l border-slate-200">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight transition-all duration-300 group-hover:scale-105 group-hover:text-slate-700">50+</p>
+              <p className="text-slate-500 mt-3 font-light text-sm">Zadowolonych klientów</p>
             </div>
-            <div className="p-6">
-              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight">3</p>
-              <p className="text-slate-500 mt-2 font-light">Kraje działania</p>
+            <div className="p-6 group cursor-default border-l border-slate-200">
+              <p className="font-display text-4xl md:text-5xl font-light text-slate-900 tracking-tight transition-all duration-300 group-hover:scale-105 group-hover:text-slate-700">3</p>
+              <p className="text-slate-500 mt-3 font-light text-sm">Kraje działania</p>
             </div>
           </div>
         </Section>
@@ -219,7 +219,7 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row gap-12 items-center">
               {/* Founder Image Placeholder */}
               <div className="flex-shrink-0">
-                <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-slate-900 shadow-xl flex items-center justify-center">
+                <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 shadow-xl flex items-center justify-center transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
                   <span className="text-6xl text-white font-light">KD</span>
                 </div>
               </div>
@@ -228,16 +228,16 @@ export default function HomePage() {
                 <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-light text-slate-900 mb-6 tracking-tight">
                   Cześć, jestem Karol
                 </h2>
-                <p className="text-slate-500 text-lg leading-relaxed mb-4 font-light">
+                <p className="text-slate-600 text-lg leading-relaxed mb-4 font-light">
                   12 lat w marketingu. Z czego połowę w Azji - od L&apos;Oréal Korea po Netflix Japan.
                   Widziałem kampanie za miliony dolarów i takie za grosze, które działały lepiej.
                 </p>
-                <p className="text-slate-500 text-lg leading-relaxed mb-8 font-light">
+                <p className="text-slate-600 text-lg leading-relaxed mb-8 font-light">
                   <strong className="text-slate-900 font-medium">Hot take:</strong> Większość agencji sprzedaje Ci
                   PowerPointy. My dostarczamy wyniki. Dane nie kłamią - i to jest nasze motto.
                 </p>
                 <Button variant="outline" size="md">
-                  Poznaj całą historię →
+                  Poznaj całą historię
                 </Button>
               </div>
             </div>
@@ -273,22 +273,37 @@ export default function HomePage() {
           </Grid>
 
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg">
-              Zobacz wszystkie artykuły →
-            </Button>
+            <a
+              href="/blog"
+              className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-slate-600 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+            >
+              Zobacz wszystkie artykuły
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
           </div>
         </Section>
 
         {/* CTA Section - Elegant Dark */}
         <section className="relative py-24 md:py-32 bg-slate-900 overflow-hidden">
-          {/* Subtle gradient orb */}
-          <div className="absolute inset-0 pointer-events-none">
+          {/* Subtle gradient orbs */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
             <div
-              className="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-[120px]"
+              className="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-[120px] animate-pulse-slow"
               style={{
                 background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)',
                 top: '-20%',
                 right: '10%',
+              }}
+            />
+            <div
+              className="absolute w-[400px] h-[400px] rounded-full opacity-15 blur-[100px] animate-pulse-slow"
+              style={{
+                background: 'radial-gradient(circle, #1e40af 0%, transparent 70%)',
+                bottom: '-15%',
+                left: '5%',
+                animationDelay: '1s',
               }}
             />
           </div>
@@ -301,9 +316,12 @@ export default function HomePage() {
             </p>
             <a
               href="/kontakt"
-              className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl bg-white text-slate-900 hover:bg-slate-100 transition-all duration-200 shadow-lg"
+              className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl bg-white text-slate-900 hover:bg-slate-100 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              Umów konsultację →
+              Umów konsultację
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </a>
           </div>
         </section>

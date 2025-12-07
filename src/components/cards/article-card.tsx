@@ -35,11 +35,11 @@ export function ArticleCard({
       data-testid="article-card"
       className={`
         group
-        bg-white rounded-lg overflow-hidden
-        border border-charcoal-100
-        shadow-card hover:shadow-card-hover
+        bg-white rounded-xl overflow-hidden
+        border border-slate-200
+        shadow-subtle hover:shadow-card-hover
         transition-all duration-300 ease-out
-        hover:-translate-y-1
+        hover:-translate-y-1 hover:border-slate-300
         ${isFeatured ? 'md:col-span-2 md:grid md:grid-cols-2' : ''}
       `.trim().replace(/\s+/g, ' ')}
     >
@@ -70,16 +70,16 @@ export function ArticleCard({
       <div className={`p-5 ${isFeatured ? 'flex flex-col justify-center' : ''}`}>
         {/* Category Badge */}
         {category && (
-          <span className="inline-block px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-royal-red-700 bg-royal-red-50 rounded-full mb-3">
+          <span className="inline-block px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-slate-600 bg-slate-100 border border-slate-200 rounded-full mb-3">
             {category}
           </span>
         )}
 
         {/* Title */}
-        <h3 className={`font-bold text-charcoal-800 line-clamp-2 mb-2 ${isFeatured ? 'text-xl md:text-2xl' : 'text-lg'}`}>
+        <h3 className={`font-display font-light text-slate-900 line-clamp-2 mb-2 tracking-tight ${isFeatured ? 'text-xl md:text-2xl' : 'text-lg'}`}>
           <Link
             href={`/blog/${slug}`}
-            className="hover:text-royal-red-700 transition-colors duration-150"
+            className="hover:text-slate-700 transition-colors duration-200"
           >
             {title}
           </Link>
@@ -89,14 +89,14 @@ export function ArticleCard({
         {excerpt && (
           <p
             data-testid="article-excerpt"
-            className={`text-charcoal-600 line-clamp-3 mb-4 ${isFeatured ? 'text-base' : 'text-sm'}`}
+            className={`text-slate-600 font-light leading-relaxed line-clamp-3 mb-4 ${isFeatured ? 'text-base' : 'text-sm'}`}
           >
             {excerpt}
           </p>
         )}
 
         {/* Meta: Date & Author */}
-        <div className="flex items-center gap-3 text-sm text-charcoal-500">
+        <div className="flex items-center gap-3 text-sm text-slate-500 font-light">
           {/* Date */}
           {date && (
             <time dateTime={date} className="flex items-center gap-1">
@@ -122,12 +122,12 @@ export function ArticleCard({
               ) : (
                 <span
                   data-testid="author-avatar-fallback"
-                  className="w-6 h-6 rounded-full bg-charcoal-200 text-charcoal-600 text-xs font-semibold flex items-center justify-center"
+                  className="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-medium flex items-center justify-center"
                 >
                   {getInitials(author.name)}
                 </span>
               )}
-              <span className="font-medium text-charcoal-700">{author.name}</span>
+              <span className="font-normal text-slate-700">{author.name}</span>
             </div>
           )}
         </div>

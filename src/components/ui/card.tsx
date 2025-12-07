@@ -9,11 +9,11 @@ import { CardProps } from '@/types/components'
 
 const variantStyles = {
   default: `
-    bg-white border border-charcoal-200
-    shadow-card
+    bg-white border border-slate-200
+    shadow-subtle
   `,
   featured: `
-    bg-gradient-to-br from-royal-red-700 to-royal-red-800
+    bg-gradient-to-br from-slate-900 to-slate-800
     text-white border-none
     shadow-lg
   `,
@@ -34,10 +34,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={`
-          rounded-lg p-6 md:p-8
-          transition-all duration-250 ease-out
+          rounded-xl p-6 md:p-8
+          transition-all duration-300 ease-out
           ${variantStyles[variant]}
-          ${hoverable ? 'hover:shadow-card-hover hover:-translate-y-0.5 hover:border-royal-red-700/30 cursor-pointer' : ''}
+          ${hoverable ? 'hover:shadow-card-hover hover:-translate-y-1 hover:border-slate-300 cursor-pointer' : ''}
           ${className}
         `.trim().replace(/\s+/g, ' ')}
         {...props}
@@ -75,7 +75,7 @@ export const CardTitle = forwardRef<
 >(({ className = '', children, ...props }, ref) => (
   <h3
     ref={ref}
-    className={`text-xl font-semibold text-charcoal-800 ${className}`}
+    className={`text-xl font-display font-light text-slate-900 tracking-tight ${className}`}
     {...props}
   >
     {children}
@@ -90,7 +90,7 @@ export const CardDescription = forwardRef<
 >(({ className = '', children, ...props }, ref) => (
   <p
     ref={ref}
-    className={`text-sm text-charcoal-500 mt-1 ${className}`}
+    className={`text-sm text-slate-600 font-light leading-relaxed mt-1 ${className}`}
     {...props}
   >
     {children}

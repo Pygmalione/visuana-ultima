@@ -9,24 +9,24 @@ import { Container } from '@/components/layout/container'
 // ============================================
 
 const bgColors = {
-  'royal-red': 'bg-royal-red-700',
-  'charcoal': 'bg-charcoal-900',
-  'white': 'bg-white border border-charcoal-200',
-  'muted': 'bg-charcoal-50',
+  'royal-red': 'bg-slate-900',
+  'charcoal': 'bg-slate-800',
+  'white': 'bg-white border border-slate-200',
+  'muted': 'bg-slate-50',
 }
 
 const textColors = {
-  'royal-red': { title: 'text-white', description: 'text-royal-red-100' },
-  'charcoal': { title: 'text-white', description: 'text-charcoal-300' },
-  'white': { title: 'text-charcoal-800', description: 'text-charcoal-600' },
-  'muted': { title: 'text-charcoal-800', description: 'text-charcoal-600' },
+  'royal-red': { title: 'text-white', description: 'text-slate-300' },
+  'charcoal': { title: 'text-white', description: 'text-slate-300' },
+  'white': { title: 'text-slate-900', description: 'text-slate-600' },
+  'muted': { title: 'text-slate-900', description: 'text-slate-600' },
 }
 
 const buttonStyles = {
-  'royal-red': 'bg-white text-royal-red-700 hover:bg-charcoal-100',
-  'charcoal': 'bg-royal-red-700 text-white hover:bg-royal-red-800',
-  'white': 'bg-royal-red-700 text-white hover:bg-royal-red-800',
-  'muted': 'bg-royal-red-700 text-white hover:bg-royal-red-800',
+  'royal-red': 'bg-white text-slate-900 hover:bg-slate-100 shadow-lg hover:shadow-xl hover:-translate-y-0.5',
+  'charcoal': 'bg-white text-slate-900 hover:bg-slate-100 shadow-lg hover:shadow-xl hover:-translate-y-0.5',
+  'white': 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg hover:shadow-xl hover:-translate-y-0.5',
+  'muted': 'bg-slate-900 text-white hover:bg-slate-800 shadow-lg hover:shadow-xl hover:-translate-y-0.5',
 }
 
 const alignmentClasses = {
@@ -50,19 +50,19 @@ export function CTABox({
     <section
       data-testid="cta-box"
       className={`
-        py-12 md:py-16 rounded-lg
+        py-12 md:py-16 rounded-xl
         ${bgColors[bgColor]}
         ${alignmentClasses[alignment]}
       `.trim().replace(/\s+/g, ' ')}
     >
       <Container>
         <div className={`max-w-2xl ${alignment === 'center' ? 'mx-auto' : alignment === 'right' ? 'ml-auto' : ''}`}>
-          <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${colors.title}`}>
+          <h2 className={`font-display text-2xl md:text-3xl font-light tracking-tight mb-4 ${colors.title}`}>
             {title}
           </h2>
 
           {description && (
-            <p className={`text-lg mb-6 ${colors.description}`}>
+            <p className={`text-lg font-light leading-relaxed mb-6 ${colors.description}`}>
               {description}
             </p>
           )}
@@ -71,7 +71,7 @@ export function CTABox({
             href={buttonHref}
             className={`
               inline-flex items-center justify-center
-              px-6 py-3 text-base font-semibold rounded-md
+              px-8 py-4 text-base font-medium rounded-xl
               transition-all duration-200
               ${buttonClass}
             `.trim().replace(/\s+/g, ' ')}

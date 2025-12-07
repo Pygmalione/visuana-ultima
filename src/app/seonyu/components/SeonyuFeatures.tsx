@@ -103,7 +103,7 @@ export function SeonyuFeatures() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-blue-700 bg-blue-50 border border-blue-100 mb-8">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-light tracking-wider uppercase text-blue-700 bg-blue-50/80 backdrop-blur-sm border border-blue-100 mb-8">
             Funkcje
           </span>
           <h2
@@ -123,8 +123,8 @@ export function SeonyuFeatures() {
             <div
               key={feature.id}
               className={`
-                group relative p-8 rounded-2xl bg-white border border-slate-200
-                hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/50
+                group relative p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-slate-200/60
+                hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/10 hover:bg-white
                 transition-all duration-500 ease-out
                 ${feature.span}
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
@@ -132,12 +132,12 @@ export function SeonyuFeatures() {
               style={{ transitionDelay: `${index * 80}ms` }}
             >
               {/* Icon */}
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${feature.accent} text-white mb-6`}>
+              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${feature.accent} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
                 {feature.icon}
               </div>
 
               {/* Content */}
-              <h3 className="font-display text-xl font-medium text-slate-900 mb-3 tracking-tight">
+              <h3 className="font-display text-xl font-light text-slate-900 mb-3 tracking-tight">
                 {feature.title}
               </h3>
               <p className="text-slate-500 text-sm leading-relaxed mb-6 font-light">
@@ -149,7 +149,7 @@ export function SeonyuFeatures() {
                 {feature.tags.map((tag, tagIndex) => (
                   <span
                     key={tagIndex}
-                    className="px-3 py-1 rounded-full text-xs text-slate-500 bg-slate-100 font-medium"
+                    className="px-3 py-1 rounded-full text-xs text-slate-500 bg-slate-100/80 backdrop-blur-sm font-light hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300"
                   >
                     {tag}
                   </span>
@@ -157,8 +157,8 @@ export function SeonyuFeatures() {
               </div>
 
               {/* Subtle hover indicator */}
-              <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L17 7M17 7H7M17 7V17" />
                 </svg>
               </div>
@@ -178,7 +178,7 @@ export function SeonyuFeatures() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="text-center p-8 rounded-2xl bg-white border border-slate-200"
+              className="text-center p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-slate-200/60 hover:border-blue-300 hover:shadow-lg hover:shadow-blue-600/5 transition-all duration-300"
             >
               <p className="font-display text-4xl md:text-5xl font-light text-slate-900 mb-2 tracking-tight">
                 {stat.value}

@@ -85,7 +85,7 @@ export function SeonyuNavbar() {
         <nav className="flex items-center justify-between h-16 md:h-20" aria-label="Seonyu nawigacja">
           {/* Logo */}
           <Link href="/seonyu" className="group">
-            <span className="text-xl font-display font-semibold tracking-tight text-slate-900">
+            <span className="text-xl font-display font-light tracking-tight text-slate-900 hover:text-blue-600 transition-colors duration-300">
               SEONYU
             </span>
           </Link>
@@ -97,7 +97,7 @@ export function SeonyuNavbar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors duration-200"
+                    className="px-4 py-2 text-sm font-light text-slate-600 hover:text-blue-600 transition-colors duration-300"
                   >
                     {item.label}
                   </Link>
@@ -107,10 +107,10 @@ export function SeonyuNavbar() {
 
             <Link
               href="#demo"
-              className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition-colors duration-200"
+              className="group inline-flex items-center justify-center px-5 py-2.5 text-sm font-light rounded-lg bg-slate-900 text-white hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/20 transition-all duration-300"
             >
               Zamów Demo
-              <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
@@ -141,7 +141,7 @@ export function SeonyuNavbar() {
           <div
             ref={mobileMenuRef}
             id="seonyu-mobile-menu"
-            className="md:hidden rounded-xl mb-4 bg-white border border-slate-200 shadow-xl overflow-hidden"
+            className="md:hidden rounded-xl mb-4 bg-white/95 backdrop-blur-xl border border-slate-200 shadow-xl overflow-hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Menu mobilne Seonyu"
@@ -151,7 +151,7 @@ export function SeonyuNavbar() {
                 <li key={item.href} role="none">
                   <Link
                     href={item.href}
-                    className="block px-4 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+                    className="block px-4 py-3 text-base font-light text-slate-600 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-300"
                     onClick={closeMobileMenu}
                     role="menuitem"
                   >
@@ -164,7 +164,7 @@ export function SeonyuNavbar() {
               <Link
                 href="#demo"
                 onClick={closeMobileMenu}
-                className="block w-full text-center px-4 py-3 text-base font-medium rounded-lg bg-slate-900 text-white"
+                className="block w-full text-center px-4 py-3 text-base font-light rounded-lg bg-slate-900 text-white hover:bg-blue-600 transition-colors duration-300"
                 role="menuitem"
               >
                 Zamów Demo

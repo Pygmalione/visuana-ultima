@@ -84,7 +84,7 @@ export function SeonyuHowItWorks() {
       <div className="max-w-5xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-cyan-700 bg-cyan-50 border border-cyan-100 mb-8">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-light tracking-wider uppercase text-cyan-700 bg-cyan-50/80 backdrop-blur-sm border border-cyan-100 mb-8">
             Jak to działa
           </span>
           <h2
@@ -134,13 +134,13 @@ export function SeonyuHowItWorks() {
                   </div>
 
                   {/* Number Badge */}
-                  <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-xs font-semibold text-slate-600">
+                  <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm border-2 border-slate-200 flex items-center justify-center text-xs font-light text-slate-600 group-hover:border-blue-400 transition-colors duration-300">
                     {step.number}
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="font-display text-xl font-medium text-slate-900 mb-3 tracking-tight">
+                <h3 className="font-display text-xl font-light text-slate-900 mb-3 tracking-tight">
                   {step.title}
                 </h3>
                 <p className="text-slate-500 font-light leading-relaxed max-w-xs mx-auto">

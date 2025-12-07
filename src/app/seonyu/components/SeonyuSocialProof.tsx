@@ -68,7 +68,7 @@ export function SeonyuSocialProof() {
       <div className="max-w-5xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-slate-600 bg-slate-100 border border-slate-200 mb-8">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-light tracking-wider uppercase text-slate-600 bg-slate-100/80 backdrop-blur-sm border border-slate-200 mb-8">
             Zaufali nam
           </span>
           <h2
@@ -93,10 +93,10 @@ export function SeonyuSocialProof() {
           {clientLogos.map((client, index) => (
             <div
               key={index}
-              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center bg-slate-50 border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center bg-white/60 backdrop-blur-sm border border-slate-200/60 hover:border-blue-300 hover:shadow-lg hover:shadow-blue-600/10 hover:bg-white transition-all duration-300"
               style={{ transitionDelay: `${index * 50}ms` }}
             >
-              <span className="text-slate-400 font-display font-semibold text-sm md:text-base">
+              <span className="text-slate-400 font-display font-light text-sm md:text-base group-hover:text-blue-600">
                 {client.initials}
               </span>
             </div>
@@ -109,8 +109,8 @@ export function SeonyuSocialProof() {
             <div
               key={index}
               className={`
-                relative p-8 rounded-2xl bg-slate-50 border border-slate-200
-                hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/50
+                relative p-8 rounded-2xl bg-white/60 backdrop-blur-sm border border-slate-200/60
+                hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/10 hover:bg-white
                 transition-all duration-500
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
               `}
@@ -142,12 +142,12 @@ export function SeonyuSocialProof() {
                 <footer className="flex items-center gap-4">
                   {/* Avatar */}
                   <div
-                    className={`w-11 h-11 rounded-full flex items-center justify-center text-white font-semibold text-sm ${testimonial.accent}`}
+                    className={`w-11 h-11 rounded-full flex items-center justify-center text-white font-light text-sm ${testimonial.accent}`}
                   >
                     {testimonial.author.charAt(0)}
                   </div>
                   <div>
-                    <div className="font-medium text-slate-900">
+                    <div className="font-light text-slate-900">
                       {testimonial.author}
                     </div>
                     <div className="text-sm text-slate-400 font-light">

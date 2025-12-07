@@ -67,7 +67,7 @@ export function SeonyuCTA() {
           `}
         >
           {/* Badge */}
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-blue-700 bg-blue-50 border border-blue-100 mb-8">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-light tracking-wider uppercase text-blue-700 bg-blue-50/80 backdrop-blur-sm border border-blue-100 mb-8">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
@@ -88,24 +88,24 @@ export function SeonyuCTA() {
 
           {/* Description */}
           <p className="text-lg text-slate-500 mb-10 max-w-xl mx-auto font-light leading-relaxed">
-            Umów się na <span className="text-blue-600 font-medium">15-minutowe demo</span> i zobacz jak Seonyu może zrewolucjonizować Twoje kampanie.
+            Umów się na <span className="text-blue-600 font-normal">15-minutowe demo</span> i zobacz jak Seonyu może zrewolucjonizować Twoje kampanie.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
             <Link
               href="/kontakt"
-              className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-900/10 hover:shadow-xl"
+              className="group inline-flex items-center justify-center px-8 py-4 text-base font-light rounded-xl bg-slate-900 text-white hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-slate-900/10 hover:shadow-xl hover:shadow-blue-600/30"
             >
               Zamów bezpłatne demo
-              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
 
             <a
               href="mailto:hello@seonyu.pl"
-              className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-slate-600 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-light rounded-xl text-slate-600 bg-white/80 backdrop-blur-sm border border-slate-200 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300"
             >
               hello@seonyu.pl
             </a>
@@ -129,7 +129,7 @@ export function SeonyuCTA() {
                 key={index}
                 className="flex items-center gap-2 text-slate-500"
               >
-                <span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-xs font-bold">
+                <span className="w-5 h-5 rounded-full bg-emerald-100/80 backdrop-blur-sm flex items-center justify-center text-emerald-600 text-xs font-light">
                   {item.icon}
                 </span>
                 <span className="text-sm font-light">{item.text}</span>

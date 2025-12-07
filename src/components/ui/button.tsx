@@ -10,26 +10,25 @@ import { ButtonProps, ButtonVariant, ButtonSize } from '@/types/components'
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: `
-    bg-royal-red-600 text-white
-    hover:bg-royal-red-700
-    active:bg-royal-red-800
-    shadow-button hover:shadow-button-hover
-    hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]
+    bg-slate-900 text-white
+    hover:bg-slate-800
+    active:bg-slate-700
+    shadow-lg shadow-slate-900/10
+    hover:shadow-xl hover:shadow-slate-900/20
   `,
   secondary: `
-    bg-transparent text-royal-red-600
-    border-2 border-royal-red-600
-    hover:bg-royal-red-600 hover:text-white
-    hover:shadow-[0_0_20px_rgba(220,38,38,0.3)]
+    bg-transparent text-slate-700
+    border-2 border-slate-300
+    hover:bg-slate-50 hover:border-slate-400
   `,
   ghost: `
-    bg-transparent text-charcoal-800
-    hover:bg-charcoal-100
+    bg-transparent text-slate-700
+    hover:bg-slate-100
   `,
   outline: `
-    bg-transparent text-charcoal-700
-    border-2 border-charcoal-300
-    hover:border-charcoal-400 hover:bg-charcoal-50
+    bg-transparent text-slate-600
+    border border-slate-200
+    hover:border-slate-300 hover:bg-slate-50
   `,
 }
 
@@ -77,11 +76,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={handleClick}
         className={`
           inline-flex items-center justify-center
-          font-semibold rounded-md
+          font-medium rounded-xl
           transition-all duration-200 ease-out
           focus-visible:outline-none focus-visible:ring-2
-          focus-visible:ring-red-600 focus-visible:ring-offset-2
-          focus-visible:shadow-[0_0_30px_rgba(220,38,38,0.3)]
+          focus-visible:ring-slate-400 focus-visible:ring-offset-2
           ${variantStyles[variant]}
           ${sizeStyles[size]}
           ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:-translate-y-0.5 active:translate-y-0'}
