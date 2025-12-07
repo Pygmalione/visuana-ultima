@@ -280,6 +280,31 @@ export interface CopyButtonProps {
 }
 
 // ============================================
+// MEGAMENU TYPES (SPEC-011)
+// ============================================
+
+export interface MegaMenuIndustry {
+  id: string
+  name: string
+  slug: string
+  description: string
+}
+
+export interface MegaMenuRole {
+  id: string
+  name: string
+  slug: string
+  description: string
+}
+
+export interface MegaMenuProps {
+  isOpen: boolean
+  onClose: () => void
+  industries: MegaMenuIndustry[]
+  roles: MegaMenuRole[]
+}
+
+// ============================================
 // TABLE OF CONTENTS TYPES
 // ============================================
 

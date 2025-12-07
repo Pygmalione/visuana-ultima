@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { NavbarProps } from '@/types/components'
 import { Container } from './container'
+import { MegaMenu, defaultIndustries, defaultRoles } from './MegaMenu'
 
 // ============================================
 // NAVBAR COMPONENT - Sticky Header
@@ -19,6 +20,7 @@ export function Navbar({
   onCtaClick,
 }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const firstFocusableRef = useRef<HTMLAnchorElement>(null)
@@ -117,6 +119,31 @@ export function Navbar({
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <ul className="flex items-center gap-6">
+              {/* MegaMenu Trigger */}
+              <li>
+                <button
+                  onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+                  className={`
+                    text-base font-medium
+                    transition-colors duration-150
+                    hover:text-royal-red-700
+                    flex items-center gap-1
+                    ${isMegaMenuOpen ? 'text-royal-red-700' : 'text-charcoal-700'}
+                  `}
+                  aria-expanded={isMegaMenuOpen}
+                  aria-haspopup="true"
+                >
+                  Dla kogo
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </li>
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
@@ -143,6 +170,14 @@ export function Navbar({
               {ctaLabel}
             </Link>
           </div>
+
+          {/* MegaMenu */}
+          <MegaMenu
+            isOpen={isMegaMenuOpen}
+            onClose={() => setIsMegaMenuOpen(false)}
+            industries={defaultIndustries}
+            roles={defaultRoles}
+          />
 
           {/* Mobile Menu Button */}
           <button
