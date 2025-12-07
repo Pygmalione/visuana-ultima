@@ -105,6 +105,13 @@ const nextConfig: NextConfig = {
     // Enable optimized package imports
     optimizePackageImports: ['lucide-react', 'react-icons'],
   },
+
+  // ============================================
+  // TURBOPACK ROOT (silence lockfile warning)
+  // ============================================
+  turbopack: {
+    root: process.cwd(),
+  },
 };
 
 export default nextConfig;

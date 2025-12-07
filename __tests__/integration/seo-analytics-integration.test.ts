@@ -85,8 +85,8 @@ describe('SEO & Analytics Integration', () => {
 
     it('should have static pages configured correctly', async () => {
       const { REVALIDATION_CONFIG, isStaticPage } = await import('@/lib/performance/revalidation')
-
-      expect(REVALIDATION_CONFIG.servicePage).toBe(false)
+      // Static pages use 1 year revalidation (effectively static)
+      expect(REVALIDATION_CONFIG.servicePage).toBe(31536000)
       expect(isStaticPage('servicePage')).toBe(true)
     })
   })

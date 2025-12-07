@@ -23,9 +23,9 @@ export const REVALIDATION_CONFIG = {
 
   /**
    * Service pages - static generation
-   * Content rarely changes, no revalidation needed
+   * Content rarely changes, revalidate yearly (effectively static)
    */
-  servicePage: false as const, // Static (no revalidation)
+  servicePage: 31536000, // 1 year (effectively static)
 
   /**
    * Homepage - revalidate every 12 hours
@@ -35,9 +35,9 @@ export const REVALIDATION_CONFIG = {
 
   /**
    * Contact page - static
-   * Contact info rarely changes
+   * Contact info rarely changes, revalidate yearly
    */
-  contactPage: false as const, // Static
+  contactPage: 31536000, // 1 year (effectively static)
 
   /**
    * Categories - revalidate daily
@@ -115,17 +115,17 @@ export const BUNDLE_SIZE_LIMITS = {
  */
 export function getRevalidationTime(
   pageType: keyof typeof REVALIDATION_CONFIG
-): number | false {
+): number {
   return REVALIDATION_CONFIG[pageType]
 }
 
 /**
- * Check if page should be statically generated
+ * Check if page should be statically generated (yearly revalidation = effectively static)
  */
 export function isStaticPage(
   pageType: keyof typeof REVALIDATION_CONFIG
 ): boolean {
-  return REVALIDATION_CONFIG[pageType] === false
+  return REVALIDATION_CONFIG[pageType] >= 31536000 // 1 year or more = static
 }
 
 // ============================================

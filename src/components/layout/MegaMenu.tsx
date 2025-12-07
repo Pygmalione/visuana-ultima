@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, ReactElement } from 'react'
 import Link from 'next/link'
 import { MegaMenuProps, MegaMenuIndustry, MegaMenuRole } from '@/types/components'
 
@@ -69,7 +69,7 @@ const icons = {
   ),
 }
 
-const industryIcons: Record<string, JSX.Element> = {
+const industryIcons: Record<string, ReactElement> = {
   saas: icons.rocket,
   ecommerce: icons.cart,
   uslugi: icons.briefcase,
@@ -77,7 +77,7 @@ const industryIcons: Record<string, JSX.Element> = {
   fintech: icons.landmark,
 }
 
-const roleIcons: Record<string, JSX.Element> = {
+const roleIcons: Record<string, ReactElement> = {
   ceo: icons.crown,
   cmo: icons.target,
   director: icons.users,

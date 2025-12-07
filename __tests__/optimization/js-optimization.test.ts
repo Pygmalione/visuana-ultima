@@ -28,8 +28,10 @@ describe('JavaScript Optimization', () => {
     })
 
     it('should have static generation for service pages', async () => {
-      const { REVALIDATION_CONFIG } = await import('@/lib/performance/revalidation')
-      expect(REVALIDATION_CONFIG.servicePage).toBe(false) // Static
+      const { REVALIDATION_CONFIG, isStaticPage } = await import('@/lib/performance/revalidation')
+      // Static pages use 1 year revalidation (effectively static)
+      expect(REVALIDATION_CONFIG.servicePage).toBe(31536000) // 1 year
+      expect(isStaticPage('servicePage')).toBe(true)
     })
   })
 
