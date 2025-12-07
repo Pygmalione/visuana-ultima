@@ -2,16 +2,15 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
-import { Container } from '@/components/layout/container'
 
 // ============================================
-// SEONYU NAVBAR - SPEC-008
-// Purple-themed navigation for Seonyu landing
+// SEONYU NAVBAR - BOLD REDESIGN
+// Glassmorphism Navigation on Dark Theme
 // ============================================
 
 const navItems = [
   { label: 'Funkcje', href: '#funkcje' },
-  { label: 'Jak dziala', href: '#jak-dziala' },
+  { label: 'Jak działa', href: '#jak-dziala' },
   { label: 'O nas', href: '#social-proof' },
 ]
 
@@ -80,46 +79,74 @@ export function SeonyuNavbar() {
   return (
     <header
       className={`
-        sticky top-0 z-50 transition-all duration-300
-        ${isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-seonyu-100'
-          : 'bg-transparent'
-        }
+        fixed top-0 left-0 right-0 z-50 transition-all duration-500
       `}
+      style={{
+        background: isScrolled
+          ? 'linear-gradient(135deg, rgba(10, 1, 24, 0.95) 0%, rgba(26, 10, 46, 0.95) 100%)'
+          : 'transparent',
+        backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(124, 58, 237, 0.2)' : '1px solid transparent',
+      }}
     >
-      <Container>
+      <div className="max-w-6xl mx-auto px-6">
         <nav className="flex items-center justify-between h-16 md:h-20" aria-label="Seonyu nawigacja">
           {/* Logo */}
-          <Link href="/seonyu" className="flex items-center gap-2 group">
-            <span className="text-xl font-bold text-seonyu-dark group-hover:text-seonyu-primary transition-colors">
-              SEONYU
-              <span className="block h-0.5 w-full bg-gradient-to-r from-seonyu-primary to-seonyu-accent mt-0.5" />
+          <Link href="/seonyu" className="group relative">
+            <span className="text-2xl font-display font-bold tracking-tight">
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #a78bfa 100%)',
+                }}
+              >
+                SEONYU
+              </span>
             </span>
+            <span
+              className="absolute -bottom-1 left-0 w-full h-0.5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+              style={{
+                background: 'linear-gradient(90deg, #7c3aed 0%, #f59e0b 100%)',
+              }}
+            />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <ul className="flex items-center gap-6">
+            <ul className="flex items-center gap-1">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-base font-medium text-seonyu-dark/80 hover:text-seonyu-primary transition-colors duration-200"
+                    className="relative px-4 py-2 text-sm font-medium text-purple-200/80 hover:text-white transition-colors duration-300 group"
                   >
                     {item.label}
+                    <span
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 group-hover:w-full transition-all duration-300"
+                      style={{
+                        background: 'linear-gradient(90deg, transparent, #a78bfa, transparent)',
+                      }}
+                    />
                   </Link>
                 </li>
               ))}
             </ul>
 
-            <div className="flex items-center gap-3">
-              <Link
-                href="#demo"
-                className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg bg-seonyu-primary text-white hover:bg-seonyu-800 shadow-seonyu-button hover:shadow-seonyu-button-hover transition-all duration-200 hover:-translate-y-0.5"
-              >
-                Zamow Demo
-              </Link>
-            </div>
+            <Link
+              href="#demo"
+              className="group relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105"
+            >
+              {/* Button glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 opacity-100" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 blur-lg opacity-40 group-hover:opacity-60 transition-opacity" />
+
+              <span className="relative flex items-center gap-2 text-black font-bold">
+                Zamów Demo
+                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -127,13 +154,17 @@ export function SeonyuNavbar() {
             ref={menuButtonRef}
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-seonyu-dark hover:text-seonyu-primary transition-colors"
-            aria-label={isMobileMenuOpen ? 'Zamknij menu' : 'Otworz menu'}
+            className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+            aria-label={isMobileMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="seonyu-mobile-menu"
           >
             <svg
-              className="w-6 h-6"
+              className="w-5 h-5 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -153,17 +184,22 @@ export function SeonyuNavbar() {
           <div
             ref={mobileMenuRef}
             id="seonyu-mobile-menu"
-            className="md:hidden bg-white border-t border-seonyu-100 animate-slide-down"
+            className="md:hidden rounded-2xl mb-4 animate-slide-down overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, rgba(10, 1, 24, 0.98) 0%, rgba(26, 10, 46, 0.98) 100%)',
+              border: '1px solid rgba(124, 58, 237, 0.2)',
+              backdropFilter: 'blur(20px)',
+            }}
             role="dialog"
             aria-modal="true"
             aria-label="Menu mobilne Seonyu"
           >
-            <ul className="py-4 space-y-1" role="menu">
+            <ul className="py-4" role="menu">
               {navItems.map((item) => (
                 <li key={item.href} role="none">
                   <Link
                     href={item.href}
-                    className="block px-4 py-3 text-base font-medium text-seonyu-dark hover:bg-seonyu-50 hover:text-seonyu-primary transition-colors"
+                    className="block px-6 py-3 text-base font-medium text-purple-200/80 hover:text-white hover:bg-white/5 transition-colors"
                     onClick={closeMobileMenu}
                     role="menuitem"
                   >
@@ -172,19 +208,19 @@ export function SeonyuNavbar() {
                 </li>
               ))}
             </ul>
-            <div className="px-4 pb-4 space-y-2">
+            <div className="px-4 pb-4">
               <Link
                 href="#demo"
                 onClick={closeMobileMenu}
-                className="block w-full text-center px-6 py-3 text-base font-semibold rounded-lg bg-seonyu-primary text-white hover:bg-seonyu-800 transition-all duration-200"
+                className="block w-full text-center px-6 py-3 text-base font-bold rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black transition-all duration-200"
                 role="menuitem"
               >
-                Zamow Demo
+                Zamów Demo
               </Link>
             </div>
           </div>
         )}
-      </Container>
+      </div>
     </header>
   )
 }

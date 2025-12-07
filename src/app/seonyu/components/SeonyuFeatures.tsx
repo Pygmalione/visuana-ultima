@@ -1,10 +1,10 @@
 'use client'
 
-import { Container } from '@/components/layout/container'
+import { useRef, useEffect } from 'react'
 
 // ============================================
-// SEONYU FEATURES - SPEC-008
-// Three main AI capabilities
+// SEONYU FEATURES - BOLD REDESIGN
+// Glassmorphism Cards on Dark Theme
 // ============================================
 
 const features = [
@@ -16,8 +16,10 @@ const features = [
       </svg>
     ),
     title: 'AI Discovery',
-    description: 'Inteligentne wyszukiwanie influencerow z filtrowaniem po niszy, engagement i lokalizacji. Wykrywanie fake followerow.',
+    description: 'Inteligentne wyszukiwanie influencerów z filtrowaniem po niszy, engagement i lokalizacji. Wykrywanie fake followers.',
     features: ['Smart filtering', 'Fake detection', 'Engagement analysis'],
+    gradient: 'from-purple-500 to-violet-600',
+    glow: 'rgba(139, 92, 246, 0.3)',
   },
   {
     icon: (
@@ -26,8 +28,10 @@ const features = [
       </svg>
     ),
     title: 'Automated Outreach',
-    description: 'Personalizowane wiadomosci AI, automatyczne sekwencje follow-up i zintegrowany CRM dla influencerow.',
+    description: 'Personalizowane wiadomości AI, automatyczne sekwencje follow-up i zintegrowany CRM dla influencerów.',
     features: ['AI personalization', 'Auto follow-ups', 'Influencer CRM'],
+    gradient: 'from-cyan-500 to-blue-600',
+    glow: 'rgba(34, 211, 238, 0.3)',
   },
   {
     icon: (
@@ -38,64 +42,209 @@ const features = [
     title: 'Performance Analytics',
     description: 'ROI tracking per influencer, attribution modeling i real-time dashboardy z kluczowymi metrykami.',
     features: ['ROI tracking', 'Attribution', 'Real-time data'],
+    gradient: 'from-emerald-500 to-teal-600',
+    glow: 'rgba(52, 211, 153, 0.3)',
   },
 ]
 
 export function SeonyuFeatures() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in')
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    )
+
+    const cards = sectionRef.current?.querySelectorAll('.feature-card')
+    cards?.forEach((card) => observer.observe(card))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="funkcje" className="py-20 md:py-28 bg-white">
-      <Container>
+    <section
+      ref={sectionRef}
+      id="funkcje"
+      className="relative py-24 md:py-32 overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #0a0118 0%, #0f0720 50%, #1a0a2e 100%)',
+      }}
+    >
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(124, 58, 237, 0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(124, 58, 237, 0.5) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        />
+
+        {/* Gradient orb left */}
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full opacity-20 blur-[120px]"
+          style={{
+            background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
+            top: '20%',
+            left: '-10%',
+          }}
+        />
+
+        {/* Gradient orb right */}
+        <div
+          className="absolute w-[400px] h-[400px] rounded-full opacity-15 blur-[100px]"
+          style={{
+            background: 'radial-gradient(circle, #22d3ee 0%, transparent 70%)',
+            bottom: '10%',
+            right: '-5%',
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-seonyu-100 text-seonyu-700 text-sm font-medium mb-4">
-            Funkcje
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-seonyu-dark mb-4">
-            Wszystko czego potrzebujesz
+        <div className="text-center mb-16 md:mb-20">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
+            style={{
+              background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(168, 85, 247, 0.1) 100%)',
+              border: '1px solid rgba(168, 85, 247, 0.25)',
+            }}
+          >
+            <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+            <span className="text-sm font-medium text-purple-300 tracking-wide">
+              Funkcje Platformy
+            </span>
+          </div>
+
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #e2d1f9 50%, #a78bfa 100%)',
+              }}
+            >
+              Wszystko czego potrzebujesz
+            </span>
           </h2>
-          <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
-            Kompleksowa platforma do influencer marketingu z AI
+
+          <p className="text-lg md:text-xl text-purple-200/70 max-w-2xl mx-auto">
+            Kompleksowa platforma do influencer marketingu napędzana sztuczną inteligencją
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group relative p-8 rounded-2xl bg-white border border-seonyu-100 hover:border-seonyu-200 shadow-seonyu-card hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="feature-card group relative p-8 rounded-3xl transition-all duration-500 hover:scale-[1.02] opacity-0 translate-y-8"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(20px)',
+                transitionDelay: `${index * 100}ms`,
+              }}
             >
+              {/* Card glow on hover */}
+              <div
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle at 50% 0%, ${feature.glow} 0%, transparent 70%)`,
+                }}
+              />
+
               {/* Icon */}
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-seonyu-100 to-seonyu-50 flex items-center justify-center text-seonyu-primary mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div
+                className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}
+                style={{
+                  boxShadow: `0 0 30px ${feature.glow}`,
+                }}
+              >
                 {feature.icon}
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-bold text-seonyu-dark mb-3">
+              <h3 className="relative text-2xl font-display font-bold text-white mb-4">
                 {feature.title}
               </h3>
-              <p className="text-charcoal-600 mb-6 leading-relaxed">
+              <p className="relative text-purple-200/70 mb-6 leading-relaxed">
                 {feature.description}
               </p>
 
               {/* Feature Pills */}
-              <div className="flex flex-wrap gap-2">
+              <div className="relative flex flex-wrap gap-2">
                 {feature.features.map((item, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 rounded-full bg-seonyu-50 text-seonyu-700 text-sm font-medium"
+                    className="px-3 py-1.5 rounded-full text-sm font-medium transition-colors duration-300"
+                    style={{
+                      background: 'rgba(124, 58, 237, 0.15)',
+                      border: '1px solid rgba(168, 85, 247, 0.2)',
+                      color: 'rgb(196, 181, 253)',
+                    }}
                   >
                     {item}
                   </span>
                 ))}
               </div>
 
-              {/* Hover Gradient */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-seonyu-primary/5 to-seonyu-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              {/* Corner accent */}
+              <div
+                className={`absolute top-0 right-0 w-24 h-24 opacity-20 rounded-tr-3xl overflow-hidden`}
+              >
+                <div
+                  className={`absolute -top-12 -right-12 w-24 h-24 bg-gradient-to-br ${feature.gradient} rounded-full blur-xl`}
+                />
+              </div>
             </div>
           ))}
         </div>
-      </Container>
+
+        {/* Stats Row */}
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { value: '10k+', label: 'Influencerów', icon: '👥' },
+            { value: '95%', label: 'Trafność AI', icon: '🎯' },
+            { value: '3x', label: 'Wzrost ROI', icon: '📈' },
+            { value: '24/7', label: 'Automatyzacja', icon: '⚡' },
+          ].map((stat, index) => (
+            <div
+              key={index}
+              className="text-center p-6 rounded-2xl transition-all duration-300 hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
+                border: '1px solid rgba(255,255,255,0.05)',
+              }}
+            >
+              <span className="text-2xl mb-2 block">{stat.icon}</span>
+              <div className="text-3xl md:text-4xl font-display font-bold text-white mb-1">
+                {stat.value}
+              </div>
+              <div className="text-sm text-purple-300/60">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CSS for animations */}
+      <style jsx>{`
+        .feature-card.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   )
 }

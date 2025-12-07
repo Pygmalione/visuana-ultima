@@ -1,112 +1,227 @@
 'use client'
 
-import { Container } from '@/components/layout/container'
+import { useEffect, useRef } from 'react'
 
 // ============================================
-// SEONYU SOCIAL PROOF - SPEC-008
-// Client logos, testimonial, and stats
+// SEONYU SOCIAL PROOF - BOLD REDESIGN
+// Animated Testimonials + Stats on Dark Theme
 // ============================================
 
 const clientLogos = [
-  { name: 'Brand One', placeholder: 'BRAND' },
-  { name: 'Brand Two', placeholder: 'STARTUP' },
-  { name: 'Brand Three', placeholder: 'ECOM' },
-  { name: 'Brand Four', placeholder: 'D2C' },
-  { name: 'Brand Five', placeholder: 'TECH' },
+  { name: 'ModivoAI', initials: 'M' },
+  { name: 'TechFlow', initials: 'TF' },
+  { name: 'Brandly', initials: 'B' },
+  { name: 'Ecom Plus', initials: 'E+' },
+  { name: 'D2C Lab', initials: 'D2C' },
+  { name: 'StartupX', initials: 'SX' },
 ]
 
 const stats = [
-  { value: '250%', label: 'sredni ROI' },
-  { value: '50%', label: 'mniej czasu na outreach' },
-  { value: '10k+', label: 'influencerow w bazie' },
-  { value: '98%', label: 'satisfaction rate' },
+  { value: '250%', label: 'Średni ROI', gradient: 'from-emerald-400 to-teal-500' },
+  { value: '50%', label: 'Mniej czasu na outreach', gradient: 'from-cyan-400 to-blue-500' },
+  { value: '10k+', label: 'Influencerów w bazie', gradient: 'from-violet-400 to-purple-500' },
+  { value: '98%', label: 'Satisfaction rate', gradient: 'from-amber-400 to-orange-500' },
 ]
 
-const testimonial = {
-  quote: 'Seonyu calkowicie zmienilo sposob w jaki prowadzimy influencer marketing. AI matching zaoszczedzil nam dziesiątki godzin, a wyniki przeszly nasze oczekiwania.',
-  author: 'Anna Kowalska',
-  role: 'Marketing Director',
-  company: 'E-commerce Brand',
-  avatar: null,
-}
+const testimonials = [
+  {
+    quote: 'Seonyu całkowicie zmieniło sposób w jaki prowadzimy influencer marketing. AI matching zaoszczędził nam dziesiątki godzin, a wyniki przeszły nasze oczekiwania.',
+    author: 'Anna Kowalska',
+    role: 'Marketing Director',
+    company: 'E-commerce Brand',
+    rating: 5,
+  },
+  {
+    quote: 'Automatyzacja outreachu to gamechanger. Zamiast wysyłać setki maili, AI robi to za nas - i to z lepszymi wynikami.',
+    author: 'Michał Nowak',
+    role: 'Head of Growth',
+    company: 'Tech Startup',
+    rating: 5,
+  },
+]
 
 export function SeonyuSocialProof() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const elements = sectionRef.current?.querySelectorAll('.animate-item')
+    elements?.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="social-proof" className="py-20 md:py-28 bg-white">
-      <Container>
+    <section
+      ref={sectionRef}
+      id="social-proof"
+      className="relative py-24 md:py-32 overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #0a0118 0%, #0f0720 50%, #1a0a2e 100%)',
+      }}
+    >
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(124, 58, 237, 0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(124, 58, 237, 0.5) 1px, transparent 1px)
+            `,
+            backgroundSize: '100px 100px',
+          }}
+        />
+
+        {/* Gradient orb */}
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full opacity-15 blur-[150px]"
+          style={{
+            background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
+            top: '30%',
+            right: '-10%',
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Client Logos */}
-        <div className="text-center mb-16">
-          <p className="text-sm font-medium text-charcoal-500 uppercase tracking-wider mb-8">
+        <div className="text-center mb-20">
+          <p className="text-sm font-medium text-purple-400/70 uppercase tracking-widest mb-8">
             Zaufali nam
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
             {clientLogos.map((client, index) => (
               <div
                 key={index}
-                className="w-24 h-12 rounded-lg bg-charcoal-100 flex items-center justify-center text-charcoal-400 font-bold text-sm hover:bg-seonyu-50 hover:text-seonyu-600 transition-colors duration-200"
+                className="animate-item opacity-0 translate-y-4 w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center transition-all duration-500 hover:scale-110"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(10px)',
+                  transitionDelay: `${index * 50}ms`,
+                }}
               >
-                {client.placeholder}
+                <span className="text-purple-300/70 font-display font-bold text-lg">
+                  {client.initials}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-20">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="text-center p-6 rounded-2xl bg-gradient-to-br from-seonyu-50 to-white border border-seonyu-100"
+              className="animate-item opacity-0 translate-y-4 text-center p-6 md:p-8 rounded-2xl transition-all duration-500 hover:scale-105 group"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(20px)',
+                transitionDelay: `${index * 100}ms`,
+              }}
             >
-              <div className="text-3xl md:text-4xl font-bold text-seonyu-primary mb-2">
+              <div
+                className={`text-4xl md:text-5xl font-display font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-2`}
+              >
                 {stat.value}
               </div>
-              <div className="text-sm text-charcoal-600">
+              <div className="text-sm text-purple-200/60">
                 {stat.label}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Testimonial */}
-        <div className="max-w-3xl mx-auto">
-          <div className="relative p-8 md:p-12 rounded-3xl bg-gradient-to-br from-seonyu-dark to-seonyu-950 text-white">
-            {/* Quote Icon */}
-            <div className="absolute top-6 left-8 text-seonyu-primary/30">
-              <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
+        {/* Testimonials */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="animate-item opacity-0 translate-y-4 relative p-8 rounded-3xl transition-all duration-500 group"
+              style={{
+                background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%)',
+                border: '1px solid rgba(168, 85, 247, 0.2)',
+                backdropFilter: 'blur(20px)',
+                transitionDelay: `${400 + index * 150}ms`,
+              }}
+            >
+              {/* Quote Icon */}
+              <div className="absolute top-6 right-8 text-purple-500/20">
+                <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+              </div>
+
+              {/* Rating */}
+              <div className="flex gap-1 mb-4">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+
+              {/* Quote Text */}
+              <blockquote className="relative z-10">
+                <p className="text-lg text-purple-100/90 leading-relaxed mb-6">
+                  &ldquo;{testimonial.quote}&rdquo;
+                </p>
+
+                {/* Author */}
+                <footer className="flex items-center gap-4">
+                  {/* Avatar */}
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                    style={{
+                      background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
+                    }}
+                  >
+                    {testimonial.author.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-white">
+                      {testimonial.author}
+                    </div>
+                    <div className="text-sm text-purple-300/70">
+                      {testimonial.role}, {testimonial.company}
+                    </div>
+                  </div>
+                </footer>
+              </blockquote>
+
+              {/* Hover glow */}
+              <div
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(circle at 50% 100%, rgba(124, 58, 237, 0.2) 0%, transparent 70%)',
+                }}
+              />
             </div>
-
-            {/* Quote Text */}
-            <blockquote className="relative z-10">
-              <p className="text-lg md:text-xl leading-relaxed text-seonyu-100 mb-8">
-                &ldquo;{testimonial.quote}&rdquo;
-              </p>
-
-              {/* Author */}
-              <footer className="flex items-center gap-4">
-                {/* Avatar Placeholder */}
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-seonyu-primary to-seonyu-accent flex items-center justify-center text-white font-bold text-lg">
-                  {testimonial.author.charAt(0)}
-                </div>
-                <div>
-                  <div className="font-semibold text-white">
-                    {testimonial.author}
-                  </div>
-                  <div className="text-sm text-seonyu-300">
-                    {testimonial.role}, {testimonial.company}
-                  </div>
-                </div>
-              </footer>
-            </blockquote>
-
-            {/* Decorative Elements */}
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-seonyu-primary/10 rounded-full blur-3xl" />
-            <div className="absolute top-0 right-1/4 w-24 h-24 bg-seonyu-accent/10 rounded-full blur-2xl" />
-          </div>
+          ))}
         </div>
-      </Container>
+      </div>
+
+      {/* CSS for animations */}
+      <style jsx>{`
+        .animate-item.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   )
 }

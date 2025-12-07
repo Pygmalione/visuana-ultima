@@ -1,17 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { Container } from '@/components/layout/container'
 
 // ============================================
-// SEONYU FOOTER - SPEC-008
-// Minimal footer with Visuana integration
+// SEONYU FOOTER - BOLD REDESIGN
+// Immersive Footer on Deep Dark Theme
 // ============================================
 
 const footerLinks = {
   product: [
     { label: 'Funkcje', href: '#funkcje' },
-    { label: 'Jak dziala', href: '#jak-dziala' },
+    { label: 'Jak działa', href: '#jak-dziala' },
     { label: 'Cennik', href: '#cennik' },
     { label: 'Demo', href: '#demo' },
   ],
@@ -22,7 +21,7 @@ const footerLinks = {
     { label: 'Kariera', href: '#' },
   ],
   legal: [
-    { label: 'Polityka prywatnosci', href: '#' },
+    { label: 'Polityka prywatności', href: '#' },
     { label: 'Regulamin', href: '#' },
     { label: 'RODO', href: '#' },
   ],
@@ -62,42 +61,80 @@ export function SeonyuFooter() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-seonyu-dark text-white">
-      <Container>
+    <footer
+      className="relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #0a0118 0%, #050010 100%)',
+      }}
+    >
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(124, 58, 237, 0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(124, 58, 237, 0.5) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        />
+
+        {/* Gradient orb */}
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-10 blur-[150px]"
+          style={{
+            background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
+            bottom: '-30%',
+            left: '20%',
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Main Footer Content */}
-        <div className="py-12 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="py-16 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
             {/* Brand Column */}
             <div className="lg:col-span-2">
-              <Link href="/seonyu" className="inline-block mb-4">
-                <span className="text-2xl font-bold text-white">
-                  SEONYU
-                  <span className="block h-0.5 w-full bg-gradient-to-r from-seonyu-primary to-seonyu-accent mt-1" />
+              <Link href="/seonyu" className="inline-block mb-6 group">
+                <span className="text-3xl font-display font-bold">
+                  <span
+                    className="bg-clip-text text-transparent"
+                    style={{
+                      backgroundImage: 'linear-gradient(135deg, #ffffff 0%, #a78bfa 100%)',
+                    }}
+                  >
+                    SEONYU
+                  </span>
                 </span>
               </Link>
-              <p className="text-seonyu-300 text-sm mb-4 max-w-sm">
-                AI-Powered Influencer Marketing Platform. Znajdz, kontaktuj i sledz influencerow z moca sztucznej inteligencji.
+              <p className="text-purple-200/60 text-sm mb-6 max-w-sm leading-relaxed">
+                AI-Powered Influencer Marketing Platform. Znajdź, kontaktuj i śledź influencerów z mocą sztucznej inteligencji.
               </p>
-              <p className="text-seonyu-400 text-sm">
-                Czesc{' '}
-                <Link href="/" className="text-seonyu-accent hover:text-seonyu-accent/80 transition-colors">
+              <p className="text-purple-300/40 text-sm">
+                Część ekosystemu{' '}
+                <Link
+                  href="/"
+                  className="text-purple-400 hover:text-amber-400 transition-colors font-medium"
+                >
                   Visuana
-                </Link>{' '}
-                ecosystem.
+                </Link>
               </p>
             </div>
 
             {/* Product Links */}
             <div>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
                 Produkt
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {footerLinks.product.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-seonyu-300 hover:text-seonyu-accent transition-colors duration-150"
+                      className="text-sm text-purple-200/60 hover:text-amber-400 transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -108,15 +145,15 @@ export function SeonyuFooter() {
 
             {/* Company Links */}
             <div>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
                 Firma
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {footerLinks.company.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-seonyu-300 hover:text-seonyu-accent transition-colors duration-150"
+                      className="text-sm text-purple-200/60 hover:text-amber-400 transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -127,15 +164,15 @@ export function SeonyuFooter() {
 
             {/* Legal Links */}
             <div>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
                 Prawne
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {footerLinks.legal.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-seonyu-300 hover:text-seonyu-accent transition-colors duration-150"
+                      className="text-sm text-purple-200/60 hover:text-amber-400 transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -147,28 +184,37 @@ export function SeonyuFooter() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-seonyu-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-seonyu-400">
-            {currentYear} Seonyu by Visuana. Wszelkie prawa zastrzezone.
+        <div
+          className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{
+            borderTop: '1px solid rgba(124, 58, 237, 0.15)',
+          }}
+        >
+          <p className="text-xs text-purple-300/40">
+            © {currentYear} Seonyu by Visuana. Wszelkie prawa zastrzeżone.
           </p>
 
           {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.platform}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-seonyu-400 hover:text-seonyu-accent transition-colors duration-150"
-                aria-label={`Odwiedz nas na ${social.platform}`}
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-purple-300/60 hover:text-amber-400 transition-all duration-300 hover:scale-110"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                }}
+                aria-label={`Odwiedź nas na ${social.platform}`}
               >
                 {social.icon}
               </a>
             ))}
           </div>
         </div>
-      </Container>
+      </div>
     </footer>
   )
 }

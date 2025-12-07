@@ -8,7 +8,7 @@
  * - Subset optimization
  */
 
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Syne, Outfit, JetBrains_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 
 // ============================================
@@ -16,15 +16,29 @@ import localFont from 'next/font/local'
 // ============================================
 
 /**
- * Inter - Primary body font
- * Clean, readable, excellent for UI
+ * Syne - Display font for headings
+ * Bold, geometric, distinctive - perfect for tech/AI branding
  */
-export const inter = Inter({
+export const syne = Syne({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-syne',
   preload: true,
 })
+
+/**
+ * Outfit - Modern body font
+ * Clean, geometric, professional - NOT generic like Inter
+ */
+export const outfit = Outfit({
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+  variable: '--font-outfit',
+  preload: true,
+})
+
+// Legacy alias for backward compatibility
+export const inter = outfit
 
 /**
  * JetBrains Mono - Code/monospace font
@@ -91,10 +105,10 @@ export const jetbrainsMono = JetBrains_Mono({
  * All fonts for export
  */
 export const fonts = {
-  inter,
+  syne,
+  outfit,
+  inter, // alias for outfit
   jetbrainsMono,
-  // clashDisplay,
-  // plusJakartaSans,
 }
 
 /**
@@ -102,10 +116,9 @@ export const fonts = {
  * Apply to <html> element
  */
 export const fontVariables = [
-  inter.variable,
+  syne.variable,
+  outfit.variable,
   jetbrainsMono.variable,
-  // clashDisplay?.variable,
-  // plusJakartaSans?.variable,
 ].filter(Boolean).join(' ')
 
 // ============================================
@@ -133,9 +146,9 @@ export const criticalFonts = [
  * Use in tailwind.config.ts fontFamily
  */
 export const tailwindFontFamily = {
-  sans: ['var(--font-inter)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+  sans: ['var(--font-outfit)', 'Outfit', 'system-ui', '-apple-system', 'sans-serif'],
+  display: ['var(--font-syne)', 'Syne', 'system-ui', 'sans-serif'],
   mono: ['var(--font-mono)', 'JetBrains Mono', 'Menlo', 'Monaco', 'monospace'],
-  // display: ['var(--font-clash)', 'Clash Display', 'system-ui', 'sans-serif'],
 }
 
 export default fonts
