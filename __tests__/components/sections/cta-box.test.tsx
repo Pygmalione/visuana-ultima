@@ -34,16 +34,18 @@ describe('CTABox', () => {
   })
 
   describe('Background Colors', () => {
-    it('applies royal-red background by default', () => {
+    it('applies slate-900 background by default (royal-red variant)', () => {
       render(<CTABox {...defaultProps} />)
       const box = screen.getByTestId('cta-box')
-      expect(box).toHaveClass('bg-royal-red-700')
+      // Updated to slate-900 for McKinsey-style professional light theme
+      expect(box).toHaveClass('bg-slate-900')
     })
 
-    it('applies charcoal background', () => {
+    it('applies slate-800 background for charcoal variant', () => {
       render(<CTABox {...defaultProps} bgColor="charcoal" />)
       const box = screen.getByTestId('cta-box')
-      expect(box).toHaveClass('bg-charcoal-900')
+      // Updated to slate-800 for McKinsey-style professional light theme
+      expect(box).toHaveClass('bg-slate-800')
     })
 
     it('applies white background', () => {
@@ -52,10 +54,11 @@ describe('CTABox', () => {
       expect(box).toHaveClass('bg-white')
     })
 
-    it('applies muted background', () => {
+    it('applies slate-50 background for muted variant', () => {
       render(<CTABox {...defaultProps} bgColor="muted" />)
       const box = screen.getByTestId('cta-box')
-      expect(box).toHaveClass('bg-charcoal-50')
+      // Updated to slate-50 for McKinsey-style professional light theme
+      expect(box).toHaveClass('bg-slate-50')
     })
   })
 
@@ -95,13 +98,15 @@ describe('CTABox', () => {
     it('uses dark text on light backgrounds (white)', () => {
       render(<CTABox {...defaultProps} bgColor="white" />)
       const title = screen.getByRole('heading')
-      expect(title).toHaveClass('text-charcoal-800')
+      // Updated to slate-900 for McKinsey-style professional light theme
+      expect(title).toHaveClass('text-slate-900')
     })
 
     it('uses dark text on muted background', () => {
       render(<CTABox {...defaultProps} bgColor="muted" />)
       const title = screen.getByRole('heading')
-      expect(title).toHaveClass('text-charcoal-800')
+      // Updated to slate-900 for McKinsey-style professional light theme
+      expect(title).toHaveClass('text-slate-900')
     })
   })
 

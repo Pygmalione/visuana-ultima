@@ -15,8 +15,8 @@ describe('Button Component', () => {
   it('renders with default variant (primary)', () => {
     render(<Button>Primary</Button>)
     const button = screen.getByRole('button')
-    // Updated to royal-red-600 per SPEC-007 design system updates
-    expect(button).toHaveClass('bg-royal-red-600')
+    // Updated to slate-900 for McKinsey-style professional light theme
+    expect(button).toHaveClass('bg-slate-900')
   })
 
   // ============================================
@@ -26,30 +26,30 @@ describe('Button Component', () => {
   it('renders primary variant correctly', () => {
     render(<Button variant="primary">Primary</Button>)
     const button = screen.getByRole('button')
-    // Updated to royal-red-600 per SPEC-007 design system updates
-    expect(button).toHaveClass('bg-royal-red-600')
+    // Updated to slate-900 for McKinsey-style professional light theme
+    expect(button).toHaveClass('bg-slate-900')
     expect(button).toHaveClass('text-white')
   })
 
   it('renders secondary variant correctly', () => {
     render(<Button variant="secondary">Secondary</Button>)
     const button = screen.getByRole('button')
-    // Updated to royal-red-600 per SPEC-007 design system updates
-    expect(button).toHaveClass('border-royal-red-600')
-    expect(button).toHaveClass('text-royal-red-600')
+    // Updated to slate-300 for McKinsey-style professional light theme
+    expect(button).toHaveClass('border-slate-300')
+    expect(button).toHaveClass('text-slate-700')
   })
 
   it('renders ghost variant correctly', () => {
     render(<Button variant="ghost">Ghost</Button>)
     const button = screen.getByRole('button')
     expect(button).toHaveClass('bg-transparent')
-    expect(button).toHaveClass('text-charcoal-800')
+    expect(button).toHaveClass('text-slate-700')
   })
 
   it('renders outline variant correctly', () => {
     render(<Button variant="outline">Outline</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('border-charcoal-300')
+    expect(button).toHaveClass('border-slate-200')
   })
 
   // ============================================
