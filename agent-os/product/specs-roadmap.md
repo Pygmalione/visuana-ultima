@@ -19,7 +19,7 @@
 | SPEC-006 | Strony Usługowe (Szablon + 4 usługi) | ✅ Ukończona | 100% | 🟡 **3/5** | ~~SPEC-005~~ | `specs/2025-12-05-service-pages/` |
 | SPEC-007 | Strona Kontakt | ✅ Ukończona | 100% | 🟢 **2/5** | ~~SPEC-002~~ | `specs/2025-12-05-contact-page/` |
 | SPEC-008 | Seonyu - Brand & Landing | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 (ToV) | TBD |
-| SPEC-009 | Content Strategy & Calendar | ⬜ Oczekiwanie | 0% | 🟡 **3/5** | SPEC-001 | TBD |
+| SPEC-009 | Content Strategy & Calendar | ✅ Ukończona | 80% | 🟡 **3/5** | ~~SPEC-001~~ | `specs/2025-12-07-content-strategy/` |
 | SPEC-010 | Content Automation (n8n + Dify) | ⬜ Oczekiwanie | 0% | 🔴 **4/5** | SPEC-003, SPEC-009 | TBD |
 | **SPEC-011** | **Industry & Role Value Pages** | ✅ Ukończona | 80% | 🔴 **4/5** | ~~SPEC-002~~, ~~SPEC-005~~ | `specs/2025-12-05-industry-role-pages/` |
 
@@ -41,7 +41,9 @@
 - ✅ SPEC-011: MegaMenu component (13 testów)
 - ✅ SPEC-011: 8 stron branżowych `/dla/[industry]` (72 testy)
 - ✅ SPEC-011: 6 stron ról `/dla-[role]` (60 testów)
-- ✅ Test suite: **559/559 testów przechodzi**
+- ✅ SPEC-011: E2E navigation tests (29 testów)
+- ✅ SPEC-009: Content Strategy (5 pillars, 20-article calendar, writing guidelines)
+- ✅ Test suite: **588/588 testów przechodzi**
 
 **W trakcie:**
 - 🟢 SPEC-003: Blog System (80% - UI + RSS gotowe, brakuje Strapi content)
