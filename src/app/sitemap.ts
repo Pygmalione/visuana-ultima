@@ -1,11 +1,13 @@
 /**
  * Dynamic Sitemap Generator - SPEC-004 SEO & Analytics
  * Generates sitemap.xml for all public pages
+ * Updated: SPEC-003 - Added blog articles and categories
  */
 
 import { MetadataRoute } from 'next'
+import type { ArticleWithRelations, Category } from '@/types/blog'
 
-const BASE_URL = 'https://visuana.pl'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://visuana.pl'
 
 // Static pages configuration
 const staticPages = [
@@ -47,17 +49,51 @@ const staticPages = [
 ]
 
 /**
- * Fetches all blog slugs for dynamic sitemap entries
- * Gracefully handles errors by returning empty array
+ * Fetches all blog articles with their dates for sitemap
+ * Returns articles with slug and updated_at for accurate lastModified
  */
-async function getAllBlogSlugs(): Promise<{ slug: string }[]> {
+async function getBlogArticles(): Promise<ArticleWithRelations[]> {
   try {
-    // Dynamic import to avoid circular dependencies
-    const { getAllBlogSlugs: fetchSlugs } = await import('@/lib/blog/api')
-    return await fetchSlugs()
+    const { getArticles, articles: mockArticles } = await import('@/lib/blog')
+    const result = await getArticles({ pageSize: 100 })
+
+    // Use Strapi data if available, fallback to mock
+    if (result.data.length > 0) {
+      return result.data
+    }
+    return mockArticles
   } catch {
-    // If blog module not available, return empty array
-    return []
+    // Fallback to mock data on error
+    try {
+      const { articles: mockArticles } = await import('@/lib/blog')
+      return mockArticles
+    } catch {
+      return []
+    }
+  }
+}
+
+/**
+ * Fetches all blog categories for sitemap
+ */
+async function getBlogCategories(): Promise<Category[]> {
+  try {
+    const { getCategories, categories: mockCategories } = await import('@/lib/blog')
+    const categories = await getCategories()
+
+    // Use Strapi data if available, fallback to mock
+    if (categories.length > 0) {
+      return categories
+    }
+    return mockCategories
+  } catch {
+    // Fallback to mock data on error
+    try {
+      const { categories: mockCategories } = await import('@/lib/blog')
+      return mockCategories
+    } catch {
+      return []
+    }
   }
 }
 
@@ -72,14 +108,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: page.priority,
   }))
 
-  // Dynamic blog posts
-  const blogSlugs = await getAllBlogSlugs()
-  const blogEntries: MetadataRoute.Sitemap = blogSlugs.map(({ slug }) => ({
-    url: `${BASE_URL}/blog/${slug}`,
+  // Fetch blog data
+  const [articles, categories] = await Promise.all([
+    getBlogArticles(),
+    getBlogCategories(),
+  ])
+
+  // Blog article entries with actual lastModified dates
+  const blogEntries: MetadataRoute.Sitemap = articles
+    .filter(article => article.status === 'published')
+    .map(article => ({
+      url: `${BASE_URL}/blog/${article.slug}`,
+      lastModified: article.updated_at ? new Date(article.updated_at) : currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }))
+
+  // Blog category filter pages (using query params as defined in blog page)
+  const categoryEntries: MetadataRoute.Sitemap = categories.map(category => ({
+    url: `${BASE_URL}/blog?kategoria=${category.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.6,
+    priority: 0.5,
   }))
 
-  return [...staticEntries, ...blogEntries]
+  return [...staticEntries, ...blogEntries, ...categoryEntries]
 }

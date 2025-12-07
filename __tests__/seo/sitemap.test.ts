@@ -1,16 +1,48 @@
 /**
  * Sitemap Tests - SPEC-004 SEO & Analytics
  * Tests for dynamic sitemap.xml generation
+ * Updated: SPEC-003 - Added blog articles and categories
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-// Mock the sitemap function
-const mockGetAllBlogSlugs = vi.fn()
+// Mock the blog module - data must be defined inside the factory
+vi.mock('@/lib/blog', () => {
+  const articles = [
+    {
+      id: '1',
+      title: 'Example Post 1',
+      slug: 'example-post-1',
+      status: 'published',
+      published_at: '2025-01-10T10:00:00Z',
+      updated_at: '2025-01-10T10:00:00Z',
+      category: { name: 'Test', slug: 'test' },
+      author: { name: 'Test Author' },
+    },
+    {
+      id: '2',
+      title: 'Example Post 2',
+      slug: 'example-post-2',
+      status: 'published',
+      published_at: '2025-01-08T10:00:00Z',
+      updated_at: '2025-01-08T10:00:00Z',
+      category: { name: 'Test', slug: 'test' },
+      author: { name: 'Test Author' },
+    },
+  ]
 
-vi.mock('@/lib/blog/api', () => ({
-  getAllBlogSlugs: () => mockGetAllBlogSlugs()
-}))
+  const categories = [
+    { id: '1', name: 'Content marketing', slug: 'content-marketing' },
+    { id: '2', name: 'AI marketing', slug: 'ai-marketing' },
+  ]
+
+  return {
+    getArticles: vi.fn().mockResolvedValue({ data: articles }),
+    getCategories: vi.fn().mockResolvedValue(categories),
+    articles,
+    categories,
+  }
+})
 
 // Import after mock setup
 import sitemap from '@/app/sitemap'
@@ -20,10 +52,6 @@ describe('Sitemap Generation', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockGetAllBlogSlugs.mockResolvedValue([
-      { slug: 'example-post-1' },
-      { slug: 'example-post-2' }
-    ])
   })
 
   it('should include all static pages with correct structure', async () => {
@@ -95,6 +123,21 @@ describe('Sitemap Generation', () => {
 
     result.forEach(entry => {
       expect(validFrequencies).toContain(entry.changeFrequency)
+    })
+  })
+
+  it('should include blog category filter URLs', async () => {
+    const result = await sitemap()
+
+    // Find any category URLs (actual slugs come from mock data)
+    const categoryUrls = result.filter(entry => entry.url.includes('?kategoria='))
+
+    expect(categoryUrls.length).toBeGreaterThan(0)
+
+    // All category URLs should have priority 0.5 and weekly frequency
+    categoryUrls.forEach(entry => {
+      expect(entry.priority).toBe(0.5)
+      expect(entry.changeFrequency).toBe('weekly')
     })
   })
 })

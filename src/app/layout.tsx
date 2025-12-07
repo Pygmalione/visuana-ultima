@@ -7,7 +7,7 @@ import { organizationSchema } from '@/lib/seo/schemas'
 import { fontVariables, inter, jetbrainsMono } from '@/lib/fonts/config'
 
 // ============================================
-// METADATA - SPEC-004 SEO
+// METADATA - SPEC-004 SEO + SPEC-003 RSS
 // ============================================
 
 export const metadata: Metadata = {
@@ -31,6 +31,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
   },
 }
 
