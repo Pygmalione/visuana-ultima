@@ -2,133 +2,156 @@
 
 ## Project Overview
 
-**Visuana Ultima** - Glowna strona butikowej agencji doradztwa Visuana specjalizujacej sie w Digital Marketing, Content Marketing, Influencer Marketing oraz AI-powered analytics z orkiestracja multiagentowa.
+**Visuana Ultima** - Strona butikowej agencji marketingowej specjalizujacej sie w Content Marketing, Influencer Marketing, Market Research Azja oraz AI-powered solutions.
 
-**Tech Stack**: Node.js / Next.js
-**Database**: Supabase (PostgreSQL + realtime + auth)
-**Development Environment**: Docker Compose
-**Project Type**: Corporate Website / SaaS Landing
-
----
-
-## Claude OS Integration
-
-Projekt zintegrowany z Claude OS dla persistent memory i context management.
-
-**Knowledge Bases:**
-- `visuana-ultima-knowledge_docs` - dokumentacja projektu
-- `visuana-ultima-project_profile` - architektura i standardy
-- `visuana-ultima-project_index` - indeks kodu
-- `visuana-ultima-project_memories` - decyzje i wzorce
-
-**Komendy Claude OS:**
-- `/claude-os-search [query]` - wyszukaj w pamieci projektu
-- `/claude-os-save [insight]` - zapisz insight/decyzje
-- `/claude-os-remember [fact]` - zapamietaj fakt
-- `/claude-os-session` - zarzadzaj sesjami
-
----
-
-## Agent-OS - Spec-Driven Development
-
-Agent-OS to system agentow do rozwoju projektow opartego na specyfikacjach.
-**Dokumentacja:** https://buildermethods.com/agent-os
-
-### Komendy (7)
-
-| Komenda | Opis |
-|---------|------|
-| `/plan-product` | Planowanie produktu, misja, roadmapa |
-| `/shape-spec` | Ksztaltowanie wymagan przez pytania |
-| `/write-spec` | Tworzenie szczegolowej specyfikacji |
-| `/create-tasks` | Tworzenie listy zadan z specyfikacji |
-| `/implement-tasks` | Implementacja zadan z tasks.md |
-| `/orchestrate-tasks` | Orkiestracja calego workflow |
-| `/improve-skills` | Ulepszanie Claude Code Skills |
-
-### Agenci (8)
-
-| Agent | Rola |
-|-------|------|
-| `spec-initializer` | Inicjalizuje folder specyfikacji |
-| `spec-shaper` | Zbiera wymagania przez pytania |
-| `spec-writer` | Tworzy szczegolowa specyfikacje |
-| `spec-verifier` | Weryfikuje specyfikacje |
-| `product-planner` | Planuje produkt i roadmape |
-| `tasks-list-creator` | Tworzy liste zadan |
-| `implementer` | Implementuje zgodnie z tasks.md |
-| `implementation-verifier` | Weryfikuje implementacje |
-
-### Struktura
-
-```
-agent-os/
-├── product/            # Misja, roadmapa, tech-stack
-├── specs/              # Specyfikacje (YYYY-MM-DD-nazwa)
-└── standards/          # Standardy kodowania
-    ├── backend/        # API, migrations, models, queries
-    ├── frontend/       # accessibility, components, css, responsive
-    ├── global/         # coding-style, conventions, error-handling
-    └── testing/        # test-writing
-
-.claude/
-├── commands/agent-os/  # 7 komend slash
-└── agents/agent-os/    # 8 agentow
-
-.claude-os/
-├── config.json         # Konfiguracja Claude OS
-└── hooks.json          # Hooki sesji
-```
-
----
-
-## Workflow
-
-1. **Product Planning** - `/plan-product` -> definiuje misje, roadmape, tech-stack
-2. **Spec Shaping** - `/shape-spec` -> zbiera wymagania przez pytania
-3. **Spec Writing** - `/write-spec` -> generuje szczegolowa specyfikacje
-4. **Tasks Creation** - `/create-tasks` -> tworzy liste zadan
-5. **Implementation** - `/implement-tasks` lub `/orchestrate-tasks`
-
----
-
-## Tech Stack Details
-
-### Frontend
-- **Framework**: Next.js 14+ (App Router)
-- **Styling**: Tailwind CSS
-- **Components**: React Server Components + Client Components
-- **State**: React hooks, Zustand (jesli potrzebne)
-
-### Backend
-- **Database**: Supabase (PostgreSQL)
-- **Auth**: Supabase Auth
-- **Realtime**: Supabase Realtime
-- **Storage**: Supabase Storage
-
-### Development
-- **Container**: Docker Compose
-- **Package Manager**: pnpm
-- **Linting**: ESLint + Prettier
-- **Testing**: Vitest + Playwright
-
----
-
-## Polish Language (ABSOLUTE RULE)
-
-**Wszystkie tresci w rozmowach z uzytkownikiem MUSZA byc w naturalnym, natywnym polskim.** NIE tlumacz doslownie z angielskiego - mysl jak Polak. Naturalnie brzmace anglicyzmy (np. "debugging", "deploy") sa akceptowane.
+| Parametr | Wartosc |
+|----------|---------|
+| **Stack** | Next.js 16 (App Router) + React 19 + Tailwind CSS 4 |
+| **Testing** | Vitest + Testing Library |
+| **Package Manager** | pnpm |
+| **Database** | Supabase (planowane) |
+| **CMS** | Strapi (VPS3, planowane) |
 
 ---
 
 ## Quick Start
 
 ```bash
-# Rozpocznij planowanie produktu
-/plan-product
-
-# Lub bezposrednio zacznij od specyfikacji
-/shape-spec
-
-# Przeszukaj pamiec projektu
-/claude-os-search "architektura"
+pnpm install          # Instalacja zaleznosci
+pnpm dev              # Dev server (localhost:3000)
+pnpm build            # Production build
+pnpm test             # Uruchom testy
+pnpm test:coverage    # Testy z coverage
 ```
+
+---
+
+## Architecture
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx           # Homepage (/)
+│   ├── seonyu/            # Seonyu landing (/seonyu) - SPEC-008
+│   ├── kontakt/           # Contact page + server actions
+│   ├── uslugi/            # Service pages (content-marketing, influencer, ai-agents, market-research)
+│   ├── dla/[industry]/    # Industry landing pages (8 industries)
+│   ├── dla-ceo/           # Role landing pages (6 roles)
+│   └── blog/              # Blog pages
+├── components/
+│   ├── ui/                # Base UI (Button, Card, Input, Modal, Toast)
+│   ├── layout/            # Navbar, Footer, MegaMenu, Section, Grid, Container
+│   ├── sections/          # Hero, HeroLight, CTABox, FAQ, ProcessTimeline
+│   ├── cards/             # ArticleCard, ServiceCard, CaseStudyCard
+│   ├── forms/             # ContactForm (react-hook-form + zod)
+│   ├── templates/         # ServicePage, IndustryPageTemplate, RolePageTemplate
+│   └── seo/               # JsonLd structured data
+├── lib/
+│   ├── blog/              # Strapi client + mock data
+│   ├── seo/               # Metadata helpers, schemas
+│   ├── analytics/         # GA4 config, events, UTM tracking
+│   ├── email/             # Resend templates (contact notification/confirmation)
+│   ├── validations/       # Zod schemas (contact form)
+│   └── performance/       # ISR revalidation config, dynamic imports
+├── data/                  # Static data (industries, roles)
+├── types/                 # TypeScript types
+└── hooks/                 # Custom hooks (useAnalytics)
+
+agent-os/
+├── product/               # Mission, roadmap, tech-stack, specs-plan
+├── specs/                 # Feature specifications (YYYY-MM-DD-nazwa/)
+└── standards/             # Coding standards (backend, frontend, global, testing)
+```
+
+---
+
+## Design System
+
+**Theme**: Elegant light (McKinsey-style) z cienka typografia
+**Colors**: Slate palette (slate-900 primary, slate-500 secondary)
+**Typography**: font-light domyslnie, font-medium dla akcentow
+
+### Key Components
+
+| Component | Usage |
+|-----------|-------|
+| `HeroLight` | Light theme hero z badge, gradient orbs |
+| `CTABox` | CTA section (light/dark variants) |
+| `Button` | primary/secondary/outline/ghost, sm/md/lg |
+| `Card` | hoverable cards z CardHeader/Content/Footer |
+| `MegaMenu` | Navigation dropdown (8 industries, 6 roles) |
+
+---
+
+## Completed Features (SPECs)
+
+- [x] **SPEC-001** Brand Identity & ToV
+- [x] **SPEC-002** Homepage components
+- [x] **SPEC-003** Service pages (4 services)
+- [x] **SPEC-004** SEO & Analytics (GA4, sitemap, JSON-LD)
+- [x] **SPEC-005** Contact page + Resend email
+- [x] **SPEC-006** Blog system (mock data, article pages)
+- [x] **SPEC-008** Seonyu landing page (AI Influencer Platform)
+- [x] **SPEC-011** Industry (8) & Role (6) landing pages + MegaMenu
+
+---
+
+## Agent-OS Commands
+
+| Command | Description |
+|---------|-------------|
+| `/plan-product` | Product planning, mission, roadmap |
+| `/shape-spec` | Gather requirements through questions |
+| `/write-spec` | Create detailed specification |
+| `/create-tasks` | Generate tasks.md from spec |
+| `/implement-tasks` | Implement tasks from tasks.md |
+| `/orchestrate-tasks` | Full workflow orchestration |
+
+---
+
+## Testing
+
+```bash
+pnpm test              # Watch mode
+pnpm test:run          # Single run
+pnpm test:coverage     # With coverage report
+```
+
+**Test files**: `__tests__/*.test.tsx` w src/components/
+
+---
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `src/app/page.tsx` | Homepage - services, stats, founder story, blog preview |
+| `src/app/seonyu/page.tsx` | Seonyu AI platform landing |
+| `src/components/layout/MegaMenu.tsx` | Navigation mega menu |
+| `src/lib/performance/revalidation.ts` | ISR config (homepage: 12h) |
+| `src/app/kontakt/actions.ts` | Contact form server action |
+
+---
+
+## Graphiti Memory
+
+```python
+# Query context
+mcp__MCP_DOCKER__search_memory_facts(
+    query="visuana feature",
+    group_ids=["development", "visuana-ultima"]
+)
+
+# Save insights
+mcp__MCP_DOCKER__add_memory(
+    name="Visuana: [topic]",
+    episode_body="...",
+    group_id="visuana-ultima"
+)
+```
+
+---
+
+## Polish Language (ABSOLUTE RULE)
+
+Wszystkie tresci uzytkownika w naturalnym polskim. Anglicyzmy techniczne (debugging, deploy) akceptowane. Unikaj doslownych tlumaczen.
