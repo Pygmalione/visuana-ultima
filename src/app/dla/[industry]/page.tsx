@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getIndustryBySlug, getAllIndustrySlugs } from '@/data/industries'
 import { IndustryPageTemplate } from '@/components/templates/IndustryPageTemplate'
-import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
 import { IndustrySlug } from '@/types/industry'
 
 // ============================================
@@ -15,7 +14,7 @@ import { IndustrySlug } from '@/types/industry'
  * Static Generation - pages are pre-rendered at build time
  * Revalidate yearly (effectively static)
  */
-export const revalidate = REVALIDATION_CONFIG.servicePage
+export const revalidate = 31536000 // 1 year (effectively static)
 
 /**
  * Generate static params for all industries

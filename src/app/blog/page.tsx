@@ -3,7 +3,7 @@ import { Navbar, Footer, Section, Grid } from '@/components/layout'
 import { ArticleCard } from '@/components/cards'
 import { getArticles, getCategories } from '@/lib/blog/strapi-client'
 import { articles as mockArticles, categories as mockCategories } from '@/lib/blog/mock-data'
-import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
+
 import type { ArticleWithRelations, Category } from '@/types/blog'
 import type { Metadata } from 'next'
 
@@ -16,7 +16,7 @@ import type { Metadata } from 'next'
  * ISR Configuration - Task Group 9
  * Revalidate blog listing every 30 minutes
  */
-export const revalidate = REVALIDATION_CONFIG.blogListing
+export const revalidate = 1800 // 30 minutes
 
 export const metadata: Metadata = {
   title: 'Blog | Visuana - Marketing, który działa',

@@ -6,7 +6,7 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { articleSchema } from '@/lib/seo/schemas'
 import { getArticleBySlug, getArticles, getLatestArticles } from '@/lib/blog/strapi-client'
 import { getArticleBySlug as getMockArticleBySlug, getLatestArticles as getMockLatestArticles, articles as mockArticles } from '@/lib/blog/mock-data'
-import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
+
 import type { ArticleWithRelations } from '@/types/blog'
 import type { Metadata } from 'next'
 
@@ -19,7 +19,7 @@ import type { Metadata } from 'next'
  * ISR Configuration - Task Group 9
  * Revalidate blog posts every hour
  */
-export const revalidate = REVALIDATION_CONFIG.blogPost
+export const revalidate = 3600 // 1 hour
 
 /**
  * Generate static paths for known articles

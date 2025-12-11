@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getRoleBySlug } from '@/data/roles'
 import { RolePageTemplate } from '@/components/templates/RolePageTemplate'
-import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
+
 
 // ============================================
 // CONTENT MANAGER PAGE - SPEC-011
@@ -12,7 +12,7 @@ import { REVALIDATION_CONFIG } from '@/lib/performance/revalidation'
  * Static Generation - page is pre-rendered at build time
  * Revalidate yearly (effectively static)
  */
-export const revalidate = REVALIDATION_CONFIG.servicePage
+export const revalidate = 31536000 // 1 year
 
 /**
  * Page metadata for SEO
