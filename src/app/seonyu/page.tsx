@@ -5,6 +5,7 @@ import {
   SeonyuFeatures,
   SeonyuHowItWorks,
   SeonyuSocialProof,
+  SeonyuFAQ,
   SeonyuCTA,
   SeonyuFooter,
 } from './components'
@@ -40,6 +41,9 @@ export default function SeonyuPage() {
 
       {/* Social Proof Section */}
       <SeonyuSocialProof />
+
+      {/* FAQ Section */}
+      <SeonyuFAQ />
 
       {/* CTA Section */}
       <SeonyuCTA />
