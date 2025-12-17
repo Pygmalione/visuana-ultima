@@ -1,11 +1,21 @@
+'use client'
+
 import Link from 'next/link'
 import { ArticleCardProps } from '@/types/components'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // ARTICLE CARD COMPONENT
 // Based on SPEC-001 Visual Identity
-// Blog post card with image, metadata, author
+// Enhanced with 60fps microinteractions
 // ============================================
+
+interface EnhancedArticleCardProps extends ArticleCardProps {
+  /** Index for staggered animations */
+  index?: number
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 export function ArticleCard({
   image,
@@ -16,9 +26,15 @@ export function ArticleCard({
   author,
   slug,
   variant = 'default',
-}: ArticleCardProps) {
+  index = 0,
+  disableAnimations = false,
+}: EnhancedArticleCardProps) {
   const isCompact = variant === 'compact'
   const isFeatured = variant === 'featured'
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.15 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
 
   // Get author initials for fallback avatar
   const getInitials = (name: string) => {
@@ -32,6 +48,7 @@ export function ArticleCard({
 
   return (
     <article
+      ref={ref}
       data-testid="article-card"
       className={`
         group
@@ -41,9 +58,15 @@ export function ArticleCard({
         transition-all duration-300 ease-out
         hover:-translate-y-1 hover:border-slate-300
         ${isFeatured ? 'md:col-span-2 md:grid md:grid-cols-2' : ''}
+        ${shouldAnimate ? 'animate-scale-in' : ''}
       `.trim().replace(/\s+/g, ' ')}
+      style={{
+        animationDelay: shouldAnimate ? getStaggerDelay(index, 80) : undefined,
+        opacity: shouldAnimate ? 0 : 1,
+        animationFillMode: 'forwards',
+      }}
     >
-      {/* Image */}
+      {/* Image with enhanced hover effects */}
       {image && !isCompact && (
         <Link href={`/blog/${slug}`} className="block" tabIndex={-1}>
           <div
@@ -53,24 +76,50 @@ export function ArticleCard({
               ${isFeatured ? 'aspect-square md:aspect-auto md:h-full' : 'aspect-video'}
             `}
           >
+            {/* Image with smooth zoom on hover */}
             <img
               src={image}
               alt={title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              style={{
+                willChange: 'transform',
+              }}
             />
+
+            {/* Shimmer overlay effect on hover */}
+            <div
+              className={`
+                absolute inset-0 pointer-events-none
+                bg-gradient-to-r from-transparent via-white/20 to-transparent
+                -translate-x-full group-hover:translate-x-full
+                transition-transform duration-1000 ease-out
+              `}
+              aria-hidden="true"
+              style={{
+                willChange: 'transform',
+              }}
+            />
+
             {/* Gradient overlay for featured */}
             {isFeatured && (
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             )}
           </div>
         </Link>
       )}
 
-      {/* Content */}
+      {/* Content with staggered reveal */}
       <div className={`p-5 ${isFeatured ? 'flex flex-col justify-center' : ''}`}>
-        {/* Category Badge */}
+        {/* Category Badge with subtle entrance */}
         {category && (
-          <span className="inline-block px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-slate-600 bg-slate-100 border border-slate-200 rounded-full mb-3">
+          <span
+            className={`
+              inline-block px-3 py-1.5 text-xs font-medium uppercase tracking-wider
+              text-slate-600 bg-slate-100 border border-slate-200 rounded-full mb-3
+              transition-all duration-200
+              group-hover:bg-slate-200 group-hover:border-slate-300
+            `}
+          >
             {category}
           </span>
         )}
@@ -79,7 +128,7 @@ export function ArticleCard({
         <h3 className={`font-display font-light text-slate-900 line-clamp-2 mb-2 tracking-tight ${isFeatured ? 'text-xl md:text-2xl' : 'text-lg'}`}>
           <Link
             href={`/blog/${slug}`}
-            className="hover:text-slate-700 transition-colors duration-200"
+            className="hover:text-slate-700 transition-colors duration-200 bg-gradient-to-r from-slate-900 to-slate-900 bg-[length:0%_1px] bg-left-bottom bg-no-repeat hover:bg-[length:100%_1px] transition-[background-size] duration-300"
           >
             {title}
           </Link>
@@ -108,21 +157,21 @@ export function ArticleCard({
           )}
 
           {/* Separator */}
-          {date && author && <span className="text-charcoal-300">•</span>}
+          {date && author && <span className="text-slate-300">•</span>}
 
-          {/* Author */}
+          {/* Author with avatar hover effect */}
           {author && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 group/author">
               {author.avatar ? (
                 <img
                   src={author.avatar}
                   alt={author.name}
-                  className="w-6 h-6 rounded-full object-cover"
+                  className="w-6 h-6 rounded-full object-cover ring-2 ring-transparent group-hover/author:ring-slate-200 transition-all duration-200"
                 />
               ) : (
                 <span
                   data-testid="author-avatar-fallback"
-                  className="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-medium flex items-center justify-center"
+                  className="w-6 h-6 rounded-full bg-slate-200 text-slate-600 text-xs font-medium flex items-center justify-center ring-2 ring-transparent group-hover/author:ring-slate-300 transition-all duration-200"
                 >
                   {getInitials(author.name)}
                 </span>
