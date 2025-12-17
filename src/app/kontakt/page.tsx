@@ -6,6 +6,11 @@ import { ContactFAQ } from '@/components/contact/ContactFAQ'
 import { ContactTestimonials } from '@/components/contact/ContactTestimonials'
 import { JsonLdMultiple } from '@/components/seo/JsonLd'
 import { submitContactForm } from './actions'
+import {
+  ContactHeroContent,
+  AnimatedFormCard,
+  AnimatedBottomCTA,
+} from './components'
 
 
 // ============================================
@@ -172,28 +177,18 @@ export default function ContactPage() {
       />
 
       <main id="main-content">
-        {/* Hero Section */}
+        {/* Hero Section with Animated Content */}
         <Section bgColor="white" padding="xl">
           <Container>
-            <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal-800 mb-4 sm:mb-6">
-                Porozmawiajmy o Twoim projekcie
-              </h1>
-              <p className="text-lg sm:text-xl text-charcoal-600 leading-relaxed">
-                Bezplatna konsultacja 15 minut. Zero zobowiazan. Konkrety.
-              </p>
-            </div>
+            <ContactHeroContent />
 
             {/* Two-column layout: Form + Info */}
             <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
-              {/* Left Column - Contact Form (3/5 width) */}
+              {/* Left Column - Contact Form (3/5 width) with Animated Card */}
               <div className="lg:col-span-3">
-                <div className="bg-white rounded-xl shadow-card p-6 sm:p-8">
-                  <h2 className="text-xl sm:text-2xl font-semibold text-charcoal-800 mb-6">
-                    Zostaw wiadomosc
-                  </h2>
+                <AnimatedFormCard>
                   <ContactForm submitAction={submitContactForm} />
-                </div>
+                </AnimatedFormCard>
               </div>
 
               {/* Right Column - Contact Info (2/5 width) */}
@@ -210,23 +205,9 @@ export default function ContactPage() {
         {/* Testimonials Section */}
         <ContactTestimonials />
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA with Entrance Animations */}
         <Section bgColor="royal-red" padding="lg">
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
-              Wolisz rozmowe telefoniczna?
-            </h2>
-            <p className="text-lg text-royal-red-100 mb-6 max-w-2xl mx-auto">
-              Napisz na{' '}
-              <a
-                href="mailto:karol@visuana.pl"
-                className="underline hover:text-white transition-colors"
-              >
-                karol@visuana.pl
-              </a>
-              {' '}a umowimy sie na krotka rozmowe.
-            </p>
-          </div>
+          <AnimatedBottomCTA />
         </Section>
       </main>
 
