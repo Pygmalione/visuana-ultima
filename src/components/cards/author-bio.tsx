@@ -1,10 +1,18 @@
+'use client'
+
 import { AuthorBioProps } from '@/types/components'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // AUTHOR BIO COMPONENT
 // Based on SPEC-001 Visual Identity + karol-frontend-design skill
-// Distinctive author card with asymmetric layout
+// Enhanced with scroll-triggered animations
 // ============================================
+
+interface EnhancedAuthorBioProps extends AuthorBioProps {
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 const SocialIcon = ({ platform }: { platform: string }) => {
   const iconClass = 'w-5 h-5'
@@ -45,7 +53,13 @@ export function AuthorBio({
   bio,
   role,
   socialLinks = [],
-}: AuthorBioProps) {
+  disableAnimations = false,
+}: EnhancedAuthorBioProps) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
+
   // Get author initials for fallback avatar
   const getInitials = (authorName: string) => {
     return authorName
@@ -58,29 +72,56 @@ export function AuthorBio({
 
   return (
     <div
+      ref={ref}
       data-testid="author-bio"
-      className="relative bg-white rounded-lg p-6 md:p-8 shadow-card border border-charcoal-100 overflow-hidden"
+      className={`
+        relative bg-white rounded-lg p-6 md:p-8 shadow-card border border-charcoal-100 overflow-hidden
+        transition-all duration-300 hover:shadow-card-hover
+        ${shouldAnimate ? 'animate-scale-in' : ''}
+      `}
+      style={{
+        animationDelay: shouldAnimate ? '0ms' : undefined,
+        opacity: shouldAnimate ? 0 : 1,
+        animationFillMode: 'forwards',
+      }}
     >
-      {/* Decorative Accent - diagonal gradient stripe */}
+      {/* Decorative Accent - animated gradient stripe */}
       <div
         data-testid="author-bio-accent"
-        className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-royal-red-700 to-royal-red-500"
+        className={`
+          absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-royal-red-700 to-royal-red-500
+          origin-top
+          ${shouldAnimate ? 'animate-[scaleY_0.6s_ease-out_0.2s_forwards]' : ''}
+        `}
+        style={{
+          transform: shouldAnimate ? 'scaleY(0)' : 'scaleY(1)',
+        }}
         aria-hidden="true"
       />
 
       <div className="flex flex-col sm:flex-row gap-6 pl-4">
-        {/* Avatar */}
-        <div className="flex-shrink-0">
+        {/* Avatar with scale-in animation */}
+        <div
+          className={`
+            flex-shrink-0
+            ${shouldAnimate ? 'animate-scale-in' : ''}
+          `}
+          style={{
+            animationDelay: shouldAnimate ? '100ms' : undefined,
+            opacity: shouldAnimate ? 0 : 1,
+            animationFillMode: 'forwards',
+          }}
+        >
           {avatar ? (
             <img
               src={avatar}
               alt={name}
-              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-4 ring-slate-100 shadow-lg"
+              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-4 ring-slate-100 shadow-lg transition-all duration-300 hover:ring-royal-red-200 hover:scale-105"
             />
           ) : (
             <div
               data-testid="author-bio-avatar-fallback"
-              className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-royal-red-600 to-royal-red-800 text-white text-2xl md:text-3xl font-bold flex items-center justify-center ring-4 ring-slate-100 shadow-lg"
+              className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-royal-red-600 to-royal-red-800 text-white text-2xl md:text-3xl font-bold flex items-center justify-center ring-4 ring-slate-100 shadow-lg transition-all duration-300 hover:ring-royal-red-200 hover:scale-105"
             >
               {getInitials(name)}
             </div>
@@ -89,8 +130,18 @@ export function AuthorBio({
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          {/* Name & Role */}
-          <div className="mb-3">
+          {/* Name & Role with text reveal */}
+          <div
+            className={`
+              mb-3
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '200ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             <h3 className="text-xl md:text-2xl font-bold text-charcoal-800">
               {name}
             </h3>
@@ -101,23 +152,42 @@ export function AuthorBio({
             )}
           </div>
 
-          {/* Bio */}
+          {/* Bio with delayed reveal */}
           {bio && (
-            <p className="text-charcoal-600 leading-relaxed mb-4">
+            <p
+              className={`
+                text-charcoal-600 leading-relaxed mb-4
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? '300ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
               {bio}
             </p>
           )}
 
-          {/* Social Links */}
+          {/* Social Links with staggered entrance */}
           {socialLinks.length > 0 && (
             <div className="flex gap-3">
-              {socialLinks.map((link) => (
+              {socialLinks.map((link, index) => (
                 <a
                   key={link.platform}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-charcoal-400 hover:text-royal-red-700 hover:bg-royal-red-50 rounded-full transition-all duration-200 hover:scale-110"
+                  className={`
+                    p-2 text-charcoal-400 hover:text-royal-red-700 hover:bg-royal-red-50 rounded-full
+                    transition-all duration-200 hover:scale-110
+                    ${shouldAnimate ? 'animate-scale-in' : ''}
+                  `}
+                  style={{
+                    animationDelay: shouldAnimate ? getStaggerDelay(index + 4, 80) : undefined,
+                    opacity: shouldAnimate ? 0 : 1,
+                    animationFillMode: 'forwards',
+                  }}
                   aria-label={`${name} na ${link.platform}`}
                 >
                   <SocialIcon platform={link.platform} />
@@ -128,9 +198,12 @@ export function AuthorBio({
         </div>
       </div>
 
-      {/* Subtle background pattern (decorative) */}
+      {/* Animated background orb */}
       <div
-        className="absolute -bottom-10 -right-10 w-40 h-40 bg-royal-red-50 rounded-full opacity-50 blur-3xl"
+        className={`
+          absolute -bottom-10 -right-10 w-40 h-40 bg-royal-red-50 rounded-full opacity-50 blur-3xl
+          ${shouldAnimate ? 'animate-glow-pulse' : ''}
+        `}
         aria-hidden="true"
       />
     </div>
