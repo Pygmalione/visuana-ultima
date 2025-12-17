@@ -1,7 +1,9 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
-import { Container } from '@/components/layout/container'
-
+import {
+  AnimatedHero,
+  AnimatedServicesGrid,
+  AnimatedUslugiCTA,
+} from './components'
 
 // ============================================
 // SERVICE LIST PAGE
@@ -147,110 +149,17 @@ export default function ServiceListPage() {
       />
 
       <main>
-        {/* Hero Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-charcoal-900 to-charcoal-800">
-          <Container>
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Nasze uslugi
-              </h1>
-              <p className="text-lg md:text-xl text-charcoal-300">
-                Kompleksowe wsparcie marketingowe dla Twojego biznesu
-              </p>
-            </div>
-          </Container>
-        </section>
+        {/* Hero Section with Scroll-Triggered Animations */}
+        <AnimatedHero
+          title="Nasze uslugi"
+          subtitle="Kompleksowe wsparcie marketingowe dla Twojego biznesu"
+        />
 
-        {/* Services Grid */}
-        <section className="py-16 md:py-24 bg-white">
-          <Container>
-            <div className="grid gap-8 md:grid-cols-2">
-              {services.map((service) => (
-                <Link
-                  key={service.id}
-                  href={service.href}
-                  aria-label={service.title}
-                  className="group block"
-                >
-                  <article
-                    data-testid="service-list-card"
-                    className="h-full p-6 md:p-8 bg-white rounded-xl border border-charcoal-100 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
-                  >
-                    {/* Icon */}
-                    <div
-                      aria-hidden="true"
-                      className="w-14 h-14 mb-6 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700 transition-colors duration-200 group-hover:bg-royal-red-100"
-                    >
-                      {service.icon}
-                    </div>
+        {/* Services Grid with Staggered Animations */}
+        <AnimatedServicesGrid services={services} />
 
-                    {/* Title */}
-                    <h2 className="text-xl md:text-2xl font-bold text-charcoal-800 mb-3 group-hover:text-royal-red-700 transition-colors duration-200">
-                      {service.title}
-                    </h2>
-
-                    {/* Description */}
-                    <p className="text-charcoal-600 mb-6">
-                      {service.description}
-                    </p>
-
-                    {/* Metric */}
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <span className="text-3xl md:text-4xl font-bold text-royal-red-700">
-                        {service.metric}
-                      </span>
-                      <span className="text-charcoal-500 text-sm">
-                        {service.metricLabel}
-                      </span>
-                    </div>
-
-                    {/* Link indicator */}
-                    <div className="flex items-center gap-2 text-royal-red-700 font-semibold">
-                      <span>Dowiedz sie wiecej</span>
-                      <svg
-                        className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
-          </Container>
-        </section>
-
-        {/* CTA Section */}
-        <section
-          data-testid="service-list-cta"
-          className="py-16 md:py-24 bg-royal-red-700"
-        >
-          <Container>
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Nie wiesz, ktora usluga wybrac?
-              </h2>
-              <p className="text-lg md:text-xl text-royal-red-100 mb-8">
-                Umow sie na bezplatna konsultacje. Pomozemy dobrac rozwiazania do Twoich potrzeb i budzetow.
-              </p>
-              <Link
-                href="/kontakt"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-royal-red-700 rounded-md shadow-button hover:shadow-button-hover hover:bg-charcoal-100 transition-all duration-200 hover:-translate-y-0.5"
-              >
-                Bezplatna konsultacja
-              </Link>
-            </div>
-          </Container>
-        </section>
+        {/* CTA Section with Entrance Animations */}
+        <AnimatedUslugiCTA />
       </main>
     </>
   )
