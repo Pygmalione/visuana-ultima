@@ -3,12 +3,18 @@
 import Link from 'next/link'
 import { ServiceCTAProps } from '@/types/service'
 import { Container } from '@/components/layout/container'
+import { useReducedMotion, useInView } from '@/lib/animations'
 
 // ============================================
 // SERVICE CTA COMPONENT
 // Based on SPEC-006 Service Pages
-// Full-width call-to-action section
+// Enhanced with scroll-triggered animations
 // ============================================
+
+interface EnhancedServiceCTAProps extends ServiceCTAProps {
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 const variantStyles = {
   'royal-red': {
@@ -37,32 +43,68 @@ export function ServiceCTA({
   buttonLabel,
   buttonHref,
   variant = 'royal-red',
-}: ServiceCTAProps) {
+  disableAnimations = false,
+}: EnhancedServiceCTAProps) {
   const styles = variantStyles[variant]
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
 
   return (
     <section
+      ref={ref}
       data-testid="service-cta"
-      className={`py-16 md:py-24 ${styles.bg}`}
+      className={`py-16 md:py-24 ${styles.bg} overflow-hidden`}
     >
       <Container>
         <div className="max-w-3xl mx-auto text-center">
-          {/* Heading */}
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${styles.title}`}>
+          {/* Heading with text reveal */}
+          <h2
+            className={`
+              text-3xl md:text-4xl font-bold mb-4 ${styles.title}
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {heading}
           </h2>
 
-          {/* Description */}
+          {/* Description with delayed reveal */}
           {description && (
-            <p className={`text-lg md:text-xl mb-8 ${styles.description}`}>
+            <p
+              className={`
+                text-lg md:text-xl mb-8 ${styles.description}
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? '150ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
               {description}
             </p>
           )}
 
-          {/* CTA Button */}
+          {/* CTA Button with scale-in animation */}
           <Link
             href={buttonHref}
-            className={`inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-md shadow-button hover:shadow-button-hover transition-all duration-200 hover:-translate-y-0.5 ${styles.button}`}
+            className={`
+              inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-md
+              shadow-button hover:shadow-button-hover transition-all duration-200 hover:-translate-y-0.5
+              ${styles.button}
+              ${shouldAnimate ? 'animate-scale-in' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '300ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
             {buttonLabel}
           </Link>

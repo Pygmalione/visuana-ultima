@@ -3,12 +3,18 @@
 import { SolutionSectionProps, FeatureIcon } from '@/types/service'
 import { Container } from '@/components/layout/container'
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // SOLUTION SECTION COMPONENT
 // Based on SPEC-006 Service Pages
-// Displays key features/benefits with icons
+// Enhanced with scroll-triggered animations
 // ============================================
+
+interface EnhancedSolutionSectionProps extends SolutionSectionProps {
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 // Icon mapping for feature icons
 const iconComponents: Record<FeatureIcon, React.ReactNode> = {
@@ -102,40 +108,66 @@ const iconComponents: Record<FeatureIcon, React.ReactNode> = {
 export function SolutionSection({
   heading,
   features,
-}: SolutionSectionProps) {
+  disableAnimations = false,
+}: EnhancedSolutionSectionProps) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.15 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
+
   return (
     <section
+      ref={ref}
       data-testid="solution-section"
       className="py-16 md:py-24 bg-white"
     >
       <Container>
-        {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 text-center mb-12">
+        {/* Heading with text reveal */}
+        <h2
+          className={`
+            text-3xl md:text-4xl font-bold text-charcoal-800 text-center mb-12
+            ${shouldAnimate ? 'animate-text-reveal' : ''}
+          `}
+          style={{
+            animationDelay: shouldAnimate ? '0ms' : undefined,
+            opacity: shouldAnimate ? 0 : 1,
+            animationFillMode: 'forwards',
+          }}
+        >
           {heading}
         </h2>
 
-        {/* Feature Cards Grid */}
+        {/* Feature Cards Grid with staggered entrance */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <Card
+            <div
               key={index}
-              hoverable
-              className="text-center"
+              className={shouldAnimate ? 'animate-scale-in' : ''}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index + 1, 100) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
             >
-              {/* Icon */}
-              <div className="flex justify-center mb-4">
-                <span className="w-14 h-14 flex items-center justify-center rounded-full bg-royal-red-100 text-royal-red-700">
-                  {iconComponents[feature.icon]}
-                </span>
-              </div>
+              <Card
+                hoverable
+                className="text-center group h-full"
+              >
+                {/* Icon with bounce on hover */}
+                <div className="flex justify-center mb-4">
+                  <span className="w-14 h-14 flex items-center justify-center rounded-full bg-royal-red-100 text-royal-red-700 transition-all duration-300 group-hover:scale-110 group-hover:bg-royal-red-200">
+                    {iconComponents[feature.icon]}
+                  </span>
+                </div>
 
-              <CardHeader className="mb-0">
-                <CardTitle className="text-center">{feature.title}</CardTitle>
-                <CardDescription className="text-center mt-2">
-                  {feature.description}
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                <CardHeader className="mb-0">
+                  <CardTitle className="text-center">{feature.title}</CardTitle>
+                  <CardDescription className="text-center mt-2">
+                    {feature.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
           ))}
         </div>
       </Container>

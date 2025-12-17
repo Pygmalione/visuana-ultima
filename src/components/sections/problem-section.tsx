@@ -2,40 +2,72 @@
 
 import { ProblemSectionProps } from '@/types/service'
 import { Container } from '@/components/layout/container'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // PROBLEM SECTION COMPONENT
 // Based on SPEC-006 Service Pages
-// Displays pain points to resonate with target audience
+// Enhanced with scroll-triggered animations
 // ============================================
+
+interface EnhancedProblemSectionProps extends ProblemSectionProps {
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 export function ProblemSection({
   heading,
   painPoints,
   hookText,
-}: ProblemSectionProps) {
+  disableAnimations = false,
+}: EnhancedProblemSectionProps) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.15 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
+
   return (
     <section
+      ref={ref}
       data-testid="problem-section"
       className="py-16 md:py-24 bg-charcoal-50"
     >
       <Container>
         <div className="max-w-3xl mx-auto text-center">
-          {/* Heading */}
-          <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-12">
+          {/* Heading with text reveal */}
+          <h2
+            className={`
+              text-3xl md:text-4xl font-bold text-charcoal-800 mb-12
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {heading}
           </h2>
 
-          {/* Pain Points */}
+          {/* Pain Points with staggered entrance */}
           <ul className="space-y-6 mb-12">
             {painPoints.map((point, index) => (
               <li
                 key={index}
-                className="flex items-start gap-4 text-left p-4 bg-white rounded-lg shadow-card"
+                className={`
+                  flex items-start gap-4 text-left p-4 bg-white rounded-lg shadow-card
+                  transition-all duration-300 hover:shadow-card-hover hover:-translate-x-1
+                  ${shouldAnimate ? 'animate-text-reveal' : ''}
+                `}
+                style={{
+                  animationDelay: shouldAnimate ? getStaggerDelay(index + 1, 120) : undefined,
+                  opacity: shouldAnimate ? 0 : 1,
+                  animationFillMode: 'forwards',
+                }}
               >
-                {/* X Icon indicating problem */}
+                {/* X Icon with shake animation on hover */}
                 <span
-                  className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-royal-red-100 text-royal-red-700"
+                  className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-royal-red-100 text-royal-red-700 transition-transform duration-200 hover:scale-110"
                   aria-hidden="true"
                 >
                   <svg
@@ -59,8 +91,18 @@ export function ProblemSection({
             ))}
           </ul>
 
-          {/* Hook Text - transition to solution */}
-          <p className="text-xl md:text-2xl font-semibold text-royal-red-700 italic">
+          {/* Hook Text with delayed reveal */}
+          <p
+            className={`
+              text-xl md:text-2xl font-semibold text-royal-red-700 italic
+              ${shouldAnimate ? 'animate-scale-in' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? getStaggerDelay(painPoints.length + 1, 120) : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {hookText}
           </p>
         </div>
