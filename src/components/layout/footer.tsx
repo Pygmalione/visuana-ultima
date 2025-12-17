@@ -6,11 +6,18 @@ import { FooterProps } from '@/types/components'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Container } from './container'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // FOOTER COMPONENT - Multi-column Footer
 // Based on SPEC-001 Visual Identity
+// Enhanced with scroll-triggered animations
 // ============================================
+
+interface EnhancedFooterProps extends FooterProps {
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 const SocialIcon = ({ platform }: { platform: string }): ReactElement | null => {
   const icons: Record<string, ReactElement> = {
@@ -49,9 +56,14 @@ export function Footer({
   socialLinks = [],
   copyright = `© ${new Date().getFullYear()} Visuana. Wszelkie prawa zastrzeżone.`,
   onNewsletterSignup,
-}: FooterProps) {
+  disableAnimations = false,
+}: EnhancedFooterProps) {
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.1 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -67,14 +79,27 @@ export function Footer({
   }
 
   return (
-    <footer className="bg-charcoal-900 text-white">
+    <footer ref={ref} className="bg-charcoal-900 text-white">
       <Container>
         {/* Main Footer Content */}
         <div className="py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-            {/* Brand Column */}
-            <div className="lg:col-span-2">
-              <Link href="/" className="inline-block mb-4">
+            {/* Brand Column with entrance animation */}
+            <div
+              className={`
+                lg:col-span-2
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? '0ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              <Link
+                href="/"
+                className="inline-block mb-4 transition-transform duration-300 hover:scale-105"
+              >
                 <span className="text-2xl font-bold text-white">
                   VISUANA
                   <span className="block h-0.5 w-full bg-royal-red-700 mt-1" />
@@ -112,9 +137,17 @@ export function Footer({
               )}
             </div>
 
-            {/* Link Columns */}
-            {columns.map((column) => (
-              <div key={column.title}>
+            {/* Link Columns with staggered entrance */}
+            {columns.map((column, columnIndex) => (
+              <div
+                key={column.title}
+                className={shouldAnimate ? 'animate-text-reveal' : ''}
+                style={{
+                  animationDelay: shouldAnimate ? getStaggerDelay(columnIndex + 1, 100) : undefined,
+                  opacity: shouldAnimate ? 0 : 1,
+                  animationFillMode: 'forwards',
+                }}
+              >
                 <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
                   {column.title}
                 </h4>
@@ -123,7 +156,7 @@ export function Footer({
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-charcoal-400 hover:text-royal-red-400 transition-colors duration-150"
+                        className="text-sm text-charcoal-400 hover:text-royal-red-400 hover:translate-x-1 transition-all duration-200 inline-block"
                       >
                         {link.label}
                       </Link>
@@ -135,22 +168,43 @@ export function Footer({
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="py-6 border-t border-charcoal-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Bottom Bar with entrance animation */}
+        <div
+          className={`
+            py-6 border-t border-charcoal-800 flex flex-col sm:flex-row items-center justify-between gap-4
+            ${shouldAnimate ? 'animate-text-reveal' : ''}
+          `}
+          style={{
+            animationDelay: shouldAnimate ? getStaggerDelay(columns.length + 1, 100) : undefined,
+            opacity: shouldAnimate ? 0 : 1,
+            animationFillMode: 'forwards',
+          }}
+        >
           <p className="text-xs text-charcoal-500">
             {copyright}
           </p>
 
-          {/* Social Links */}
+          {/* Social Links with hover scale effect */}
           {socialLinks.length > 0 && (
             <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
+              {socialLinks.map((social, socialIndex) => (
                 <a
                   key={social.platform}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-charcoal-400 hover:text-royal-red-400 transition-colors duration-150"
+                  className={`
+                    text-charcoal-400
+                    hover:text-royal-red-400 hover:scale-125
+                    hover:shadow-[0_0_12px_rgba(220,38,38,0.4)]
+                    transition-all duration-200 ease-out
+                    ${shouldAnimate ? 'animate-scale-in' : ''}
+                  `}
+                  style={{
+                    animationDelay: shouldAnimate ? getStaggerDelay(columns.length + socialIndex + 2, 80) : undefined,
+                    opacity: shouldAnimate ? 0 : 1,
+                    animationFillMode: 'forwards',
+                  }}
                   aria-label={`Odwiedź nas na ${social.platform}`}
                 >
                   <SocialIcon platform={social.platform} />

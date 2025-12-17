@@ -14,18 +14,26 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // CONTACT FORM COMPONENT - SPEC-007
+// Enhanced with staggered field entrance animations
 // ============================================
 
 interface ContactFormProps {
   submitAction: (data: ContactFormData) => Promise<ContactFormResponse>
+  /** Disable entrance animations */
+  disableAnimations?: boolean
 }
 
-export function ContactForm({ submitAction }: ContactFormProps) {
+export function ContactForm({ submitAction, disableAnimations = false }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitResult, setSubmitResult] = useState<ContactFormResponse | null>(null)
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.1 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
 
   const {
     register,
@@ -75,16 +83,20 @@ export function ContactForm({ submitAction }: ContactFormProps) {
     }
   }
 
-  // Success state
+  // Success state with scale-in animation
   if (submitResult?.success) {
     return (
       <div
         data-testid="success-message"
-        className="bg-success-50 border border-success-200 rounded-lg p-6 text-center"
+        className="bg-success-50 border border-success-200 rounded-lg p-6 text-center animate-scale-in"
         role="alert"
         aria-live="polite"
+        style={{
+          animationDelay: '0ms',
+          animationFillMode: 'forwards',
+        }}
       >
-        <div className="w-12 h-12 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-12 h-12 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
           <svg
             className="w-6 h-6 text-success-600"
             fill="none"
@@ -105,16 +117,17 @@ export function ContactForm({ submitAction }: ContactFormProps) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6"
-      noValidate
-      aria-label="Formularz kontaktowy"
-    >
+    <div ref={ref}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6"
+        noValidate
+        aria-label="Formularz kontaktowy"
+      >
       {/* Error message */}
       {submitResult && !submitResult.success && (
         <div
-          className="bg-red-50 border border-red-200 rounded-lg p-4"
+          className="bg-red-50 border border-red-200 rounded-lg p-4 animate-scale-in"
           role="alert"
           aria-live="assertive"
         >
@@ -125,71 +138,125 @@ export function ContactForm({ submitAction }: ContactFormProps) {
         </div>
       )}
 
-      {/* Name */}
-      <Input
-        {...register('name')}
-        label="Imie i nazwisko*"
-        placeholder="Jan Kowalski"
-        error={errors.name?.message}
-        fullWidth
-        autoComplete="name"
-        aria-required="true"
-      />
+      {/* Name - Field 1 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(0, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Input
+          {...register('name')}
+          label="Imie i nazwisko*"
+          placeholder="Jan Kowalski"
+          error={errors.name?.message}
+          fullWidth
+          autoComplete="name"
+          aria-required="true"
+        />
+      </div>
 
-      {/* Email */}
-      <Input
-        {...register('email')}
-        type="email"
-        label="Email*"
-        placeholder="jan@firma.pl"
-        error={errors.email?.message}
-        fullWidth
-        autoComplete="email"
-        aria-required="true"
-      />
+      {/* Email - Field 2 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(1, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Input
+          {...register('email')}
+          type="email"
+          label="Email*"
+          placeholder="jan@firma.pl"
+          error={errors.email?.message}
+          fullWidth
+          autoComplete="email"
+          aria-required="true"
+        />
+      </div>
 
-      {/* Company (optional) */}
-      <Input
-        {...register('company')}
-        label="Firma"
-        placeholder="Nazwa firmy (opcjonalnie)"
-        error={errors.company?.message}
-        fullWidth
-        autoComplete="organization"
-      />
+      {/* Company (optional) - Field 3 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(2, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Input
+          {...register('company')}
+          label="Firma"
+          placeholder="Nazwa firmy (opcjonalnie)"
+          error={errors.company?.message}
+          fullWidth
+          autoComplete="organization"
+        />
+      </div>
 
-      {/* Company Size */}
-      <Select
-        {...register('companySize')}
-        label="Wielkosc firmy*"
-        placeholder="Wybierz..."
-        options={COMPANY_SIZE_OPTIONS}
-        error={errors.companySize?.message}
-        fullWidth
-        aria-required="true"
-      />
+      {/* Company Size - Field 4 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(3, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Select
+          {...register('companySize')}
+          label="Wielkosc firmy*"
+          placeholder="Wybierz..."
+          options={COMPANY_SIZE_OPTIONS}
+          error={errors.companySize?.message}
+          fullWidth
+          aria-required="true"
+        />
+      </div>
 
-      {/* Service */}
-      <Select
-        {...register('service')}
-        label="Czym jestes zainteresowany?*"
-        placeholder="Wybierz usluge..."
-        options={SERVICE_OPTIONS}
-        error={errors.service?.message}
-        fullWidth
-        aria-required="true"
-      />
+      {/* Service - Field 5 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(4, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Select
+          {...register('service')}
+          label="Czym jestes zainteresowany?*"
+          placeholder="Wybierz usluge..."
+          options={SERVICE_OPTIONS}
+          error={errors.service?.message}
+          fullWidth
+          aria-required="true"
+        />
+      </div>
 
-      {/* Message */}
-      <Textarea
-        {...register('message')}
-        label="Wiadomosc*"
-        placeholder="Opisz krotko swoje potrzeby..."
-        rows={5}
-        error={errors.message?.message}
-        fullWidth
-        aria-required="true"
-      />
+      {/* Message - Field 6 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(5, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Textarea
+          {...register('message')}
+          label="Wiadomosc*"
+          placeholder="Opisz krotko swoje potrzeby..."
+          rows={5}
+          error={errors.message?.message}
+          fullWidth
+          aria-required="true"
+        />
+      </div>
 
       {/* Honeypot - hidden from users, visible to bots */}
       <div className="absolute left-[-9999px]" aria-hidden="true">
@@ -201,39 +268,76 @@ export function ContactForm({ submitAction }: ContactFormProps) {
         />
       </div>
 
-      {/* GDPR Consent */}
-      <Checkbox
-        {...register('gdprConsent')}
-        label="Zgoda RODO* - Wyrazam zgode na przetwarzanie moich danych osobowych przez Visuana Ultima w celu odpowiedzi na moja wiadomosc."
-        error={errors.gdprConsent?.message}
-        aria-required="true"
-      />
+      {/* GDPR Consent - Field 7 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(6, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Checkbox
+          {...register('gdprConsent')}
+          label="Zgoda RODO* - Wyrazam zgode na przetwarzanie moich danych osobowych przez Visuana Ultima w celu odpowiedzi na moja wiadomosc."
+          error={errors.gdprConsent?.message}
+          aria-required="true"
+        />
+      </div>
 
-      {/* Newsletter Consent */}
-      <Checkbox
-        {...register('newsletterConsent')}
-        label="Newsletter - Chce otrzymywac newsletter z poradami marketingowymi."
-      />
+      {/* Newsletter Consent - Field 8 */}
+      <div
+        className={shouldAnimate ? 'animate-text-reveal' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(7, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
+        <Checkbox
+          {...register('newsletterConsent')}
+          label="Newsletter - Chce otrzymywac newsletter z poradami marketingowymi."
+        />
+      </div>
 
-      {/* Privacy note */}
-      <p className="text-sm text-charcoal-500">
+      {/* Privacy note - Field 9 */}
+      <p
+        className={`text-sm text-charcoal-500 ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(8, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
         Twoje dane sa bezpieczne. Nie wysylamy spamu.{' '}
-        <a href="/polityka-prywatnosci" className="underline hover:text-royal-red-700">
+        <a href="/polityka-prywatnosci" className="underline hover:text-royal-red-700 transition-colors duration-200">
           Polityka prywatnosci
         </a>
       </p>
 
-      {/* Submit Button */}
-      <Button
-        type="submit"
-        variant="primary"
-        size="lg"
-        loading={isSubmitting}
-        disabled={isSubmitting}
-        className="w-full"
+      {/* Submit Button - Field 10 */}
+      <div
+        className={shouldAnimate ? 'animate-scale-in' : ''}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(9, 80) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
       >
-        Wyslij wiadomosc
-      </Button>
-    </form>
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          loading={isSubmitting}
+          disabled={isSubmitting}
+          className="w-full"
+        >
+          Wyslij wiadomosc
+        </Button>
+      </div>
+      </form>
+    </div>
   )
 }
+
+ContactForm.displayName = 'ContactForm'
