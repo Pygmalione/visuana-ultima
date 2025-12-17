@@ -2,7 +2,7 @@ import { AuthorBioProps } from '@/types/components'
 
 // ============================================
 // AUTHOR BIO COMPONENT
-// Based on SPEC-001 Visual Identity + frontend-design skill
+// Based on SPEC-001 Visual Identity + karol-frontend-design skill
 // Distinctive author card with asymmetric layout
 // ============================================
 

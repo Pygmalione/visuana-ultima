@@ -183,6 +183,9 @@ const config: Config = {
         'border-beam': 'border-beam 8s linear infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'bounce-slow': 'bounce 3s infinite',
+        'text-reveal': 'text-reveal 0.8s ease-out forwards',
+        'scale-in': 'scale-in 0.5s ease-out forwards',
+        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
       },
       keyframes: {
         shimmer: {
@@ -233,6 +236,18 @@ const config: Config = {
         },
         'border-beam': {
           '100%': { 'offset-distance': '100%' },
+        },
+        'text-reveal': {
+          '0%': { opacity: '0', transform: 'translateY(20px)', filter: 'blur(8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)', filter: 'blur(0)' },
+        },
+        'scale-in': {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        'glow-pulse': {
+          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
         },
       },
       transitionDuration: {

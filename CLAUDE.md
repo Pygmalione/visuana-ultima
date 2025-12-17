@@ -57,10 +57,15 @@ src/
 ├── types/                 # TypeScript types
 └── hooks/                 # Custom hooks (useAnalytics)
 
-agent-os/
-├── product/               # Mission, roadmap, tech-stack, specs-plan
-├── specs/                 # Feature specifications (YYYY-MM-DD-nazwa/)
-└── standards/             # Coding standards (backend, frontend, global, testing)
+docs/
+├── product/               # Mission, roadmap, tech-stack
+├── research/              # Market research, competitive analysis
+├── standards/brand/       # Tone of Voice, visual identity
+└── archive/               # Legacy content
+
+plans/{YYMMDD}-{slug}/     # ClaudeKit feature plans
+├── plan.md                # Overview (< 60 lines)
+└── phase-XX-*.md          # Implementation specs
 ```
 
 ---
@@ -96,16 +101,19 @@ agent-os/
 
 ---
 
-## Agent-OS Commands
+## ClaudeKit Commands
 
 | Command | Description |
 |---------|-------------|
-| `/plan-product` | Product planning, mission, roadmap |
-| `/shape-spec` | Gather requirements through questions |
-| `/write-spec` | Create detailed specification |
-| `/create-tasks` | Generate tasks.md from spec |
-| `/implement-tasks` | Implement tasks from tasks.md |
-| `/orchestrate-tasks` | Full workflow orchestration |
+| `/plan` | Create implementation plan with phases |
+| `/code` | Code implementation with TDD |
+| `/brainstorm` | Interactive design refinement |
+| `/test` | Run tests and analyze results |
+| `/debug` | Debug issues systematically |
+| `/scout` | Explore codebase structure |
+| `/ck-help` | ClaudeKit help and docs |
+
+**CLI**: `ck init --yes` (initialize/update project)
 
 ---
 
