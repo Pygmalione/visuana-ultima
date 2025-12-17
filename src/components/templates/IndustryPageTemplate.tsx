@@ -9,6 +9,7 @@ import { Grid } from '@/components/layout/grid'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // SHARED NAV & FOOTER CONFIG
@@ -302,30 +303,67 @@ function getIcon(iconName: string): ReactElement {
 
 // ============================================
 // HERO SECTION
+// Enhanced with entrance animations
 // ============================================
 
 function HeroSection({ industry }: { industry: Industry }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+  const shouldAnimate = !prefersReducedMotion && isInView
+
   return (
     <section
+      ref={ref}
       data-testid="industry-hero"
       className="py-16 md:py-24 bg-gradient-to-b from-charcoal-900 to-charcoal-800"
     >
       <Container>
         <div className="max-w-4xl mx-auto text-center">
           {/* Industry Badge */}
-          <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-royal-red-400 bg-royal-red-900/30 rounded-full">
+          <span
+            className={`
+              inline-block px-4 py-1.5 mb-6 text-sm font-medium text-royal-red-400 bg-royal-red-900/30 rounded-full
+              ${shouldAnimate ? 'animate-scale-in' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             Marketing dla {industry.name}
           </span>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1
+            className={`
+              text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {industry.headline}
           </h1>
 
           {/* Value Props */}
           <ul className="flex flex-col md:flex-row justify-center gap-4 md:gap-8 mb-10">
             {industry.valueProps.map((prop, index) => (
-              <li key={index} className="flex items-center justify-center gap-2 text-charcoal-300">
+              <li
+                key={index}
+                className={`
+                  flex items-center justify-center gap-2 text-charcoal-300
+                  ${shouldAnimate ? 'animate-text-reveal' : ''}
+                `}
+                style={{
+                  animationDelay: shouldAnimate ? getStaggerDelay(index + 2, 100) : undefined,
+                  opacity: shouldAnimate ? 0 : 1,
+                  animationFillMode: 'forwards',
+                }}
+              >
                 <svg className="w-5 h-5 text-royal-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
@@ -335,11 +373,20 @@ function HeroSection({ industry }: { industry: Industry }) {
           </ul>
 
           {/* CTA */}
-          <Link href="/kontakt">
-            <Button size="lg" className="text-lg">
-              Bezplatna konsultacja
-            </Button>
-          </Link>
+          <div
+            className={shouldAnimate ? 'animate-scale-in' : ''}
+            style={{
+              animationDelay: shouldAnimate ? '500ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            <Link href="/kontakt">
+              <Button size="lg" className="text-lg">
+                Bezplatna konsultacja
+              </Button>
+            </Link>
+          </div>
         </div>
       </Container>
     </section>
@@ -348,242 +395,460 @@ function HeroSection({ industry }: { industry: Industry }) {
 
 // ============================================
 // PAIN POINTS SECTION
+// Enhanced with scroll-triggered animations
 // ============================================
 
 function PainPointsSection({ industry }: { industry: Industry }) {
-  return (
-    <Section bgColor="white" padding="xl" data-testid="industry-pain-points">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
-          Czy to brzmi znajomo?
-        </h2>
-        <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
-          Te wyzwania sa typowe dla branzy {industry.name}. Mamy na nie sprawdzone rozwiazania.
-        </p>
-      </div>
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.15 })
+  const shouldAnimate = !prefersReducedMotion && isInView
 
-      <Grid cols={{ sm: 1, md: 2 }} gap="lg">
-        {industry.painPoints.map((painPoint) => (
-          <div
-            key={painPoint.id}
-            className="flex gap-4 p-6 bg-charcoal-50 rounded-xl border border-charcoal-100"
+  return (
+    <div ref={ref}>
+      <Section bgColor="white" padding="xl" data-testid="industry-pain-points">
+        <div className="text-center mb-12">
+          <h2
+            className={`
+              text-3xl md:text-4xl font-bold text-charcoal-800 mb-4
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700">
-              {getIcon(painPoint.icon)}
+            Czy to brzmi znajomo?
+          </h2>
+          <p
+            className={`
+              text-lg text-charcoal-600 max-w-2xl mx-auto
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            Te wyzwania sa typowe dla branzy {industry.name}. Mamy na nie sprawdzone rozwiazania.
+          </p>
+        </div>
+
+        <Grid cols={{ sm: 1, md: 2 }} gap="lg">
+          {industry.painPoints.map((painPoint, index) => (
+            <div
+              key={painPoint.id}
+              className={`
+                flex gap-4 p-6 bg-charcoal-50 rounded-xl border border-charcoal-100
+                hover:shadow-card hover:-translate-y-1 transition-all duration-300
+                ${shouldAnimate ? 'animate-scale-in' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index, 100) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700 transition-transform duration-300 group-hover:scale-110">
+                {getIcon(painPoint.icon)}
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-charcoal-800 mb-2">
+                  {painPoint.title}
+                </h3>
+                <p className="text-charcoal-600">
+                  {painPoint.description}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-charcoal-800 mb-2">
-                {painPoint.title}
-              </h3>
-              <p className="text-charcoal-600">
-                {painPoint.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </Grid>
-    </Section>
+          ))}
+        </Grid>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // SOLUTIONS SECTION
+// Enhanced with scroll-triggered animations
 // ============================================
 
 function SolutionsSection({ industry }: { industry: Industry }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.1 })
+  const shouldAnimate = !prefersReducedMotion && isInView
+
   return (
-    <Section bgColor="muted" padding="xl" data-testid="industry-solutions">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
-          Jak dzialamy dla {industry.name}
-        </h2>
-        <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
-          Nasze unikalne rozwiazania dopasowane do specyfiki Twojej branzy.
-        </p>
-      </div>
-
-      <Grid cols={{ sm: 1, md: 3 }} gap="lg">
-        {industry.solutions.map((solution) => (
-          <div
-            key={solution.id}
-            className="bg-white rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+    <div ref={ref}>
+      <Section bgColor="muted" padding="xl" data-testid="industry-solutions">
+        <div className="text-center mb-12">
+          <h2
+            className={`
+              text-3xl md:text-4xl font-bold text-charcoal-800 mb-4
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            {/* Icon */}
-            <div className="w-14 h-14 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700 mb-4">
-              {getIcon(solution.icon)}
+            Jak dzialamy dla {industry.name}
+          </h2>
+          <p
+            className={`
+              text-lg text-charcoal-600 max-w-2xl mx-auto
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            Nasze unikalne rozwiazania dopasowane do specyfiki Twojej branzy.
+          </p>
+        </div>
+
+        <Grid cols={{ sm: 1, md: 3 }} gap="lg">
+          {industry.solutions.map((solution, index) => (
+            <div
+              key={solution.id}
+              className={`
+                bg-white rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 group
+                ${shouldAnimate ? 'animate-scale-in' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index, 120) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              {/* Icon */}
+              <div className="w-14 h-14 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700 mb-4 transition-transform duration-300 group-hover:scale-110">
+                {getIcon(solution.icon)}
+              </div>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold text-charcoal-800 mb-2">
+                {solution.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-charcoal-600 mb-4">
+                {solution.description}
+              </p>
+
+              {/* Benefits */}
+              <ul className="space-y-2">
+                {solution.benefits.map((benefit, benefitIndex) => (
+                  <li key={benefitIndex} className="flex items-start gap-2 text-sm text-charcoal-700">
+                    <svg className="w-4 h-4 text-royal-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {/* Title */}
-            <h3 className="text-xl font-bold text-charcoal-800 mb-2">
-              {solution.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-charcoal-600 mb-4">
-              {solution.description}
-            </p>
-
-            {/* Benefits */}
-            <ul className="space-y-2">
-              {solution.benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-charcoal-700">
-                  <svg className="w-4 h-4 text-royal-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </Grid>
-    </Section>
+          ))}
+        </Grid>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // CASE STUDY SECTION
+// Enhanced with scroll-triggered animations
 // ============================================
 
 function CaseStudySection({ industry }: { industry: Industry }) {
-  return (
-    <Section bgColor="white" padding="xl" data-testid="industry-case-study">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-royal-red-700 bg-royal-red-50 rounded-full">
-            Case Study
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
-            {industry.caseStudy.title}
-          </h2>
-          <p className="text-lg text-charcoal-600">
-            {industry.caseStudy.description}
-          </p>
-        </div>
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.15 })
+  const shouldAnimate = !prefersReducedMotion && isInView
 
-        {/* Metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10">
-          {industry.caseStudy.metrics.map((metric, index) => (
-            <div key={index} className="text-center p-6 bg-charcoal-50 rounded-xl">
-              <p className="text-4xl md:text-5xl font-bold text-royal-red-700 mb-2">
-                {metric.value}
-              </p>
-              <p className="text-charcoal-600">
-                {metric.label}
-              </p>
-            </div>
-          ))}
+  return (
+    <div ref={ref}>
+      <Section bgColor="white" padding="xl" data-testid="industry-case-study">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <span
+              className={`
+                inline-block px-4 py-1.5 mb-4 text-sm font-medium text-royal-red-700 bg-royal-red-50 rounded-full
+                ${shouldAnimate ? 'animate-scale-in' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? '0ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              Case Study
+            </span>
+            <h2
+              className={`
+                text-3xl md:text-4xl font-bold text-charcoal-800 mb-4
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? '100ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              {industry.caseStudy.title}
+            </h2>
+            <p
+              className={`
+                text-lg text-charcoal-600
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? '200ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              {industry.caseStudy.description}
+            </p>
+          </div>
+
+          {/* Metrics */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10">
+            {industry.caseStudy.metrics.map((metric, index) => (
+              <div
+                key={index}
+                className={`
+                  text-center p-6 bg-charcoal-50 rounded-xl
+                  hover:shadow-card hover:-translate-y-1 transition-all duration-300
+                  ${shouldAnimate ? 'animate-scale-in' : ''}
+                `}
+                style={{
+                  animationDelay: shouldAnimate ? getStaggerDelay(index + 3, 100) : undefined,
+                  opacity: shouldAnimate ? 0 : 1,
+                  animationFillMode: 'forwards',
+                }}
+              >
+                <p className="text-4xl md:text-5xl font-bold text-royal-red-700 mb-2">
+                  {metric.value}
+                </p>
+                <p className="text-charcoal-600">
+                  {metric.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // ROLES NAVIGATION SECTION
+// Enhanced with scroll-triggered animations
 // ============================================
 
 function RolesNavigationSection({ industry }: { industry: Industry }) {
-  return (
-    <Section bgColor="muted" padding="lg" data-testid="industry-roles">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-charcoal-800 mb-4">
-          Dopasuj do swojej roli
-        </h2>
-        <p className="text-charcoal-600">
-          Rozwiazania dedykowane dla Twojej pozycji w organizacji.
-        </p>
-      </div>
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+  const shouldAnimate = !prefersReducedMotion && isInView
 
-      <div className="flex flex-wrap justify-center gap-4">
-        {industry.relatedRoles.map((role) => (
-          <Link
-            key={role.id}
-            href={`/dla/${industry.slug}/${role.slug}`}
-            className="group flex items-center gap-3 px-5 py-3 bg-white rounded-lg border border-charcoal-200 hover:border-royal-red-600 hover:shadow-md transition-all duration-200"
+  return (
+    <div ref={ref}>
+      <Section bgColor="muted" padding="lg" data-testid="industry-roles">
+        <div className="text-center mb-8">
+          <h2
+            className={`
+              text-2xl md:text-3xl font-bold text-charcoal-800 mb-4
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            <span className="font-semibold text-charcoal-800 group-hover:text-royal-red-700">
-              {role.name}
-            </span>
-            <svg className="w-4 h-4 text-charcoal-400 group-hover:text-royal-red-600 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        ))}
-      </div>
-    </Section>
+            Dopasuj do swojej roli
+          </h2>
+          <p
+            className={`
+              text-charcoal-600
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            Rozwiazania dedykowane dla Twojej pozycji w organizacji.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4">
+          {industry.relatedRoles.map((role, index) => (
+            <Link
+              key={role.id}
+              href={`/dla/${industry.slug}/${role.slug}`}
+              className={`
+                group flex items-center gap-3 px-5 py-3 bg-white rounded-lg border border-charcoal-200 hover:border-royal-red-600 hover:shadow-md transition-all duration-200
+                hover:scale-105 active:scale-95
+                ${shouldAnimate ? 'animate-scale-in' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index, 80) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              <span className="font-semibold text-charcoal-800 group-hover:text-royal-red-700">
+                {role.name}
+              </span>
+              <svg className="w-4 h-4 text-charcoal-400 group-hover:text-royal-red-600 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          ))}
+        </div>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // FAQ SECTION
+// Enhanced with scroll-triggered animations
 // ============================================
 
 function FAQSection({ industry }: { industry: Industry }) {
-  return (
-    <Section bgColor="white" padding="xl" data-testid="industry-faq">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
-            Czesto zadawane pytania
-          </h2>
-        </div>
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.1 })
+  const shouldAnimate = !prefersReducedMotion && isInView
 
-        <div className="space-y-4">
-          {industry.faqs.map((faq, index) => (
-            <details
-              key={index}
-              className="group bg-charcoal-50 rounded-xl border border-charcoal-100 overflow-hidden"
+  return (
+    <div ref={ref}>
+      <Section bgColor="white" padding="xl" data-testid="industry-faq">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2
+              className={`
+                text-3xl md:text-4xl font-bold text-charcoal-800 mb-4
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? '0ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
             >
-              <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                <h3 className="font-semibold text-charcoal-800 pr-4">
-                  {faq.question}
-                </h3>
-                <svg
-                  className="w-5 h-5 text-charcoal-500 flex-shrink-0 transition-transform group-open:rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </summary>
-              <div className="px-6 pb-6 text-charcoal-600">
-                {faq.answer}
-              </div>
-            </details>
-          ))}
+              Czesto zadawane pytania
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {industry.faqs.map((faq, index) => (
+              <details
+                key={index}
+                className={`
+                  group bg-charcoal-50 rounded-xl border border-charcoal-100 overflow-hidden
+                  hover:shadow-card transition-shadow duration-300
+                  ${shouldAnimate ? 'animate-scale-in' : ''}
+                `}
+                style={{
+                  animationDelay: shouldAnimate ? getStaggerDelay(index, 100) : undefined,
+                  opacity: shouldAnimate ? 0 : 1,
+                  animationFillMode: 'forwards',
+                }}
+              >
+                <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                  <h3 className="font-semibold text-charcoal-800 pr-4">
+                    {faq.question}
+                  </h3>
+                  <svg
+                    className="w-5 h-5 text-charcoal-500 flex-shrink-0 transition-transform duration-300 group-open:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="px-6 pb-6 text-charcoal-600">
+                  {faq.answer}
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // CTA SECTION
+// Enhanced with scroll-triggered animations
 // ============================================
 
 function CTASection({ industry }: { industry: Industry }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+  const shouldAnimate = !prefersReducedMotion && isInView
+
   return (
-    <Section bgColor="royal-red" padding="lg" data-testid="industry-cta">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Gotowy na wzrost w {industry.name}?
-        </h2>
-        <p className="text-lg text-royal-red-100 mb-8">
-          Umow bezplatna konsultacje (45 minut). Przeanalizujemy Twoja sytuacje i zaproponujemy konkretne rozwiazania.
-        </p>
-        <Link href="/kontakt">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="border-white text-white hover:bg-white hover:text-royal-red-700"
+    <div ref={ref}>
+      <Section bgColor="royal-red" padding="lg" data-testid="industry-cta">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2
+            className={`
+              text-3xl md:text-4xl font-bold text-white mb-4
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            Umow konsultacje
-          </Button>
-        </Link>
-      </div>
-    </Section>
+            Gotowy na wzrost w {industry.name}?
+          </h2>
+          <p
+            className={`
+              text-lg text-royal-red-100 mb-8
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            Umow bezplatna konsultacje (45 minut). Przeanalizujemy Twoja sytuacje i zaproponujemy konkretne rozwiazania.
+          </p>
+          <div
+            className={shouldAnimate ? 'animate-scale-in' : ''}
+            style={{
+              animationDelay: shouldAnimate ? '200ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            <Link href="/kontakt">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-royal-red-700"
+              >
+                Umow konsultacje
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </Section>
+    </div>
   )
 }
 

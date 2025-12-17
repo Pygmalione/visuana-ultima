@@ -9,6 +9,7 @@ import { Grid } from '@/components/layout/grid'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // ROLE PAGE TEMPLATE - SPEC-011
@@ -251,37 +252,82 @@ function getIcon(iconName: string): ReactElement {
 
 // ============================================
 // HERO SECTION
+// Enhanced with entrance animations
 // ============================================
 
 function HeroSection({ role }: { role: Role }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+  const shouldAnimate = !prefersReducedMotion && isInView
+
   return (
     <section
+      ref={ref}
       data-testid="role-hero"
       className="py-16 md:py-24 bg-gradient-to-b from-charcoal-900 to-charcoal-800"
     >
       <Container>
         <div className="max-w-4xl mx-auto text-center">
           {/* Role Badge */}
-          <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-royal-red-400 bg-royal-red-900/30 rounded-full">
+          <span
+            className={`
+              inline-block px-4 py-1.5 mb-6 text-sm font-medium text-royal-red-400 bg-royal-red-900/30 rounded-full
+              ${shouldAnimate ? 'animate-scale-in' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             Dla {role.name}
           </span>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1
+            className={`
+              text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {role.headline}
           </h1>
 
           {/* Subheadline */}
-          <p className="text-xl text-charcoal-300 mb-10 max-w-2xl mx-auto">
+          <p
+            className={`
+              text-xl text-charcoal-300 mb-10 max-w-2xl mx-auto
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? '200ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {role.subheadline}
           </p>
 
           {/* CTA */}
-          <Link href="/kontakt">
-            <Button size="lg" className="text-lg">
-              {role.ctaText}
-            </Button>
-          </Link>
+          <div
+            className={shouldAnimate ? 'animate-scale-in' : ''}
+            style={{
+              animationDelay: shouldAnimate ? '300ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            <Link href="/kontakt">
+              <Button size="lg" className="text-lg">
+                {role.ctaText}
+              </Button>
+            </Link>
+          </div>
         </div>
       </Container>
     </section>
@@ -290,200 +336,345 @@ function HeroSection({ role }: { role: Role }) {
 
 // ============================================
 // CHALLENGES SECTION
+// Enhanced with staggered card animations
 // ============================================
 
 function ChallengesSection({ role }: { role: Role }) {
-  return (
-    <Section bgColor="white" padding="xl" data-testid="role-challenges">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
-          Znamy Twoje wyzwania
-        </h2>
-        <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
-          Te problemy sa typowe dla {role.name}. Rozumiemy je i mamy na nie rozwiazania.
-        </p>
-      </div>
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.15 })
+  const shouldAnimate = !prefersReducedMotion && isInView
 
-      <Grid cols={{ sm: 1, md: 2 }} gap="lg">
-        {role.challenges.map((challenge) => (
-          <div
-            key={challenge.id}
-            className="flex gap-4 p-6 bg-charcoal-50 rounded-xl border border-charcoal-100"
+  return (
+    <div ref={ref}>
+      <Section bgColor="white" padding="xl" data-testid="role-challenges">
+        <div className="text-center mb-12">
+          <h2
+            className={`text-3xl md:text-4xl font-bold text-charcoal-800 mb-4 ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700">
-              {getIcon(challenge.icon)}
+            Znamy Twoje wyzwania
+          </h2>
+          <p
+            className={`text-lg text-charcoal-600 max-w-2xl mx-auto ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            Te problemy sa typowe dla {role.name}. Rozumiemy je i mamy na nie rozwiazania.
+          </p>
+        </div>
+
+        <Grid cols={{ sm: 1, md: 2 }} gap="lg">
+          {role.challenges.map((challenge, index) => (
+            <div
+              key={challenge.id}
+              className={`flex gap-4 p-6 bg-charcoal-50 rounded-xl border border-charcoal-100 ${shouldAnimate ? 'animate-scale-in' : ''}`}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index, 100) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700">
+                {getIcon(challenge.icon)}
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-charcoal-800 mb-2">
+                  {challenge.title}
+                </h3>
+                <p className="text-charcoal-600">
+                  {challenge.description}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-charcoal-800 mb-2">
-                {challenge.title}
-              </h3>
-              <p className="text-charcoal-600">
-                {challenge.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </Grid>
-    </Section>
+          ))}
+        </Grid>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // SOLUTIONS SECTION
+// Enhanced with staggered card animations
 // ============================================
 
 function SolutionsSection({ role }: { role: Role }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.1 })
+  const shouldAnimate = !prefersReducedMotion && isInView
+
   return (
-    <Section bgColor="muted" padding="xl" data-testid="role-solutions">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
-          Jak Ci pomagamy
-        </h2>
-        <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
-          Rozwiazania dopasowane do Twojej roli i wyzwan.
-        </p>
-      </div>
-
-      <Grid cols={{ sm: 1, md: 3 }} gap="lg">
-        {role.solutions.map((solution) => (
-          <div
-            key={solution.id}
-            className="bg-white rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+    <div ref={ref}>
+      <Section bgColor="muted" padding="xl" data-testid="role-solutions">
+        <div className="text-center mb-12">
+          <h2
+            className={`text-3xl md:text-4xl font-bold text-charcoal-800 mb-4 ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            {/* Icon */}
-            <div className="w-14 h-14 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700 mb-4">
-              {getIcon(solution.icon)}
+            Jak Ci pomagamy
+          </h2>
+          <p
+            className={`text-lg text-charcoal-600 max-w-2xl mx-auto ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            Rozwiazania dopasowane do Twojej roli i wyzwan.
+          </p>
+        </div>
+
+        <Grid cols={{ sm: 1, md: 3 }} gap="lg">
+          {role.solutions.map((solution, index) => (
+            <div
+              key={solution.id}
+              className={`bg-white rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 ${shouldAnimate ? 'animate-scale-in' : ''}`}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index, 120) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              {/* Icon */}
+              <div className="w-14 h-14 flex items-center justify-center rounded-lg bg-royal-red-50 text-royal-red-700 mb-4">
+                {getIcon(solution.icon)}
+              </div>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold text-charcoal-800 mb-2">
+                {solution.title}
+              </h3>
+
+              {/* Description */}
+              <p className="text-charcoal-600 mb-4">
+                {solution.description}
+              </p>
+
+              {/* Benefits */}
+              <ul className="space-y-2">
+                {solution.benefits.map((benefit, benefitIndex) => (
+                  <li key={benefitIndex} className="flex items-start gap-2 text-sm text-charcoal-700">
+                    <svg className="w-4 h-4 text-royal-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {/* Title */}
-            <h3 className="text-xl font-bold text-charcoal-800 mb-2">
-              {solution.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-charcoal-600 mb-4">
-              {solution.description}
-            </p>
-
-            {/* Benefits */}
-            <ul className="space-y-2">
-              {solution.benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-charcoal-700">
-                  <svg className="w-4 h-4 text-royal-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </Grid>
-    </Section>
+          ))}
+        </Grid>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // INDUSTRIES NAVIGATION SECTION
+// Enhanced with staggered link animations
 // ============================================
 
 function IndustriesNavigationSection({ role }: { role: Role }) {
-  return (
-    <Section bgColor="white" padding="xl" data-testid="role-industries">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-charcoal-800 mb-4">
-          Wybierz swoja branze
-        </h2>
-        <p className="text-lg text-charcoal-600 max-w-2xl mx-auto">
-          Zobacz jak pomagamy {role.name} w roznych branzach.
-        </p>
-      </div>
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.1 })
+  const shouldAnimate = !prefersReducedMotion && isInView
 
-      <Grid cols={{ sm: 1, md: 2, lg: 4 }} gap="md">
-        {role.industries.map((industry) => (
-          <Link
-            key={industry.id}
-            href={`/dla/${industry.slug}`}
-            className="group p-5 bg-charcoal-50 rounded-xl border border-charcoal-100 hover:border-royal-red-600 hover:shadow-md transition-all duration-200"
+  return (
+    <div ref={ref}>
+      <Section bgColor="white" padding="xl" data-testid="role-industries">
+        <div className="text-center mb-12">
+          <h2
+            className={`text-3xl md:text-4xl font-bold text-charcoal-800 mb-4 ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            <h3 className="font-bold text-charcoal-800 group-hover:text-royal-red-700 mb-2">
-              {industry.name}
-            </h3>
-            <p className="text-sm text-charcoal-600">
-              {industry.description}
-            </p>
-            <div className="mt-3 flex items-center text-sm text-royal-red-600 font-medium">
-              <span>Zobacz wiecej</span>
-              <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-        ))}
-      </Grid>
-    </Section>
+            Wybierz swoja branze
+          </h2>
+          <p
+            className={`text-lg text-charcoal-600 max-w-2xl mx-auto ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            Zobacz jak pomagamy {role.name} w roznych branzach.
+          </p>
+        </div>
+
+        <Grid cols={{ sm: 1, md: 2, lg: 4 }} gap="md">
+          {role.industries.map((industry, index) => (
+            <Link
+              key={industry.id}
+              href={`/dla/${industry.slug}`}
+              className={`group p-5 bg-charcoal-50 rounded-xl border border-charcoal-100 hover:border-royal-red-600 hover:shadow-md transition-all duration-200 ${shouldAnimate ? 'animate-scale-in' : ''}`}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index, 80) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              <h3 className="font-bold text-charcoal-800 group-hover:text-royal-red-700 mb-2">
+                {industry.name}
+              </h3>
+              <p className="text-sm text-charcoal-600">
+                {industry.description}
+              </p>
+              <div className="mt-3 flex items-center text-sm text-royal-red-600 font-medium">
+                <span>Zobacz wiecej</span>
+                <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+          ))}
+        </Grid>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // TESTIMONIAL SECTION
+// Enhanced with entrance animations
 // ============================================
 
 function TestimonialSection({ role }: { role: Role }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+  const shouldAnimate = !prefersReducedMotion && isInView
+
   return (
-    <Section bgColor="muted" padding="xl" data-testid="role-testimonial">
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl p-8 md:p-12 shadow-card text-center">
-          {/* Quote Icon */}
-          <svg className="w-12 h-12 mx-auto mb-6 text-royal-red-200" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-          </svg>
+    <div ref={ref}>
+      <Section bgColor="muted" padding="xl" data-testid="role-testimonial">
+        <div className="max-w-3xl mx-auto">
+          <div
+            className={`bg-white rounded-2xl p-8 md:p-12 shadow-card text-center ${shouldAnimate ? 'animate-scale-in' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            {/* Quote Icon */}
+            <svg
+              className={`w-12 h-12 mx-auto mb-6 text-royal-red-200 ${shouldAnimate ? 'animate-scale-in' : ''}`}
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              style={{
+                animationDelay: shouldAnimate ? '150ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
 
-          {/* Quote */}
-          <blockquote className="text-xl md:text-2xl text-charcoal-800 font-medium mb-8 leading-relaxed">
-            {role.testimonial.quote}
-          </blockquote>
+            {/* Quote */}
+            <blockquote
+              className={`text-xl md:text-2xl text-charcoal-800 font-medium mb-8 leading-relaxed ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+              style={{
+                animationDelay: shouldAnimate ? '250ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              {role.testimonial.quote}
+            </blockquote>
 
-          {/* Attribution */}
-          <div>
-            <p className="font-bold text-charcoal-800">
-              {role.testimonial.author}
-            </p>
-            <p className="text-charcoal-600">
-              {role.testimonial.title}, {role.testimonial.company}
-            </p>
+            {/* Attribution */}
+            <div
+              className={shouldAnimate ? 'animate-text-reveal' : ''}
+              style={{
+                animationDelay: shouldAnimate ? '400ms' : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
+              <p className="font-bold text-charcoal-800">
+                {role.testimonial.author}
+              </p>
+              <p className="text-charcoal-600">
+                {role.testimonial.title}, {role.testimonial.company}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </div>
   )
 }
 
 // ============================================
 // CTA SECTION
+// Enhanced with entrance animations
 // ============================================
 
 function CTASection({ role }: { role: Role }) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.3 })
+  const shouldAnimate = !prefersReducedMotion && isInView
+
   return (
-    <Section bgColor="royal-red" padding="lg" data-testid="role-cta">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Gotowy na nowy poziom marketingu?
-        </h2>
-        <p className="text-lg text-royal-red-100 mb-8">
-          {role.ctaDescription}
-        </p>
-        <Link href="/kontakt">
-          <Button
-            variant="secondary"
-            size="lg"
-            className="border-white text-white hover:bg-white hover:text-royal-red-700"
+    <div ref={ref}>
+      <Section bgColor="royal-red" padding="lg" data-testid="role-cta">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2
+            className={`text-3xl md:text-4xl font-bold text-white mb-4 ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '0ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
           >
-            {role.ctaText}
-          </Button>
-        </Link>
-      </div>
-    </Section>
+            Gotowy na nowy poziom marketingu?
+          </h2>
+          <p
+            className={`text-lg text-royal-red-100 mb-8 ${shouldAnimate ? 'animate-text-reveal' : ''}`}
+            style={{
+              animationDelay: shouldAnimate ? '100ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            {role.ctaDescription}
+          </p>
+          <div
+            className={shouldAnimate ? 'animate-scale-in' : ''}
+            style={{
+              animationDelay: shouldAnimate ? '200ms' : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
+            <Link href="/kontakt">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-royal-red-700"
+              >
+                {role.ctaText}
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </Section>
+    </div>
   )
 }
 
