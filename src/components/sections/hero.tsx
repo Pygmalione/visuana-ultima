@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { HeroProps } from '@/types/components'
 import { Container } from '@/components/layout/container'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // HERO COMPONENT - Full Width Banner
@@ -166,11 +167,13 @@ HeroSplit.displayName = 'HeroSplit'
 
 // ============================================
 // HERO VARIANT - Light Theme (McKinsey Style)
-// Elegant, Professional, Thin Typography
+// Enhanced with 60fps microinteractions
 // ============================================
 
 interface HeroLightProps extends HeroProps {
   badge?: string
+  /** Disable entrance animations */
+  disableAnimations?: boolean
 }
 
 export function HeroLight({
@@ -181,62 +184,141 @@ export function HeroLight({
   secondaryCtaLabel,
   secondaryCtaHref = '#',
   badge,
+  disableAnimations = false,
 }: HeroLightProps) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.1 })
+
+  // Disable animations if user prefers reduced motion or explicitly disabled
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
+
   return (
     <section
+      ref={ref}
       className="relative min-h-[85vh] md:min-h-[90vh] flex items-center bg-white overflow-hidden"
       aria-label="Hero section"
     >
-      {/* Subtle Background Gradients */}
+      {/* Animated Background Gradients */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        {/* Primary gradient orb - animated float */}
         <div
-          className="absolute w-[600px] h-[600px] rounded-full opacity-20 blur-[120px]"
+          className={`
+            absolute w-[600px] h-[600px] rounded-full opacity-20 blur-[120px]
+            ${shouldAnimate ? 'animate-float' : ''}
+          `}
           style={{
             background: 'radial-gradient(circle, #1e40af 0%, transparent 70%)',
             top: '-15%',
             right: '-10%',
+            willChange: shouldAnimate ? 'transform' : undefined,
           }}
         />
+        {/* Secondary gradient orb - delayed float */}
         <div
-          className="absolute w-[400px] h-[400px] rounded-full opacity-15 blur-[100px]"
+          className={`
+            absolute w-[400px] h-[400px] rounded-full opacity-15 blur-[100px]
+            ${shouldAnimate ? 'animate-float-delayed' : ''}
+          `}
           style={{
             background: 'radial-gradient(circle, #b91c1c 0%, transparent 70%)',
             bottom: '10%',
             left: '-5%',
+            willChange: shouldAnimate ? 'transform' : undefined,
+          }}
+        />
+        {/* Tertiary orb - subtle glow pulse */}
+        <div
+          className={`
+            absolute w-[300px] h-[300px] rounded-full opacity-10 blur-[80px]
+            ${shouldAnimate ? 'animate-glow-pulse' : ''}
+          `}
+          style={{
+            background: 'radial-gradient(circle, #64748b 0%, transparent 70%)',
+            top: '50%',
+            left: '60%',
+            transform: 'translate(-50%, -50%)',
+            willChange: shouldAnimate ? 'transform, opacity' : undefined,
           }}
         />
       </div>
 
       <Container className="relative z-10">
         <div className="max-w-4xl mx-auto text-center py-16">
-          {/* Badge */}
+          {/* Badge - animated entrance */}
           {badge && (
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase text-slate-600 bg-slate-100 border border-slate-200 mb-10">
+            <span
+              className={`
+                inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase
+                text-slate-600 bg-slate-100 border border-slate-200 mb-10
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(0, 100) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
               {badge}
             </span>
           )}
 
-          {/* Title - Elegant Thin Typography */}
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-slate-900 leading-[1.1] mb-8 tracking-tight">
+          {/* Title - Elegant Thin Typography with text reveal */}
+          <h1
+            className={`
+              font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light
+              text-slate-900 leading-[1.1] mb-8 tracking-tight
+              ${shouldAnimate ? 'animate-text-reveal' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? getStaggerDelay(1, 100) : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {title}
           </h1>
 
-          {/* Subtitle */}
+          {/* Subtitle - staggered reveal */}
           {subtitle && (
-            <p className="text-lg md:text-xl text-slate-500 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+            <p
+              className={`
+                text-lg md:text-xl text-slate-500 mb-12 max-w-2xl mx-auto font-light leading-relaxed
+                ${shouldAnimate ? 'animate-text-reveal' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(2, 100) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
+            >
               {subtitle}
             </p>
           )}
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* CTAs - staggered scale-in */}
+          <div
+            className={`
+              flex flex-col sm:flex-row items-center justify-center gap-4
+              ${shouldAnimate ? 'animate-scale-in' : ''}
+            `}
+            style={{
+              animationDelay: shouldAnimate ? getStaggerDelay(3, 100) : undefined,
+              opacity: shouldAnimate ? 0 : 1,
+              animationFillMode: 'forwards',
+            }}
+          >
             {ctaLabel && (
               <Link
                 href={ctaHref}
-                className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-900/10"
+                className="group inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all duration-200 shadow-lg shadow-slate-900/10 hover:-translate-y-0.5 active:translate-y-0"
               >
                 {ctaLabel}
-                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
@@ -244,7 +326,7 @@ export function HeroLight({
             {secondaryCtaLabel && (
               <Link
                 href={secondaryCtaHref}
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-slate-600 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200"
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-slate-600 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
               >
                 {secondaryCtaLabel}
               </Link>
