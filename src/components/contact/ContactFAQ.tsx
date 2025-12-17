@@ -1,11 +1,18 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
 
 // ============================================
 // CONTACT FAQ COMPONENT - SPEC-007
 // Enhanced with smooth accordion animations
+// + scroll-triggered entrance animations
 // ============================================
+
+interface ContactFAQProps {
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 interface FAQItem {
   question: string
@@ -31,12 +38,13 @@ const faqItems: FAQItem[] = [
   },
 ]
 
-// Accordion Item component with smooth height animation
-function AccordionItem({ item, index, isOpen, onToggle }: {
+// Accordion Item component with smooth height animation + entrance animation
+function AccordionItem({ item, index, isOpen, onToggle, shouldAnimate }: {
   item: FAQItem
   index: number
   isOpen: boolean
   onToggle: () => void
+  shouldAnimate: boolean
 }) {
   const contentRef = useRef<HTMLDivElement>(null)
   const [height, setHeight] = useState(0)
@@ -52,8 +60,14 @@ function AccordionItem({ item, index, isOpen, onToggle }: {
       className={`
         border border-charcoal-200 rounded-lg overflow-hidden
         transition-all duration-300 ease-out
-        ${isOpen ? 'shadow-card' : 'hover:border-charcoal-300'}
+        ${isOpen ? 'shadow-card' : 'hover:border-charcoal-300 hover:-translate-y-0.5'}
+        ${shouldAnimate ? 'animate-scale-in' : ''}
       `.trim().replace(/\s+/g, ' ')}
+      style={{
+        animationDelay: shouldAnimate ? getStaggerDelay(index + 1, 100) : undefined,
+        opacity: shouldAnimate ? 0 : 1,
+        animationFillMode: 'forwards',
+      }}
     >
       <button
         onClick={onToggle}
@@ -119,20 +133,36 @@ function AccordionItem({ item, index, isOpen, onToggle }: {
   )
 }
 
-export function ContactFAQ() {
+export function ContactFAQ({ disableAnimations = false }: ContactFAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.15 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
   }
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24">
+    <section ref={ref} className="py-12 sm:py-16 lg:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <h2 className="text-2xl lg:text-3xl font-bold text-charcoal-800 text-center mb-8 sm:mb-12">
+        {/* Heading with text reveal animation */}
+        <h2
+          className={`
+            text-2xl lg:text-3xl font-bold text-charcoal-800 text-center mb-8 sm:mb-12
+            ${shouldAnimate ? 'animate-text-reveal' : ''}
+          `}
+          style={{
+            animationDelay: shouldAnimate ? '0ms' : undefined,
+            opacity: shouldAnimate ? 0 : 1,
+            animationFillMode: 'forwards',
+          }}
+        >
           Czesto zadawane pytania
         </h2>
 
+        {/* FAQ items with staggered entrance */}
         <div className="space-y-3 sm:space-y-4">
           {faqItems.map((item, index) => (
             <AccordionItem
@@ -141,6 +171,7 @@ export function ContactFAQ() {
               index={index}
               isOpen={openIndex === index}
               onToggle={() => toggleItem(index)}
+              shouldAnimate={shouldAnimate}
             />
           ))}
         </div>
@@ -148,3 +179,5 @@ export function ContactFAQ() {
     </section>
   )
 }
+
+ContactFAQ.displayName = 'ContactFAQ'

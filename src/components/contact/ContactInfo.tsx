@@ -1,7 +1,17 @@
+'use client'
+
+import { useReducedMotion, useInView, getStaggerDelay } from '@/lib/animations'
+
 // ============================================
 // CONTACT INFO COMPONENT - SPEC-007
 // Responsive: Touch-friendly tap targets (min 44px)
+// Enhanced with scroll-triggered animations
 // ============================================
+
+interface ContactInfoProps {
+  /** Disable entrance animations */
+  disableAnimations?: boolean
+}
 
 interface SocialLink {
   platform: string
@@ -33,16 +43,52 @@ const socialLinks: SocialLink[] = [
   },
 ]
 
-export function ContactInfo() {
+export function ContactInfo({ disableAnimations = false }: ContactInfoProps) {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isInView] = useInView({ threshold: 0.2 })
+
+  const shouldAnimate = !prefersReducedMotion && !disableAnimations && isInView
+
   return (
-    <div className="bg-charcoal-50 rounded-xl p-4 sm:p-6 lg:p-8 h-fit">
-      {/* Contact Header */}
-      <h2 className="text-lg sm:text-xl font-semibold text-charcoal-800 mb-4 sm:mb-6">
+    <div
+      ref={ref}
+      className={`
+        bg-charcoal-50 rounded-xl p-4 sm:p-6 lg:p-8 h-fit
+        ${shouldAnimate ? 'animate-scale-in' : ''}
+      `}
+      style={{
+        animationDelay: shouldAnimate ? '0ms' : undefined,
+        opacity: shouldAnimate ? 0 : 1,
+        animationFillMode: 'forwards',
+      }}
+    >
+      {/* Contact Header with text reveal */}
+      <h2
+        className={`
+          text-lg sm:text-xl font-semibold text-charcoal-800 mb-4 sm:mb-6
+          ${shouldAnimate ? 'animate-text-reveal' : ''}
+        `}
+        style={{
+          animationDelay: shouldAnimate ? '100ms' : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
         Informacje kontaktowe
       </h2>
 
-      {/* Email - Touch-friendly link */}
-      <div className="mb-4 sm:mb-6">
+      {/* Email - Touch-friendly link with entrance animation */}
+      <div
+        className={`
+          mb-4 sm:mb-6
+          ${shouldAnimate ? 'animate-text-reveal' : ''}
+        `}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(1, 100) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
         <h3 className="text-xs sm:text-sm font-semibold text-charcoal-500 uppercase tracking-wider mb-2">
           Email
         </h3>
@@ -52,8 +98,8 @@ export function ContactInfo() {
             inline-flex items-center
             min-h-[44px]
             text-base sm:text-lg text-electric-blue-600
-            hover:text-royal-red-600
-            transition-colors duration-200
+            hover:text-royal-red-600 hover:translate-x-1
+            transition-all duration-200
             focus-visible:outline-none focus-visible:ring-2
             focus-visible:ring-red-600 focus-visible:ring-offset-2
             rounded
@@ -63,8 +109,18 @@ export function ContactInfo() {
         </a>
       </div>
 
-      {/* Response Time */}
-      <div className="mb-4 sm:mb-6">
+      {/* Response Time with entrance animation */}
+      <div
+        className={`
+          mb-4 sm:mb-6
+          ${shouldAnimate ? 'animate-text-reveal' : ''}
+        `}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(2, 100) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
         <h3 className="text-xs sm:text-sm font-semibold text-charcoal-500 uppercase tracking-wider mb-2">
           Czas odpowiedzi
         </h3>
@@ -73,30 +129,47 @@ export function ContactInfo() {
         </p>
       </div>
 
-      {/* Social Links - Touch-friendly (min 44px tap targets) */}
-      <div className="mb-4 sm:mb-6">
+      {/* Social Links - Touch-friendly (min 44px tap targets) with staggered entrance */}
+      <div
+        className={`
+          mb-4 sm:mb-6
+          ${shouldAnimate ? 'animate-text-reveal' : ''}
+        `}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(3, 100) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
         <h3 className="text-xs sm:text-sm font-semibold text-charcoal-500 uppercase tracking-wider mb-3">
           Social Media
         </h3>
         <div className="flex gap-3">
-          {socialLinks.map((link) => (
+          {socialLinks.map((link, index) => (
             <a
               key={link.platform}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="
+              className={`
                 flex items-center justify-center
                 w-11 h-11 sm:w-10 sm:h-10
                 rounded-lg bg-white
                 text-charcoal-600
                 hover:text-royal-red-600 hover:bg-royal-red-50
                 hover:shadow-[0_0_20px_rgba(220,38,38,0.2)]
+                hover:scale-110
                 active:bg-royal-red-100
                 transition-all duration-200 ease-out
                 focus-visible:outline-none focus-visible:ring-2
                 focus-visible:ring-red-600 focus-visible:ring-offset-2
-              "
+                ${shouldAnimate ? 'animate-scale-in' : ''}
+              `}
+              style={{
+                animationDelay: shouldAnimate ? getStaggerDelay(index + 4, 80) : undefined,
+                opacity: shouldAnimate ? 0 : 1,
+                animationFillMode: 'forwards',
+              }}
               aria-label={link.label}
             >
               {link.icon}
@@ -105,8 +178,18 @@ export function ContactInfo() {
         </div>
       </div>
 
-      {/* Company Info */}
-      <div className="pt-4 sm:pt-6 border-t border-charcoal-200">
+      {/* Company Info with entrance animation */}
+      <div
+        className={`
+          pt-4 sm:pt-6 border-t border-charcoal-200
+          ${shouldAnimate ? 'animate-text-reveal' : ''}
+        `}
+        style={{
+          animationDelay: shouldAnimate ? getStaggerDelay(6, 100) : undefined,
+          opacity: shouldAnimate ? 0 : 1,
+          animationFillMode: 'forwards',
+        }}
+      >
         <h3 className="text-xs sm:text-sm font-semibold text-charcoal-500 uppercase tracking-wider mb-2">
           Firma
         </h3>
@@ -119,3 +202,5 @@ export function ContactInfo() {
     </div>
   )
 }
+
+ContactInfo.displayName = 'ContactInfo'
